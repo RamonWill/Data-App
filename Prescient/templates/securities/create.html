@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="name">Name</label>
-    <input name="name" id="name" value="{{ request.form['name'] }}" required>
-    <label for="quantity">Quantity</label>
-    <input name="quantity" id="quantity" value="{{ request.form['quantity'] }}" required>
-    <label for="price">Price</label>
-    <input name="price" id="price" value="{{ request.form['price'] }}" required>
-    <label for="sector">Sector</label>
-    <input name="sector" id="sector" value="{{ request.form['sector'] }}" required>
-    <input type="submit" value="Save">
+  {% from "_formhelpers.html" import render_field %}
+  <form method=post>
+    <dl>
+      {{ render_field(form.ticker) }}
+      {{ render_field(form.quantity) }}
+      {{ render_field(form.price) }}
+      {{ render_field(form.sector) }}
+      {{ render_field(form.comments) }}
+    </dl>
+    <p><input type=submit value="Add to Watchlist">
   </form>
 {% endblock %}
