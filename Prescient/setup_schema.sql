@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS login_details;
+DROP TABLE IF EXISTS securities;
+
+CREATE TABLE login_details (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL
+);
+
+CREATE TABLE securities (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  quantity INTEGER NOT NULL,
+  price TEXT NOT NULL,
+  sector TEXT NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  holder_id INTEGER NOT NULL,
+  FOREIGN KEY (holder_id) REFERENCES login_details (id)
+);

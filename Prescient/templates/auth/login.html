@@ -1,0 +1,17 @@
+{% extends 'base_layout.html' %}
+
+{% block header %}
+  <h1>{% block title %}THIS IS THE LOGIN PAGE{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form action="{{ url_for('auth.login') }}" method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <input type="submit" value="Log In">
+    {{ form.csrf_token }}
+  </form>
+
+{% endblock %}
