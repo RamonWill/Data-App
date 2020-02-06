@@ -1,0 +1,1584 @@
+Company,Ticker,Country,Benchmark Index
+Maruha Nichiro Corp,1333.T,JAPAN,NIKKEI 225
+Inpex Corp,1605.T,JAPAN,NIKKEI 225
+COMSYS Holdings Corp,1721.T,JAPAN,NIKKEI 225
+Taisei Corp,1801.T,JAPAN,NIKKEI 225
+Obayashi Corp,1802.T,JAPAN,NIKKEI 225
+Shimizu Corp,1803.T,JAPAN,NIKKEI 225
+Haseko Corp,1808.T,JAPAN,NIKKEI 225
+Kajima Corp,1812.T,JAPAN,NIKKEI 225
+Daiwa House Industry Co Ltd,1925.T,JAPAN,NIKKEI 225
+Sekisui House Ltd,1928.T,JAPAN,NIKKEI 225
+JGC Holdings Corp,1963.T,JAPAN,NIKKEI 225
+Nisshin Seifun Group Inc,2002.T,JAPAN,NIKKEI 225
+MEIJI Holdings Co Ltd,2269.T,JAPAN,NIKKEI 225
+NH Foods Ltd,2282.T,JAPAN,NIKKEI 225
+M3 Inc,2413.T,JAPAN,NIKKEI 225
+DeNA Co Ltd,2432.T,JAPAN,NIKKEI 225
+Sapporo Holdings Ltd,2501.T,JAPAN,NIKKEI 225
+Asahi Group Holdings Ltd,2502.T,JAPAN,NIKKEI 225
+Kirin Holdings Co Ltd,2503.T,JAPAN,NIKKEI 225
+Takara Holdings Inc,2531.T,JAPAN,NIKKEI 225
+Sojitz Corp,2768.T,JAPAN,NIKKEI 225
+Kikkoman Corp,2801.T,JAPAN,NIKKEI 225
+Ajinomoto Co Inc,2802.T,JAPAN,NIKKEI 225
+Nichirei Corp,2871.T,JAPAN,NIKKEI 225
+Japan Tobacco Inc,2914.T,JAPAN,NIKKEI 225
+J Front Retailing Co Ltd,3086.T,JAPAN,NIKKEI 225
+Isetan Mitsukoshi Holdings Ltd,3099.T,JAPAN,NIKKEI 225
+Toyobo Co Ltd,3101.T,JAPAN,NIKKEI 225
+Unitika Ltd,3103.T,JAPAN,NIKKEI 225
+Nisshinbo Holdings Inc,3105.T,JAPAN,NIKKEI 225
+Tokyu Fudosan Holdings Corp,3289.T,JAPAN,NIKKEI 225
+Seven & i Holdings Co Ltd,3382.T,JAPAN,NIKKEI 225
+Teijin Ltd,3401.T,JAPAN,NIKKEI 225
+Toray Industries Inc,3402.T,JAPAN,NIKKEI 225
+Kuraray Co Ltd,3405.T,JAPAN,NIKKEI 225
+Asahi Kasei Corp,3407.T,JAPAN,NIKKEI 225
+SUMCO Corp,3436.T,JAPAN,NIKKEI 225
+Oji Holdings Corp,3861.T,JAPAN,NIKKEI 225
+Nippon Paper Industries Co Ltd,3863.T,JAPAN,NIKKEI 225
+4004.T,4004.T,JAPAN,NIKKEI 225
+Sumitomo Chemical Co Ltd,4005.T,JAPAN,NIKKEI 225
+Nissan Chemical Corp,4021.T,JAPAN,NIKKEI 225
+Tosoh Corp,4042.T,JAPAN,NIKKEI 225
+Tokuyama Corp,4043.T,JAPAN,NIKKEI 225
+Denka Co Ltd,4061.T,JAPAN,NIKKEI 225
+Shin-Etsu Chemical Co Ltd,4063.T,JAPAN,NIKKEI 225
+Kyowa Kirin Co Ltd,4151.T,JAPAN,NIKKEI 225
+Mitsui Chemicals Inc,4183.T,JAPAN,NIKKEI 225
+Mitsubishi Chemical Holdings Corp,4188.T,JAPAN,NIKKEI 225
+Ube Industries Ltd,4208.T,JAPAN,NIKKEI 225
+Nippon Kayaku Co Ltd,4272.T,JAPAN,NIKKEI 225
+Dentsu Group Inc,4324.T,JAPAN,NIKKEI 225
+Kao Corp,4452.T,JAPAN,NIKKEI 225
+Takeda Pharmaceutical Co Ltd,4502.T,JAPAN,NIKKEI 225
+Astellas Pharma Inc,4503.T,JAPAN,NIKKEI 225
+Sumitomo Dainippon Pharma Co Ltd,4506.T,JAPAN,NIKKEI 225
+Shionogi & Co Ltd,4507.T,JAPAN,NIKKEI 225
+Chugai Pharmaceutical Co Ltd,4519.T,JAPAN,NIKKEI 225
+Eisai Co Ltd,4523.T,JAPAN,NIKKEI 225
+Terumo Corp,4543.T,JAPAN,NIKKEI 225
+Daiichi Sankyo Co Ltd,4568.T,JAPAN,NIKKEI 225
+Otsuka Holdings Co Ltd,4578.T,JAPAN,NIKKEI 225
+DIC Corp,4631.T,JAPAN,NIKKEI 225
+Z Holdings Corp,4689.T,JAPAN,NIKKEI 225
+Trend Micro Inc/Japan,4704.T,JAPAN,NIKKEI 225
+CyberAgent Inc,4751.T,JAPAN,NIKKEI 225
+Rakuten Inc,4755.T,JAPAN,NIKKEI 225
+FUJIFILM Holdings Corp,4901.T,JAPAN,NIKKEI 225
+Konica Minolta Inc,4902.T,JAPAN,NIKKEI 225
+Shiseido Co Ltd,4911.T,JAPAN,NIKKEI 225
+Idemitsu Kosan Co Ltd,5019.T,JAPAN,NIKKEI 225
+JXTG Holdings Inc,5020.T,JAPAN,NIKKEI 225
+Yokohama Rubber Co Ltd/The,5101.T,JAPAN,NIKKEI 225
+Bridgestone Corp,5108.T,JAPAN,NIKKEI 225
+AGC Inc/Japan,5201.T,JAPAN,NIKKEI 225
+Nippon Sheet Glass Co Ltd,5202.T,JAPAN,NIKKEI 225
+Nippon Electric Glass Co Ltd,5214.T,JAPAN,NIKKEI 225
+Sumitomo Osaka Cement Co Ltd,5232.T,JAPAN,NIKKEI 225
+Taiheiyo Cement Corp,5233.T,JAPAN,NIKKEI 225
+Tokai Carbon Co Ltd,5301.T,JAPAN,NIKKEI 225
+TOTO Ltd,5332.T,JAPAN,NIKKEI 225
+NGK Insulators Ltd,5333.T,JAPAN,NIKKEI 225
+Nippon Steel Corp,5401.T,JAPAN,NIKKEI 225
+Kobe Steel Ltd,5406.T,JAPAN,NIKKEI 225
+JFE Holdings Inc,5411.T,JAPAN,NIKKEI 225
+Pacific Metals Co Ltd,5541.T,JAPAN,NIKKEI 225
+Japan Steel Works Ltd/The,5631.T,JAPAN,NIKKEI 225
+Nippon Light Metal Holdings Co Ltd,5703.T,JAPAN,NIKKEI 225
+Mitsui Mining & Smelting Co Ltd,5706.T,JAPAN,NIKKEI 225
+Toho Zinc Co Ltd,5707.T,JAPAN,NIKKEI 225
+Mitsubishi Materials Corp,5711.T,JAPAN,NIKKEI 225
+Sumitomo Metal Mining Co Ltd,5713.T,JAPAN,NIKKEI 225
+Dowa Holdings Co Ltd,5714.T,JAPAN,NIKKEI 225
+Furukawa Electric Co Ltd,5801.T,JAPAN,NIKKEI 225
+Sumitomo Electric Industries Ltd,5802.T,JAPAN,NIKKEI 225
+Fujikura Ltd,5803.T,JAPAN,NIKKEI 225
+Toyo Seikan Group Holdings Ltd,5901.T,JAPAN,NIKKEI 225
+Recruit Holdings Co Ltd,6098.T,JAPAN,NIKKEI 225
+OKUMA Corp,6103.T,JAPAN,NIKKEI 225
+Amada Holdings Co Ltd,6113.T,JAPAN,NIKKEI 225
+Japan Post Holdings Co Ltd,6178.T,JAPAN,NIKKEI 225
+Komatsu Ltd,6301.T,JAPAN,NIKKEI 225
+Sumitomo Heavy Industries Ltd,6302.T,JAPAN,NIKKEI 225
+Hitachi Construction Machinery Co Ltd,6305.T,JAPAN,NIKKEI 225
+Kubota Corp,6326.T,JAPAN,NIKKEI 225
+Ebara Corp,6361.T,JAPAN,NIKKEI 225
+Daikin Industries Ltd,6367.T,JAPAN,NIKKEI 225
+NSK Ltd,6471.T,JAPAN,NIKKEI 225
+NTN Corp,6472.T,JAPAN,NIKKEI 225
+JTEKT Corp,6473.T,JAPAN,NIKKEI 225
+MINEBEA MITSUMI Inc,6479.T,JAPAN,NIKKEI 225
+Hitachi Ltd,6501.T,JAPAN,NIKKEI 225
+Mitsubishi Electric Corp,6503.T,JAPAN,NIKKEI 225
+Fuji Electric Co Ltd,6504.T,JAPAN,NIKKEI 225
+Yaskawa Electric Corp,6506.T,JAPAN,NIKKEI 225
+Omron Corp,6645.T,JAPAN,NIKKEI 225
+GS Yuasa Corp,6674.T,JAPAN,NIKKEI 225
+NEC Corp,6701.T,JAPAN,NIKKEI 225
+Fujitsu Ltd,6702.T,JAPAN,NIKKEI 225
+Oki Electric Industry Co Ltd,6703.T,JAPAN,NIKKEI 225
+Seiko Epson Corp,6724.T,JAPAN,NIKKEI 225
+Panasonic Corp,6752.T,JAPAN,NIKKEI 225
+Sony Corp,6758.T,JAPAN,NIKKEI 225
+TDK Corp,6762.T,JAPAN,NIKKEI 225
+Alps Alpine Co Ltd,6770.T,JAPAN,NIKKEI 225
+Yokogawa Electric Corp,6841.T,JAPAN,NIKKEI 225
+Advantest Corp,6857.T,JAPAN,NIKKEI 225
+Denso Corp,6902.T,JAPAN,NIKKEI 225
+Casio Computer Co Ltd,6952.T,JAPAN,NIKKEI 225
+FANUC Corp,6954.T,JAPAN,NIKKEI 225
+Kyocera Corp,6971.T,JAPAN,NIKKEI 225
+Taiyo Yuden Co Ltd,6976.T,JAPAN,NIKKEI 225
+Nitto Denko Corp,6988.T,JAPAN,NIKKEI 225
+Mitsui E&S Holdings Co Ltd,7003.T,JAPAN,NIKKEI 225
+Hitachi Zosen Corp,7004.T,JAPAN,NIKKEI 225
+Mitsubishi Heavy Industries Ltd,7011.T,JAPAN,NIKKEI 225
+Kawasaki Heavy Industries Ltd,7012.T,JAPAN,NIKKEI 225
+IHI Corp,7013.T,JAPAN,NIKKEI 225
+Concordia Financial Group Ltd,7186.T,JAPAN,NIKKEI 225
+Nissan Motor Co Ltd,7201.T,JAPAN,NIKKEI 225
+Isuzu Motors Ltd,7202.T,JAPAN,NIKKEI 225
+Toyota Motor Corp,7203.T,JAPAN,NIKKEI 225
+Hino Motors Ltd,7205.T,JAPAN,NIKKEI 225
+Mitsubishi Motors Corp,7211.T,JAPAN,NIKKEI 225
+Mazda Motor Corp,7261.T,JAPAN,NIKKEI 225
+Honda Motor Co Ltd,7267.T,JAPAN,NIKKEI 225
+Suzuki Motor Corp,7269.T,JAPAN,NIKKEI 225
+Subaru Corp,7270.T,JAPAN,NIKKEI 225
+Yamaha Motor Co Ltd,7272.T,JAPAN,NIKKEI 225
+Nikon Corp,7731.T,JAPAN,NIKKEI 225
+Olympus Corp,7733.T,JAPAN,NIKKEI 225
+SCREEN Holdings Co Ltd,7735.T,JAPAN,NIKKEI 225
+Canon Inc,7751.T,JAPAN,NIKKEI 225
+Ricoh Co Ltd,7752.T,JAPAN,NIKKEI 225
+Citizen Watch Co Ltd,7762.T,JAPAN,NIKKEI 225
+Bandai Namco Holdings Inc,7832.T,JAPAN,NIKKEI 225
+Toppan Printing Co Ltd,7911.T,JAPAN,NIKKEI 225
+Dai Nippon Printing Co Ltd,7912.T,JAPAN,NIKKEI 225
+Yamaha Corp,7951.T,JAPAN,NIKKEI 225
+ITOCHU Corp,8001.T,JAPAN,NIKKEI 225
+Marubeni Corp,8002.T,JAPAN,NIKKEI 225
+Toyota Tsusho Corp,8015.T,JAPAN,NIKKEI 225
+FamilyMart Co Ltd,8028.T,JAPAN,NIKKEI 225
+Mitsui & Co Ltd,8031.T,JAPAN,NIKKEI 225
+Tokyo Electron Ltd,8035.T,JAPAN,NIKKEI 225
+Sumitomo Corp,8053.T,JAPAN,NIKKEI 225
+Mitsubishi Corp,8058.T,JAPAN,NIKKEI 225
+Takashimaya Co Ltd,8233.T,JAPAN,NIKKEI 225
+Marui Group Co Ltd,8252.T,JAPAN,NIKKEI 225
+Credit Saison Co Ltd,8253.T,JAPAN,NIKKEI 225
+Aeon Co Ltd,8267.T,JAPAN,NIKKEI 225
+Shinsei Bank Ltd,8303.T,JAPAN,NIKKEI 225
+Aozora Bank Ltd,8304.T,JAPAN,NIKKEI 225
+Mitsubishi UFJ Financial Group Inc,8306.T,JAPAN,NIKKEI 225
+Resona Holdings Inc,8308.T,JAPAN,NIKKEI 225
+Sumitomo Mitsui Trust Holdings Inc,8309.T,JAPAN,NIKKEI 225
+Sumitomo Mitsui Financial Group Inc,8316.T,JAPAN,NIKKEI 225
+Chiba Bank Ltd/The,8331.T,JAPAN,NIKKEI 225
+Fukuoka Financial Group Inc,8354.T,JAPAN,NIKKEI 225
+Shizuoka Bank Ltd/The,8355.T,JAPAN,NIKKEI 225
+Mizuho Financial Group Inc,8411.T,JAPAN,NIKKEI 225
+Daiwa Securities Group Inc,8601.T,JAPAN,NIKKEI 225
+Nomura Holdings Inc,8604.T,JAPAN,NIKKEI 225
+Matsui Securities Co Ltd,8628.T,JAPAN,NIKKEI 225
+Sompo Holdings Inc,8630.T,JAPAN,NIKKEI 225
+MS&AD Insurance Group Holdings Inc,8725.T,JAPAN,NIKKEI 225
+Sony Financial Holdings Inc,8729.T,JAPAN,NIKKEI 225
+Dai-ichi Life Holdings Inc,8750.T,JAPAN,NIKKEI 225
+Tokio Marine Holdings Inc,8766.T,JAPAN,NIKKEI 225
+T&D Holdings Inc,8795.T,JAPAN,NIKKEI 225
+Mitsui Fudosan Co Ltd,8801.T,JAPAN,NIKKEI 225
+Mitsubishi Estate Co Ltd,8802.T,JAPAN,NIKKEI 225
+Tokyo Tatemono Co Ltd,8804.T,JAPAN,NIKKEI 225
+Sumitomo Realty & Development Co Ltd,8830.T,JAPAN,NIKKEI 225
+Tobu Railway Co Ltd,9001.T,JAPAN,NIKKEI 225
+Tokyu Corp,9005.T,JAPAN,NIKKEI 225
+Odakyu Electric Railway Co Ltd,9007.T,JAPAN,NIKKEI 225
+Keio Corp,9008.T,JAPAN,NIKKEI 225
+Keisei Electric Railway Co Ltd,9009.T,JAPAN,NIKKEI 225
+East Japan Railway Co,9020.T,JAPAN,NIKKEI 225
+West Japan Railway Co,9021.T,JAPAN,NIKKEI 225
+Central Japan Railway Co,9022.T,JAPAN,NIKKEI 225
+Nippon Express Co Ltd,9062.T,JAPAN,NIKKEI 225
+Yamato Holdings Co Ltd,9064.T,JAPAN,NIKKEI 225
+9101.T,9101.T,JAPAN,NIKKEI 225
+Mitsui OSK Lines Ltd,9104.T,JAPAN,NIKKEI 225
+Kawasaki Kisen Kaisha Ltd,9107.T,JAPAN,NIKKEI 225
+ANA Holdings Inc,9202.T,JAPAN,NIKKEI 225
+Mitsubishi Logistics Corp,9301.T,JAPAN,NIKKEI 225
+SKY Perfect JSAT Holdings Inc,9412.T,JAPAN,NIKKEI 225
+Nippon Telegraph & Telephone Corp,9432.T,JAPAN,NIKKEI 225
+KDDI Corp,9433.T,JAPAN,NIKKEI 225
+NTT DOCOMO Inc,9437.T,JAPAN,NIKKEI 225
+Tokyo Electric Power Co Holdings Inc,9501.T,JAPAN,NIKKEI 225
+Chubu Electric Power Co Inc,9502.T,JAPAN,NIKKEI 225
+Kansai Electric Power Co Inc/The,9503.T,JAPAN,NIKKEI 225
+Tokyo Gas Co Ltd,9531.T,JAPAN,NIKKEI 225
+Osaka Gas Co Ltd,9532.T,JAPAN,NIKKEI 225
+Toho Co Ltd/Tokyo,9602.T,JAPAN,NIKKEI 225
+NTT Data Corp,9613.T,JAPAN,NIKKEI 225
+Secom Co Ltd,9735.T,JAPAN,NIKKEI 225
+Konami Holdings Corp,9766.T,JAPAN,NIKKEI 225
+Fast Retailing Co Ltd,9983.T,JAPAN,NIKKEI 225
+3I GRP.,III.L,GREAT BRITAIN,FTSE 100
+A.B.FOOD,ABF.L,GREAT BRITAIN,FTSE 100
+ADMIRAL GRP,ADM.L,GREAT BRITAIN,FTSE 100
+ANGLO AMERICAN,AAL.L,GREAT BRITAIN,FTSE 100
+ANTOFAGASTA,ANTO.L,GREAT BRITAIN,FTSE 100
+ASHTEAD GRP.,AHT.L,GREAT BRITAIN,FTSE 100
+ASTRAZENECA,AZN.L,GREAT BRITAIN,FTSE 100
+AUTO TRAD,AUTO.L,GREAT BRITAIN,FTSE 100
+AVEVA GRP,AVV.L,GREAT BRITAIN,FTSE 100
+AVIVA,AV.L,GREAT BRITAIN,FTSE 100
+BAE SYS.,BA.L,GREAT BRITAIN,FTSE 100
+BARCLAYS,BARC.L,GREAT BRITAIN,FTSE 100
+BARRATT DEVEL.,BDEV.L,GREAT BRITAIN,FTSE 100
+BERKELEY GP.HLD,BKG.L,GREAT BRITAIN,FTSE 100
+BHP GROUP,BHP.L,GREAT BRITAIN,FTSE 100
+BP,BP.L,GREAT BRITAIN,FTSE 100
+BR.AMER.TOB.,BATS.L,GREAT BRITAIN,FTSE 100
+BR.LAND,BLND.L,GREAT BRITAIN,FTSE 100
+BT GROUP,BT.L,GREAT BRITAIN,FTSE 100
+BUNZL,BNZL.L,GREAT BRITAIN,FTSE 100
+BURBERRY GRP,BRBY.L,GREAT BRITAIN,FTSE 100
+CARNIVAL,CCL.L,GREAT BRITAIN,FTSE 100
+CENTRICA,CNA.L,GREAT BRITAIN,FTSE 100
+COCACOLA HBC AG,CCH.L,GREAT BRITAIN,FTSE 100
+COMPASS GROUP,CPG.L,GREAT BRITAIN,FTSE 100
+CRH,CRH.L,GREAT BRITAIN,FTSE 100
+CRODA INTL.,CRDA.L,GREAT BRITAIN,FTSE 100
+DCC,DCC.L,GREAT BRITAIN,FTSE 100
+DIAGEO,DGE.L,GREAT BRITAIN,FTSE 100
+EASYJET,EZJ.L,GREAT BRITAIN,FTSE 100
+EVRAZ,EVR.L,GREAT BRITAIN,FTSE 100
+EXPERIAN,EXPN.L,GREAT BRITAIN,FTSE 100
+FERGUSON,FERG.L,GREAT BRITAIN,FTSE 100
+FLUTTER ENT,FLTR.L,GREAT BRITAIN,FTSE 100
+GLAXOSMITHKLINE,GSK.L,GREAT BRITAIN,FTSE 100
+GLENCORE,GLEN.L,GREAT BRITAIN,FTSE 100
+HALMA,HLMA.L,GREAT BRITAIN,FTSE 100
+HARGREAVES LANS,HL.L,GREAT BRITAIN,FTSE 100
+HIKMA,HIK.L,GREAT BRITAIN,FTSE 100
+HSBC HLDGS.UK,HSBA.L,GREAT BRITAIN,FTSE 100
+IMP.BRANDS,IMB.L,GREAT BRITAIN,FTSE 100
+INFORMA,INF.L,GREAT BRITAIN,FTSE 100
+INTERCON. HOTEL,IHG.L,GREAT BRITAIN,FTSE 100
+INTERTEK GROUP,ITRK.L,GREAT BRITAIN,FTSE 100
+INTL CONSOL AIR,IAG.L,GREAT BRITAIN,FTSE 100
+ITV,ITV.L,GREAT BRITAIN,FTSE 100
+JD SPORTS,JD.L,GREAT BRITAIN,FTSE 100
+JOHNSON MATTHEY,JMAT.L,GREAT BRITAIN,FTSE 100
+JUST EAT,JE.L,GREAT BRITAIN,FTSE 100
+KINGFISHER,KGF.L,GREAT BRITAIN,FTSE 100
+LAND SECS.,LAND.L,GREAT BRITAIN,FTSE 100
+LEGAL&GEN.,LGEN.L,GREAT BRITAIN,FTSE 100
+LLOYDS GRP.,LLOY.L,GREAT BRITAIN,FTSE 100
+LON.STK.EXCH,LSE.L,GREAT BRITAIN,FTSE 100
+M&G PLC,MNG.L,GREAT BRITAIN,FTSE 100
+MEGGITT,MGGT.L,GREAT BRITAIN,FTSE 100
+MELROSE IND,MRO.L,GREAT BRITAIN,FTSE 100
+MONDI,MNDI.L,GREAT BRITAIN,FTSE 100
+MORRISON (WM),MRW.L,GREAT BRITAIN,FTSE 100
+NATIONAL GRID,NG.L,GREAT BRITAIN,FTSE 100
+NEXT,NXT.L,GREAT BRITAIN,FTSE 100
+NMC HEALTH,NMC.L,GREAT BRITAIN,FTSE 100
+OCADO,OCDO.L,GREAT BRITAIN,FTSE 100
+PEARSON,PSON.L,GREAT BRITAIN,FTSE 100
+PERSIMMON,PSN.L,GREAT BRITAIN,FTSE 100
+PHOENIX GRP HDG,PHNX.L,GREAT BRITAIN,FTSE 100
+POLYMETAL INT,POLY.L,GREAT BRITAIN,FTSE 100
+PRUDENTIAL,PRU.L,GREAT BRITAIN,FTSE 100
+RDS 'A',RDSA.L,GREAT BRITAIN,FTSE 100
+RDS 'B',RDSB.L,GREAT BRITAIN,FTSE 100
+RECKITT BEN. GP,RB.L,GREAT BRITAIN,FTSE 100
+RELX,REL.L,GREAT BRITAIN,FTSE 100
+RENTOKIL INITL.,RTO.L,GREAT BRITAIN,FTSE 100
+RIGHTMOVE,RMV.L,GREAT BRITAIN,FTSE 100
+RIO TINTO,RIO.L,GREAT BRITAIN,FTSE 100
+ROLLS-ROYCE HLG,RR.L,GREAT BRITAIN,FTSE 100
+ROYAL BANK SCOT,RBS.L,GREAT BRITAIN,FTSE 100
+RSA INS.,RSA.L,GREAT BRITAIN,FTSE 100
+SAGE GRP.,SGE.L,GREAT BRITAIN,FTSE 100
+SAINSBURY(J),SBRY.L,GREAT BRITAIN,FTSE 100
+SCHRODERS,SDR.L,GREAT BRITAIN,FTSE 100
+SCOTTISH MORT,SMT.L,GREAT BRITAIN,FTSE 100
+SEGRO,SGRO.L,GREAT BRITAIN,FTSE 100
+SEVERN TRENT,SVT.L,GREAT BRITAIN,FTSE 100
+SMITH&NEPHEW,SN.L,GREAT BRITAIN,FTSE 100
+SMITH(DS),SMDS.L,GREAT BRITAIN,FTSE 100
+SMITHS GROUP,SMIN.L,GREAT BRITAIN,FTSE 100
+SMURFIT KAP.,SKG.L,GREAT BRITAIN,FTSE 100
+SPIRAX-SARCO,SPX.L,GREAT BRITAIN,FTSE 100
+SSE,SSE.L,GREAT BRITAIN,FTSE 100
+ST.JAMES'S PLAC,STJ.L,GREAT BRITAIN,FTSE 100
+STAND.CHART.,STAN.L,GREAT BRITAIN,FTSE 100
+STD LIFE ABER,SLA.L,GREAT BRITAIN,FTSE 100
+TAYLOR WIMPEY,TW.L,GREAT BRITAIN,FTSE 100
+TESCO,TSCO.L,GREAT BRITAIN,FTSE 100
+TUI AG,TUI.L,GREAT BRITAIN,FTSE 100
+UNILEVER,ULVR.L,GREAT BRITAIN,FTSE 100
+UTD. UTILITIES,UU.L,GREAT BRITAIN,FTSE 100
+VODAFONE GRP.,VOD.L,GREAT BRITAIN,FTSE 100
+WHITBREAD,WTB.L,GREAT BRITAIN,FTSE 100
+WPP,WPP.L,GREAT BRITAIN,FTSE 100
+Abacus Prop Grp,ABP.AX,AUSTRALIA,S&P/ASX 200
+Adelaide Brighton,ABC.AX,AUSTRALIA,S&P/ASX 200
+AGL Energy,AGL.AX,AUSTRALIA,S&P/ASX 200
+ALS,ALQ.AX,AUSTRALIA,S&P/ASX 200
+Altium,ALU.AX,AUSTRALIA,S&P/ASX 200
+Alumina,AWC.AX,AUSTRALIA,S&P/ASX 200
+Amcor,AMC.AX,AUSTRALIA,S&P/ASX 200
+AMP,AMP.AX,AUSTRALIA,S&P/ASX 200
+Ansell,ANN.AX,AUSTRALIA,S&P/ASX 200
+ANZ Banking Grp,ANZ.AX,AUSTRALIA,S&P/ASX 200
+APA Grp,APA.AX,AUSTRALIA,S&P/ASX 200
+APN Outdoor Grp,APO.AX,AUSTRALIA,S&P/ASX 200
+ARB,ARB.AX,AUSTRALIA,S&P/ASX 200
+Ardent Leisure Grp,AAD.AX,AUSTRALIA,S&P/ASX 200
+Aristocrat Leisure,ALL.AX,AUSTRALIA,S&P/ASX 200
+Asaleo Care,AHY.AX,AUSTRALIA,S&P/ASX 200
+ASX,ASX.AX,AUSTRALIA,S&P/ASX 200
+Aurizon Hldgs,AZJ.AX,AUSTRALIA,S&P/ASX 200
+Ausdrill,ASL.AX,AUSTRALIA,S&P/ASX 200
+AusNet Services,AST.AX,AUSTRALIA,S&P/ASX 200
+Aust Pharmaceutical,API.AX,AUSTRALIA,S&P/ASX 200
+Automotive Hldgs,AHG.AX,AUSTRALIA,S&P/ASX 200
+Aveo Grp,AOG.AX,AUSTRALIA,S&P/ASX 200
+Bank of Qld,BOQ.AX,AUSTRALIA,S&P/ASX 200
+Bapcor,BAP.AX,AUSTRALIA,S&P/ASX 200
+Beach Energy,BPT.AX,AUSTRALIA,S&P/ASX 200
+Bega Cheese,BGA.AX,AUSTRALIA,S&P/ASX 200
+Bellamys Aust,BAL.AX,AUSTRALIA,S&P/ASX 200
+Bendigo&Adelaide Bk,BEN.AX,AUSTRALIA,S&P/ASX 200
+BHP,BHP.AX,AUSTRALIA,S&P/ASX 200
+Blackmores,BKL.AX,AUSTRALIA,S&P/ASX 200
+BlueScope Steel,BSL.AX,AUSTRALIA,S&P/ASX 200
+Boral,BLD.AX,AUSTRALIA,S&P/ASX 200
+Brambles,BXB.AX,AUSTRALIA,S&P/ASX 200
+Breville Grp,BRG.AX,AUSTRALIA,S&P/ASX 200
+Brickworks,BKW.AX,AUSTRALIA,S&P/ASX 200
+BT Invest Mgt,BTT.AX,AUSTRALIA,S&P/ASX 200
+BWP Tr,BWP.AX,AUSTRALIA,S&P/ASX 200
+Caltex Aust,CTX.AX,AUSTRALIA,S&P/ASX 200
+Carsales.com,CAR.AX,AUSTRALIA,S&P/ASX 200
+Challenger,CGF.AX,AUSTRALIA,S&P/ASX 200
+Charter Hall Grp,CHC.AX,AUSTRALIA,S&P/ASX 200
+Charter Hall Retail,CQR.AX,AUSTRALIA,S&P/ASX 200
+Chorus,CNU.AX,AUSTRALIA,S&P/ASX 200
+Charter Hall Long W,CLW.AX,AUSTRALIA,S&P/ASX 200
+Cimic Grp,CIM.AX,AUSTRALIA,S&P/ASX 200
+Cleanaway Waste,CWY.AX,AUSTRALIA,S&P/ASX 200
+Coca-Cola Amatil,CCL.AX,AUSTRALIA,S&P/ASX 200
+Cochlear,COH.AX,AUSTRALIA,S&P/ASX 200
+C'wlth Bank of Aust,CBA.AX,AUSTRALIA,S&P/ASX 200
+Computershare,CPU.AX,AUSTRALIA,S&P/ASX 200
+Corporate Travel,CTD.AX,AUSTRALIA,S&P/ASX 200
+Costa Grp,CGC.AX,AUSTRALIA,S&P/ASX 200
+Credit Corp Grp,CCP.AX,AUSTRALIA,S&P/ASX 200
+Cromwell Prop,CMW.AX,AUSTRALIA,S&P/ASX 200
+Crown Resorts,CWN.AX,AUSTRALIA,S&P/ASX 200
+CSL,CSL.AX,AUSTRALIA,S&P/ASX 200
+CSR,CSR.AX,AUSTRALIA,S&P/ASX 200
+Cybg,CYB.AX,AUSTRALIA,S&P/ASX 200
+DEXUS,DXS.AX,AUSTRALIA,S&P/ASX 200
+Domain Hldgs Aus,DHG.AX,AUSTRALIA,S&P/ASX 200
+Domino's Pizza,DMP.AX,AUSTRALIA,S&P/ASX 200
+Downer EDI,DOW.AX,AUSTRALIA,S&P/ASX 200
+DuluxGroup,DLX.AX,AUSTRALIA,S&P/ASX 200
+Eclipx Grp,ECX.AX,AUSTRALIA,S&P/ASX 200
+Estia Health,EHE.AX,AUSTRALIA,S&P/ASX 200
+Evolution Min,EVN.AX,AUSTRALIA,S&P/ASX 200
+Fairfax Media,FXJ.AX,AUSTRALIA,S&P/ASX 200
+Fisher & Paykel Hlth,FPH.AX,AUSTRALIA,S&P/ASX 200
+Fletcher Bld,FBU.AX,AUSTRALIA,S&P/ASX 200
+Flight Centre Travel,FLT.AX,AUSTRALIA,S&P/ASX 200
+Fortescue Metals Grp,FMG.AX,AUSTRALIA,S&P/ASX 200
+G8 Education,GEM.AX,AUSTRALIA,S&P/ASX 200
+Galaxy Res,GXY.AX,AUSTRALIA,S&P/ASX 200
+Gateway Lifestyle,GTY.AX,AUSTRALIA,S&P/ASX 200
+Genworth Mortg Ins,GMA.AX,AUSTRALIA,S&P/ASX 200
+Goodman Grp,GMG.AX,AUSTRALIA,S&P/ASX 200
+GPT Grp,GPT.AX,AUSTRALIA,S&P/ASX 200
+GrainCorp,GNC.AX,AUSTRALIA,S&P/ASX 200
+Greencross,GXL.AX,AUSTRALIA,S&P/ASX 200
+Growthpoint Prop,GOZ.AX,AUSTRALIA,S&P/ASX 200
+GUD Hldgs,GUD.AX,AUSTRALIA,S&P/ASX 200
+GWA Grp,GWA.AX,AUSTRALIA,S&P/ASX 200
+Harvey Norman,HVN.AX,AUSTRALIA,S&P/ASX 200
+Healthscope,HSO.AX,AUSTRALIA,S&P/ASX 200
+Iluka Res,ILU.AX,AUSTRALIA,S&P/ASX 200
+Incitec Pivot,IPL.AX,AUSTRALIA,S&P/ASX 200
+Independence Grp,IGO.AX,AUSTRALIA,S&P/ASX 200
+Infigen Energy,IFN.AX,AUSTRALIA,S&P/ASX 200
+Insurance Aust Grp,IAG.AX,AUSTRALIA,S&P/ASX 200
+Investa Office Fd,IOF.AX,AUSTRALIA,S&P/ASX 200
+InvoCare,IVC.AX,AUSTRALIA,S&P/ASX 200
+IOOF Hldgs,IFL.AX,AUSTRALIA,S&P/ASX 200
+IPH,IPH.AX,AUSTRALIA,S&P/ASX 200
+IRESS,IRE.AX,AUSTRALIA,S&P/ASX 200
+Iron Mountain Inc,INM.AX,AUSTRALIA,S&P/ASX 200
+James Hardie Ind,JHX.AX,AUSTRALIA,S&P/ASX 200
+Janus Henderson,JHG.AX,AUSTRALIA,S&P/ASX 200
+JB Hi-Fi,JBH.AX,AUSTRALIA,S&P/ASX 200
+Lendlease Grp,LLC.AX,AUSTRALIA,S&P/ASX 200
+Link Admin Hldg,LNK.AX,AUSTRALIA,S&P/ASX 200
+Lynas,LYC.AX,AUSTRALIA,S&P/ASX 200
+Macq Atlas Roads Grp,MQA.AX,AUSTRALIA,S&P/ASX 200
+Macq Grp,MQG.AX,AUSTRALIA,S&P/ASX 200
+Magellan Fin Grp,MFG.AX,AUSTRALIA,S&P/ASX 200
+Mantra Grp,MTR.AX,AUSTRALIA,S&P/ASX 200
+Mayne Pharma,MYX.AX,AUSTRALIA,S&P/ASX 200
+McMillan Shakespr,MMS.AX,AUSTRALIA,S&P/ASX 200
+Medibank Private,MPL.AX,AUSTRALIA,S&P/ASX 200
+Metcash,MTS.AX,AUSTRALIA,S&P/ASX 200
+Mineral Resources,MIN.AX,AUSTRALIA,S&P/ASX 200
+Mirvac Grp,MGR.AX,AUSTRALIA,S&P/ASX 200
+Monadelphous Grp,MND.AX,AUSTRALIA,S&P/ASX 200
+MYOB Grp,MYO.AX,AUSTRALIA,S&P/ASX 200
+Nanosonics,NAN.AX,AUSTRALIA,S&P/ASX 200
+National Aust Bank,NAB.AX,AUSTRALIA,S&P/ASX 200
+Natl Storage REIT,NSR.AX,AUSTRALIA,S&P/ASX 200
+Navitas,NVT.AX,AUSTRALIA,S&P/ASX 200
+Newcrest Min,NCM.AX,AUSTRALIA,S&P/ASX 200
+News Corp,NWS.AX,AUSTRALIA,S&P/ASX 200
+NEXTDC,NXT.AX,AUSTRALIA,S&P/ASX 200
+NIB Hldgs,NHF.AX,AUSTRALIA,S&P/ASX 200
+Nine Entertainment,NEC.AX,AUSTRALIA,S&P/ASX 200
+Northern Star,NST.AX,AUSTRALIA,S&P/ASX 200
+Nufarm,NUF.AX,AUSTRALIA,S&P/ASX 200
+Oil Search,OSH.AX,AUSTRALIA,S&P/ASX 200
+oOh! Media,OML.AX,AUSTRALIA,S&P/ASX 200
+Orica,ORI.AX,AUSTRALIA,S&P/ASX 200
+Origin Energy,ORG.AX,AUSTRALIA,S&P/ASX 200
+Orocobre,ORE.AX,AUSTRALIA,S&P/ASX 200
+Orora,ORA.AX,AUSTRALIA,S&P/ASX 200
+OZ Min,OZL.AX,AUSTRALIA,S&P/ASX 200
+Pact Grp Hldgs,PGH.AX,AUSTRALIA,S&P/ASX 200
+Perpetual,PPT.AX,AUSTRALIA,S&P/ASX 200
+Pilbara Min,PLS.AX,AUSTRALIA,S&P/ASX 200
+Platinum Asset,PTM.AX,AUSTRALIA,S&P/ASX 200
+Premier Invest,PMV.AX,AUSTRALIA,S&P/ASX 200
+Primary Health Care,PRY.AX,AUSTRALIA,S&P/ASX 200
+Qantas Airways,QAN.AX,AUSTRALIA,S&P/ASX 200
+QBE Insurance Grp,QBE.AX,AUSTRALIA,S&P/ASX 200
+Qube Hldgs,QUB.AX,AUSTRALIA,S&P/ASX 200
+Ramsay Health Care,RHC.AX,AUSTRALIA,S&P/ASX 200
+REA Grp,REA.AX,AUSTRALIA,S&P/ASX 200
+Regis Res,RRL.AX,AUSTRALIA,S&P/ASX 200
+Reliance Worldwide,RWC.AX,AUSTRALIA,S&P/ASX 200
+ResMed Inc,RMD.AX,AUSTRALIA,S&P/ASX 200
+Resolute Min,RSG.AX,AUSTRALIA,S&P/ASX 200
+Retail Food Grp,RFG.AX,AUSTRALIA,S&P/ASX 200
+Rio Tinto,RIO.AX,AUSTRALIA,S&P/ASX 200
+Sandfire Res,SFR.AX,AUSTRALIA,S&P/ASX 200
+Santos,STO.AX,AUSTRALIA,S&P/ASX 200
+Saracen Min,SAR.AX,AUSTRALIA,S&P/ASX 200
+SCA Prop Grp,SCP.AX,AUSTRALIA,S&P/ASX 200
+Scentre Grp,SCG.AX,AUSTRALIA,S&P/ASX 200
+Seek,SEK.AX,AUSTRALIA,S&P/ASX 200
+Seven Grp,SVW.AX,AUSTRALIA,S&P/ASX 200
+Seven West Media,SWM.AX,AUSTRALIA,S&P/ASX 200
+Sigma Health,SIG.AX,AUSTRALIA,S&P/ASX 200
+Sims Metal Mgmt,SGM.AX,AUSTRALIA,S&P/ASX 200
+Sirtex Medical,SRX.AX,AUSTRALIA,S&P/ASX 200
+SkyCity Entertain,SKC.AX,AUSTRALIA,S&P/ASX 200
+Smartgrp,SIQ.AX,AUSTRALIA,S&P/ASX 200
+Sonic Healthcare,SHL.AX,AUSTRALIA,S&P/ASX 200
+WH Soul Pattinson,SOL.AX,AUSTRALIA,S&P/ASX 200
+South32,S32.AX,AUSTRALIA,S&P/ASX 200
+Spark Infrastructure,SKI.AX,AUSTRALIA,S&P/ASX 200
+Spark New Zealand,SPK.AX,AUSTRALIA,S&P/ASX 200
+SpeedCast Intl,SDA.AX,AUSTRALIA,S&P/ASX 200
+St Barbara,SBM.AX,AUSTRALIA,S&P/ASX 200
+Steadfast Grp,SDF.AX,AUSTRALIA,S&P/ASX 200
+Sthn Cross Media,SXL.AX,AUSTRALIA,S&P/ASX 200
+Stockland,SGP.AX,AUSTRALIA,S&P/ASX 200
+Suncorp Grp,SUN.AX,AUSTRALIA,S&P/ASX 200
+Super Retail Grp,SUL.AX,AUSTRALIA,S&P/ASX 200
+Sydney Airport,SYD.AX,AUSTRALIA,S&P/ASX 200
+Syrah Res,SYR.AX,AUSTRALIA,S&P/ASX 200
+Tabcorp Hldgs,TAH.AX,AUSTRALIA,S&P/ASX 200
+Tassal Grp,TGR.AX,AUSTRALIA,S&P/ASX 200
+Technology One,TNE.AX,AUSTRALIA,S&P/ASX 200
+Telstra Corp,TLS.AX,AUSTRALIA,S&P/ASX 200
+The A2 Milk Company,A2M.AX,AUSTRALIA,S&P/ASX 200
+The Star Entertain,SGR.AX,AUSTRALIA,S&P/ASX 200
+TPG Telecom,TPM.AX,AUSTRALIA,S&P/ASX 200
+Trade Me Grp,TME.AX,AUSTRALIA,S&P/ASX 200
+Transurban Grp,TCL.AX,AUSTRALIA,S&P/ASX 200
+Treasury Wine,TWE.AX,AUSTRALIA,S&P/ASX 200
+Vicinity Centres,VCX.AX,AUSTRALIA,S&P/ASX 200
+Viva Energy Reit,VVR.AX,AUSTRALIA,S&P/ASX 200
+Vocus Grp,VOC.AX,AUSTRALIA,S&P/ASX 200
+Webjet,WEB.AX,AUSTRALIA,S&P/ASX 200
+Wesfarmers,WES.AX,AUSTRALIA,S&P/ASX 200
+Western Areas,WSA.AX,AUSTRALIA,S&P/ASX 200
+Westfield,WFD.AX,AUSTRALIA,S&P/ASX 200
+Westpac Banking,WBC.AX,AUSTRALIA,S&P/ASX 200
+Whitehaven Coal,WHC.AX,AUSTRALIA,S&P/ASX 200
+Wisetech Global,WTC.AX,AUSTRALIA,S&P/ASX 200
+Woodside Pet,WPL.AX,AUSTRALIA,S&P/ASX 200
+Woolworths Grp,WOW.AX,AUSTRALIA,S&P/ASX 200
+WorleyParsons,WOR.AX,AUSTRALIA,S&P/ASX 200
+Xero,XRO.AX,AUSTRALIA,S&P/ASX 200
+Cheung Kong (Holdings) Limited,0001.HK,HONG KONG,Hang Seng
+CLP Holdings Ltd.,0002.HK,HONG KONG,Hang Seng
+The Hong Kong and China Gas Company Limited,0003.HK,HONG KONG,Hang Seng
+The Wharf (Holdings) Limited,0004.HK,HONG KONG,Hang Seng
+HSBC Holdings plc,0005.HK,HONG KONG,Hang Seng
+Power Assets Holdings Limited,0006.HK,HONG KONG,Hang Seng
+Hang Seng Bank Limited,0011.HK,HONG KONG,Hang Seng
+Henderson Land Development Co. Ltd.,0012.HK,HONG KONG,Hang Seng
+Hutchison Whampoa Limited,0013.HK,HONG KONG,Hang Seng
+Sun Hung Kai Properties Limited,0016.HK,HONG KONG,Hang Seng
+New World Development Company Limited,0017.HK,HONG KONG,Hang Seng
+Swire Pacific Limited,0019.HK,HONG KONG,Hang Seng
+"The Bank of East Asia, Limited",0023.HK,HONG KONG,Hang Seng
+Galaxy Entertainment Group Limited,0027.HK,HONG KONG,Hang Seng
+MTR Corporation Limited,0066.HK,HONG KONG,Hang Seng
+Sino Land Company Limited,0083.HK,HONG KONG,Hang Seng
+HANG LUNG PPT,0101.HK,HONG KONG,Hang Seng
+Kunlun Energy Company Limited,0135.HK,HONG KONG,Hang Seng
+China Merchants Holdings (International) Company Limited,0144.HK,HONG KONG,Hang Seng
+Want Want China Holdings Ltd.,0151.HK,HONG KONG,Hang Seng
+CITIC Limited,0267.HK,HONG KONG,Hang Seng
+China Resources Enterprise Ltd.,0291.HK,HONG KONG,Hang Seng
+Cathay Pacific Airways Limited,0293.HK,HONG KONG,Hang Seng
+Tingyi Cayman Islands Holding Corp.,0322.HK,HONG KONG,Hang Seng
+China Petroleum & Chemical Corp.,0386.HK,HONG KONG,Hang Seng
+Hong Kong Exchanges & Clearing Limited,0388.HK,HONG KONG,Hang Seng
+Li & Fung Limited,0494.HK,HONG KONG,Hang Seng
+China Overseas Land & Investment Ltd.,0688.HK,HONG KONG,Hang Seng
+Tencent Holdings Ltd.,0700.HK,HONG KONG,Hang Seng
+China Unicom (Hong Kong) Limited,0762.HK,HONG KONG,Hang Seng
+Link Real Estate Investment Trust,0823.HK,HONG KONG,Hang Seng
+China Resources Power Holdings Co. Ltd.,0836.HK,HONG KONG,Hang Seng
+PetroChina Co. Ltd.,0857.HK,HONG KONG,Hang Seng
+CNOOC Ltd.,0883.HK,HONG KONG,Hang Seng
+China Construction Bank Corporation,0939.HK,HONG KONG,Hang Seng
+China Mobile Limited,0941.HK,HONG KONG,Hang Seng
+Lenovo Group Limited,0992.HK,HONG KONG,Hang Seng
+Hengan International Group Company Limited,1044.HK,HONG KONG,Hang Seng
+China Shenhua Energy Co. Ltd.,1088.HK,HONG KONG,Hang Seng
+China Resources Land Limited,1109.HK,HONG KONG,Hang Seng
+360 Security Technology Inc.,601360.SS,CHINA,Shanghai Composite
+"AA Industrial Belting (Shanghai) Co., Ltd.",603580.SS,CHINA,Shanghai Composite
+"ADD Industry(Zhejiang) CO., LTD",603089.SS,CHINA,Shanghai Composite
+"Aecc Aero Science and Technology Co.,Ltd.",600391.SS,CHINA,Shanghai Composite
+Aeolus Tyre Co Ltd,600469.SS,CHINA,Shanghai Composite
+Aerospace Communications Holdings Co Ltd,600677.SS,CHINA,Shanghai Composite
+Aerosun Corp,600501.SS,CHINA,Shanghai Composite
+Agricultural Bank of China Co Ltd,601288.SS,CHINA,Shanghai Composite
+Air China Ltd,601111.SS,CHINA,Shanghai Composite
+"Aisino Co.,Ltd",600271.SS,CHINA,Shanghai Composite
+Aluminum Corporation of China Limited,601600.SS,CHINA,Shanghai Composite
+Angel Yeast Co Ltd,600298.SS,CHINA,Shanghai Composite
+"Anhui Andeli Department Store Co., Ltd.",603031.SS,CHINA,Shanghai Composite
+Anhui Conch Cement Co Ltd,600585.SS,CHINA,Shanghai Composite
+Anhui Construction Engineering Group Corporation Limited,600502.SS,CHINA,Shanghai Composite
+Anhui Expressway Co Ltd,600012.SS,CHINA,Shanghai Composite
+"Anhui Genuine New Material Co., Ltd",603429.SS,CHINA,Shanghai Composite
+Anhui Golden Seed Winery Co Ltd,600199.SS,CHINA,Shanghai Composite
+"Anhui Gourgen Traffic Construction Co.,Ltd.",603815.SS,CHINA,Shanghai Composite
+"Anhui GreatWall Military Industry Co.,Ltd.",601606.SS,CHINA,Shanghai Composite
+"Anhui Guangxin Agrochemical Co.,Ltd.",603599.SS,CHINA,Shanghai Composite
+Anhui Heli Co Ltd,600761.SS,CHINA,Shanghai Composite
+Anhui Hengyuan Coal Industry and Electricity Power Co Ltd,600971.SS,CHINA,Shanghai Composite
+Anhui Jianghuai Automobile Co Ltd,600418.SS,CHINA,Shanghai Composite
+"Anhui Jiuhuashan Tourism Development Co., Ltd.",603199.SS,CHINA,Shanghai Composite
+"Anhui Kouzi Distillery Co., Ltd.",603589.SS,CHINA,Shanghai Composite
+Anhui Liuguo Chemical Co Ltd,600470.SS,CHINA,Shanghai Composite
+"Anhui Province Natural Gas Development Co.,Ltd.",603689.SS,CHINA,Shanghai Composite
+Anhui Quanchai Engine Co Ltd,600218.SS,CHINA,Shanghai Composite
+Anhui Shan Ying Paper Industry Co Ltd,600567.SS,CHINA,Shanghai Composite
+Anhui Sun-Create Electronics Co Ltd,600990.SS,CHINA,Shanghai Composite
+Anhui Tongfeng Electronics Co Ltd,600237.SS,CHINA,Shanghai Composite
+"Anhui Transport Consulting & Design Institute Co.,Ltd.",603357.SS,CHINA,Shanghai Composite
+Anhui Wanwei Updated High-Tech Material Industry Co Ltd,600063.SS,CHINA,Shanghai Composite
+Anhui Xinhua Media Co Ltd,601801.SS,CHINA,Shanghai Composite
+"Anhui Xinli Finance Co.,Ltd.",600318.SS,CHINA,Shanghai Composite
+"ANHUI YINGJIA DISTILLERY CO., LTD.",603198.SS,CHINA,Shanghai Composite
+"ANHUI YINGLIU ELECTROMECHANICAL CO., LTD",603308.SS,CHINA,Shanghai Composite
+"Anhui Zhongyuan New Materials Co.,Ltd.",603527.SS,CHINA,Shanghai Composite
+"Anji Foodstuff Co., Ltd.",603696.SS,CHINA,Shanghai Composite
+"Antong Holdings Co., Ltd.",600179.SS,CHINA,Shanghai Composite
+"Anxin Trust Co., Ltd",600816.SS,CHINA,Shanghai Composite
+Anyang Iron & Steel Inc,600569.SS,CHINA,Shanghai Composite
+"ANYUAN COAL INDUSTRY GROUP CO., LTD.",600397.SS,CHINA,Shanghai Composite
+"Anzheng Fashion Group Co.,Ltd.",603839.SS,CHINA,Shanghai Composite
+"Apple Flavor & Fragrance Group Co., Ltd.",603020.SS,CHINA,Shanghai Composite
+"ARGUS (SHANGHAI) TEXTILE CHEMICALS CO.,LTD.",603790.SS,CHINA,Shanghai Composite
+"ARTS Group Co., Ltd",603017.SS,CHINA,Shanghai Composite
+"ASIA CUANON TECHNOLOGY (SHANGHAI) CO., LTD.",603378.SS,CHINA,Shanghai Composite
+"Asian Staranchor Chain Co.,Ltd.Jiangsu",601890.SS,CHINA,Shanghai Composite
+"Atlantic China Welding Consumables,Inc",600558.SS,CHINA,Shanghai Composite
+Aucma Co Ltd,600336.SS,CHINA,Shanghai Composite
+"Aurora Optoelectronics Co., Ltd.",600666.SS,CHINA,Shanghai Composite
+"Autobio Diagnostics Co., Ltd.",603658.SS,CHINA,Shanghai Composite
+AVIC AVIATION ENGINE CORPORATION PLC.,600893.SS,CHINA,Shanghai Composite
+"Avic Aviation High-Technology Co., Ltd.",600862.SS,CHINA,Shanghai Composite
+"AVIC CAPITAL CO.,LTD.",600705.SS,CHINA,Shanghai Composite
+Avic Heavy Machinery Co Ltd,600765.SS,CHINA,Shanghai Composite
+"AVIC Helicopter Co.,Ltd.",600038.SS,CHINA,Shanghai Composite
+AVIC SHENYANG AIRCRAFT COMPANY LIMITED,600760.SS,CHINA,Shanghai Composite
+"A-Zenith Furniture Co., Ltd.",603389.SS,CHINA,Shanghai Composite
+"Bafang Electric (Suzhou) Co.,Ltd.",603489.SS,CHINA,Shanghai Composite
+"BAIC BluePark New Energy Technology Co.,Ltd",600733.SS,CHINA,Shanghai Composite
+"Baida Group Co.,Ltd.",600865.SS,CHINA,Shanghai Composite
+"Baiyin Nonferrous Group Co., Ltd.",601212.SS,CHINA,Shanghai Composite
+"BanBao Co., Ltd.",603398.SS,CHINA,Shanghai Composite
+Bank of Beijing Co Ltd,601169.SS,CHINA,Shanghai Composite
+"BANK OF CHANGSHA CO., LTD.",601577.SS,CHINA,Shanghai Composite
+"BANK OF CHENGDU CO., LTD.",601838.SS,CHINA,Shanghai Composite
+Bank of China Ltd,601988.SS,CHINA,Shanghai Composite
+Bank of Communications Co LTD,601328.SS,CHINA,Shanghai Composite
+"Bank of Guiyang Co.,Ltd.",601997.SS,CHINA,Shanghai Composite
+"BANK OF HANGZHOU CO., LTD",600926.SS,CHINA,Shanghai Composite
+"Bank of Jiangsu Co., Ltd",600919.SS,CHINA,Shanghai Composite
+Bank of Nanjing Co Ltd,601009.SS,CHINA,Shanghai Composite
+"Bank of Shanghai Co., Ltd.",601229.SS,CHINA,Shanghai Composite
+"BANK OF XI'AN CO., LTD.",600928.SS,CHINA,Shanghai Composite
+Baoding Tianwei Baobian Electric Co Ltd,600550.SS,CHINA,Shanghai Composite
+Baoji Titanium Industry Co Ltd,600456.SS,CHINA,Shanghai Composite
+Baoshan Iron &Steel Co Ltd,600019.SS,CHINA,Shanghai Composite
+Baosheng Science and Technology Innovation Co Ltd,600973.SS,CHINA,Shanghai Composite
+"Baotailong New Materials Co.,Ltd",601011.SS,CHINA,Shanghai Composite
+Baotou Huazi Industry Co Ltd,600191.SS,CHINA,Shanghai Composite
+Baotou Tomorrow Technology Co Ltd,600091.SS,CHINA,Shanghai Composite
+BBMG Corporation,601992.SS,CHINA,Shanghai Composite
+Befar Group Co Ltd,601678.SS,CHINA,Shanghai Composite
+Beihai Gofar Marine Biological Industry Co Ltd,600538.SS,CHINA,Shanghai Composite
+"Beih-Property Co.,Ltd",600791.SS,CHINA,Shanghai Composite
+Beijing Aerospace Changfeng Co Ltd,600855.SS,CHINA,Shanghai Composite
+Beijing Airport High-Tech Park Co Ltd,600463.SS,CHINA,Shanghai Composite
+Beijing Aritime Intelligent Control Co Ltd,600560.SS,CHINA,Shanghai Composite
+"Beijing Bashi Media Co.,Ltd.",600386.SS,CHINA,Shanghai Composite
+Beijing Capital Co Ltd,600008.SS,CHINA,Shanghai Composite
+"Beijing Capital Development Co.,Ltd.",600376.SS,CHINA,Shanghai Composite
+"Beijing Capital Retailing Group Co., Ltd.",600723.SS,CHINA,Shanghai Composite
+Beijing Changjiu Logistics Corp.,603569.SS,CHINA,Shanghai Composite
+"Beijing Cuiwei Tower Co., Ltd.",603123.SS,CHINA,Shanghai Composite
+Beijing Dahao Technology Corporation Limited,603025.SS,CHINA,Shanghai Composite
+Beijing Dalong Weiye Real Estate Development Co Ltd,600159.SS,CHINA,Shanghai Composite
+Beijing Dynamic Power Co Ltd,600405.SS,CHINA,Shanghai Composite
+Beijing Electronic Zone Investment and Development Co Ltd,600658.SS,CHINA,Shanghai Composite
+Beijing Gehua CATV Network Co Ltd,600037.SS,CHINA,Shanghai Composite
+"Beijing GeoEnviron Engineering & Technology, Inc..",603588.SS,CHINA,Shanghai Composite
+"BEIJING HANJIAN HESHAN PIPELINE CO.,LTD.",603616.SS,CHINA,Shanghai Composite
+Beijing Haohua Energy Resource Co Ltd,601101.SS,CHINA,Shanghai Composite
+Beijing Jingcheng Machinery Electric Company Limited,600860.SS,CHINA,Shanghai Composite
+"BEIJING JINGNENG POWER CO., LTD.",600578.SS,CHINA,Shanghai Composite
+Beijing Jingyuntong Technology Co Ltd,601908.SS,CHINA,Shanghai Composite
+"Beijing Konruns Pharmaceutical Co.,Ltd.",603590.SS,CHINA,Shanghai Composite
+Beijing North Star Co Ltd,601588.SS,CHINA,Shanghai Composite
+"Beijing Qianjing Landscape Co., Ltd.",603778.SS,CHINA,Shanghai Composite
+Beijing Sanyuan Foods Co Ltd,600429.SS,CHINA,Shanghai Composite
+Beijing Sifang Automation Co Ltd,601126.SS,CHINA,Shanghai Composite
+Beijing Teamsun Technology Co Ltd,600410.SS,CHINA,Shanghai Composite
+Beijing Tiantan Biological Products Co Ltd,600161.SS,CHINA,Shanghai Composite
+Beijing Tongrentang Co Ltd,600085.SS,CHINA,Shanghai Composite
+"Beijing Tricolor Technology Co., Ltd.",603516.SS,CHINA,Shanghai Composite
+"Beijing United Information Technology Co., Ltd.",603613.SS,CHINA,Shanghai Composite
+Beijing Urban Construction Investment & Development Co Ltd,600266.SS,CHINA,Shanghai Composite
+"BEIJING URBAN-RURAL COMMERCIAL (GROUP) CO., LTD.",600861.SS,CHINA,Shanghai Composite
+"Beijing Vantone Real Estate Co.,Ltd",600246.SS,CHINA,Shanghai Composite
+"Beijing Vastdata Technology Co., Ltd.",603138.SS,CHINA,Shanghai Composite
+"Beijing Wandong Medical Technology Co., Ltd.",600055.SS,CHINA,Shanghai Composite
+"Beijing Xinwei Telecom Technology Group Co., Ltd.",600485.SS,CHINA,Shanghai Composite
+"Beijing Yuanliu Hongyuan Electronic Technology Co., Ltd.",603267.SS,CHINA,Shanghai Composite
+Beijinghualian Hypermarket Co Ltd,600361.SS,CHINA,Shanghai Composite
+Beiqi Foton Motor Co Ltd,600166.SS,CHINA,Shanghai Composite
+Beken Corporation,603068.SS,CHINA,Shanghai Composite
+"Bestsun Energy Co., Ltd.",600681.SS,CHINA,Shanghai Composite
+"Besttone Holding Co.,Ltd",600640.SS,CHINA,Shanghai Composite
+"Bethel Automotive Safety Systems Co., Ltd",603596.SS,CHINA,Shanghai Composite
+"BGRIMM Technology Co., Ltd.",600980.SS,CHINA,Shanghai Composite
+Black Peony (Group) Co Ltd,600510.SS,CHINA,Shanghai Composite
+Bluestar Adisseo Company,600299.SS,CHINA,Shanghai Composite
+"Bohai Automotive Systems CO., LTD.",600960.SS,CHINA,Shanghai Composite
+"Bohai Ferry Co., Ltd.",603167.SS,CHINA,Shanghai Composite
+BOMESC Offshore Engineering Company Limited,603727.SS,CHINA,Shanghai Composite
+"Bomin Electronics Co., Ltd.",603936.SS,CHINA,Shanghai Composite
+Bright Dairy & Food Co Ltd,600597.SS,CHINA,Shanghai Composite
+Bright Oceans Inter-Telecom Corp,600289.SS,CHINA,Shanghai Composite
+"BRIGHT REAL ESTATE GROUP CO.,LIMITED",600708.SS,CHINA,Shanghai Composite
+"Bros Eastern Co., Ltd.",601339.SS,CHINA,Shanghai Composite
+"BTG Hotels (Group) Co., Ltd.",600258.SS,CHINA,Shanghai Composite
+"But'one Information Corporation, Xi'an",600455.SS,CHINA,Shanghai Composite
+"CAITONG SECURITIES CO.,LTD.",601108.SS,CHINA,Shanghai Composite
+Camel Group Co Ltd,601311.SS,CHINA,Shanghai Composite
+"Cangzhou Dahua Co.,Ltd",600230.SS,CHINA,Shanghai Composite
+"Cashway Technology Co., Ltd.",603106.SS,CHINA,Shanghai Composite
+"CCS Supply Chain Management Co., Ltd.",600180.SS,CHINA,Shanghai Composite
+CECEP Wind-Power Corporation,601016.SS,CHINA,Shanghai Composite
+"CENTER INTERNATIONAL GROUP CO.,LTD.",603098.SS,CHINA,Shanghai Composite
+"CENTRAL CHINA SECURITIES CO., LTD.",601375.SS,CHINA,Shanghai Composite
+"Cetc Energy Joint-Stock Co.,Ltd.",600877.SS,CHINA,Shanghai Composite
+"Chahua Modern Housewares Co.,Ltd.",603615.SS,CHINA,Shanghai Composite
+Chang Chun Eurasia Group Co Ltd,600697.SS,CHINA,Shanghai Composite
+"Changbai Mountain Tourism Co.,Ltd",603099.SS,CHINA,Shanghai Composite
+"Changchun FAWAY Automobile Components Co., Ltd",600742.SS,CHINA,Shanghai Composite
+Changchun Gas Co Ltd,600333.SS,CHINA,Shanghai Composite
+Changchun Jingkai (Group) Co Ltd,600215.SS,CHINA,Shanghai Composite
+Changchun Sinoenergy Corporation,600856.SS,CHINA,Shanghai Composite
+Changchun Yidong Clutch Co Ltd,600148.SS,CHINA,Shanghai Composite
+"Changjiang & Jinggong Steel Building (Group) Co.,Ltd",600496.SS,CHINA,Shanghai Composite
+"Changjiang Publishing & Media Co.,Ltd",600757.SS,CHINA,Shanghai Composite
+"Changshu Automotive Trim Co., Ltd.",603035.SS,CHINA,Shanghai Composite
+Changshu Fengfan Power Equipment Co Ltd,601700.SS,CHINA,Shanghai Composite
+Changyuan Group Ltd.,600525.SS,CHINA,Shanghai Composite
+"Changzheng Engineering Co., LTD",603698.SS,CHINA,Shanghai Composite
+"Changzhou Langbo Seal Polytron Technologies Co., Ltd.",603655.SS,CHINA,Shanghai Composite
+Changzhou Shenli Electrical Machine Incorporated Company,603819.SS,CHINA,Shanghai Composite
+"Changzhou Tenglong Auto Parts Co.,Ltd.",603158.SS,CHINA,Shanghai Composite
+Changzhou Xingyu Automotive Lighting Systems Co Ltd,601799.SS,CHINA,Shanghai Composite
+Chengdu B-ray Media Co Ltd,600880.SS,CHINA,Shanghai Composite
+"Chengdu Gas Group Co.,Ltd.",603053.SS,CHINA,Shanghai Composite
+"CHENGDU HAONENG TECHNOLOGY CO., LTD.",603809.SS,CHINA,Shanghai Composite
+Chengdu Xuguang Electronics Co Ltd,600353.SS,CHINA,Shanghai Composite
+"Chengtun Mining Group Co., Ltd",600711.SS,CHINA,Shanghai Composite
+"Chifeng Jilong Gold Mining Co.,Ltd.",600988.SS,CHINA,Shanghai Composite
+"Chimin Health Management Co., Ltd.",603222.SS,CHINA,Shanghai Composite
+"China Aerospace Times Electronics Co.,Ltd.",600879.SS,CHINA,Shanghai Composite
+China Aluminum International Engineering Corporation Limited,601068.SS,CHINA,Shanghai Composite
+China Animal Husbandry Industry Co Ltd,600195.SS,CHINA,Shanghai Composite
+"China Automotive Engineering Research Institute Co., Ltd.",601965.SS,CHINA,Shanghai Composite
+"CHINA AVIONICS SYSTEMS CO.,LTD.",600372.SS,CHINA,Shanghai Composite
+"China Bester Group Telecom CO.,LTD.",603220.SS,CHINA,Shanghai Composite
+"China Building Material Test & Certification Group Co.,Ltd.",603060.SS,CHINA,Shanghai Composite
+China Citic Bank Corporation Limited,601998.SS,CHINA,Shanghai Composite
+China Coal Energy Co Ltd,601898.SS,CHINA,Shanghai Composite
+China Communications Construction Company Limited,601800.SS,CHINA,Shanghai Composite
+China Construction Bank,601939.SS,CHINA,Shanghai Composite
+China CSSC Holdings Limited,600150.SS,CHINA,Shanghai Composite
+China CYTS Tours Holding Co Ltd,600138.SS,CHINA,Shanghai Composite
+"China DesignGroupCo.,Ltd",603018.SS,CHINA,Shanghai Composite
+China Eastern Airlines Corp Ltd,600115.SS,CHINA,Shanghai Composite
+China Enterprise Co Ltd,600675.SS,CHINA,Shanghai Composite
+China Everbright Bank Co Ltd,601818.SS,CHINA,Shanghai Composite
+"CHINA FILM CO., LTD.",600977.SS,CHINA,Shanghai Composite
+China First Heavy Industries Co Ltd,601106.SS,CHINA,Shanghai Composite
+"China Fortune Land Development Co., Ltd.",600340.SS,CHINA,Shanghai Composite
+"China Galaxy Securities Co., Ltd.",601881.SS,CHINA,Shanghai Composite
+China Gezhouba Group Co Ltd,600068.SS,CHINA,Shanghai Composite
+ARC Resources Ltd.,ARX.TO,CANADA,S&P/TSX
+ATS Automation Tooling Systems Inc.,ATA.TO,CANADA,S&P/TSX
+Aecon Group Inc.,ARE.TO,CANADA,S&P/TSX
+Ag Growth International Inc.,AFN.TO,CANADA,S&P/TSX
+Agnico Eagle Mines Limited,AEM.TO,CANADA,S&P/TSX
+Air Canada Voting and Variable Voting Shares,AC.TO,CANADA,S&P/TSX
+Alacer Gold Corp.,ASR.TO,CANADA,S&P/TSX
+Alamos Gold Inc.,AGI.TO,CANADA,S&P/TSX
+Alaris Royalty Corp.,AD.TO,CANADA,S&P/TSX
+Algonquin Power & Utilities Corp.,AQN.TO,CANADA,S&P/TSX
+AltaGas Ltd.,ALA.TO,CANADA,S&P/TSX
+Altus Group Limited,AIF.TO,CANADA,S&P/TSX
+Aphria Inc.,APHA.TO,CANADA,S&P/TSX
+Aritzia Inc. Subordinate Voting Shares,ATZ.TO,CANADA,S&P/TSX
+Aurora Cannabis Inc.,ACB.TO,CANADA,S&P/TSX
+B2Gold Corp.,BTO.TO,CANADA,S&P/TSX
+BCE Inc.,BCE.TO,CANADA,S&P/TSX
+BRP Inc. Subordinate Voting Shares,DOO.TO,CANADA,S&P/TSX
+Badger Daylighting Ltd.,BAD.TO,CANADA,S&P/TSX
+Ballard Power Systems Inc.,BLDP.TO,CANADA,S&P/TSX
+Bank of Montreal,BMO.TO,CANADA,S&P/TSX
+Bank of Nova Scotia (The),BNS.TO,CANADA,S&P/TSX
+Barrick Gold Corporation,ABX.TO,CANADA,S&P/TSX
+Bausch Health Companies Inc.,BHC.TO,CANADA,S&P/TSX
+Baytex Energy Corp.,BTE.TO,CANADA,S&P/TSX
+BlackBerry Limited,BB.TO,CANADA,S&P/TSX
+Boralex Inc. Class A Shares,BLX.TO,CANADA,S&P/TSX
+Boyd Group Services Inc.,BYD.TO,CANADA,S&P/TSX
+CAE Inc.,CAE.TO,CANADA,S&P/TSX
+CI Financial Corp.,CIX.TO,CANADA,S&P/TSX
+Cameco Corporation,CCO.TO,CANADA,S&P/TSX
+Canada Goose Holdings Inc. Subordinate Voting Shares,GOOS.TO,CANADA,S&P/TSX
+Canadian Imperial Bank Of Commerce,CM.TO,CANADA,S&P/TSX
+Canadian National Railway Company,CNR.TO,CANADA,S&P/TSX
+Canadian Natural Resources Limited,CNQ.TO,CANADA,S&P/TSX
+Canadian Pacific Railway Limited,CP.TO,CANADA,S&P/TSX
+Canadian Utilities Limited Class A Non-Voting Shares,CU.TO,CANADA,S&P/TSX
+Canadian Western Bank,CWB.TO,CANADA,S&P/TSX
+Canfor Corporation,CFP.TO,CANADA,S&P/TSX
+Canopy Growth Corporation,WEED.TO,CANADA,S&P/TSX
+Capital Power Corporation,CPX.TO,CANADA,S&P/TSX
+Cargojet Inc. Common and Variable Voting Shares,CJT.TO,CANADA,S&P/TSX
+Cascades Inc.,CAS.TO,CANADA,S&P/TSX
+Celestica Inc. Subordinate Voting Shares,CLS.TO,CANADA,S&P/TSX
+Cenovus Energy Inc.,CVE.TO,CANADA,S&P/TSX
+Centerra Gold Inc.,CG.TO,CANADA,S&P/TSX
+Chorus Aviation Inc. Voting and Variable Voting Shares,CHR.TO,CANADA,S&P/TSX
+Cineplex Inc.,CGX.TO,CANADA,S&P/TSX
+Cogeco Communications Inc. Subordinate Voting Shares,CCA.TO,CANADA,S&P/TSX
+Colliers International Group Inc. Subordinate Voting Shares,CIGI.TO,CANADA,S&P/TSX
+Constellation Software Inc.,CSU.TO,CANADA,S&P/TSX
+Cott Corporation,BCB.TO,CANADA,S&P/TSX
+Crescent Point Energy Corp.,CPG.TO,CANADA,S&P/TSX
+Cronos Group Inc.,CRON.TO,CANADA,S&P/TSX
+Descartes Systems Group Inc. (The),DSG.TO,CANADA,S&P/TSX
+Detour Gold Corporation,DGC.TO,CANADA,S&P/TSX
+Dollarama Inc.,DOL.TO,CANADA,S&P/TSX
+ECN Capital Corp.,ECN.TO,CANADA,S&P/TSX
+Eldorado Gold Corporation,ELD.TO,CANADA,S&P/TSX
+Element Fleet Management Corp.,EFN.TO,CANADA,S&P/TSX
+Emera Incorporated,EMA.TO,CANADA,S&P/TSX
+Enbridge Inc.,ENB.TO,CANADA,S&P/TSX
+Encana Corporation,ECA.TO,CANADA,S&P/TSX
+Endeavour Mining Corporation Ordinary Shares,EDV.TO,CANADA,S&P/TSX
+Enerflex Ltd.,EFX.TO,CANADA,S&P/TSX
+Enerplus Corporation,ERF.TO,CANADA,S&P/TSX
+Enghouse Systems Limited,ENGH.TO,CANADA,S&P/TSX
+Equitable Group Inc.,EQB.TO,CANADA,S&P/TSX
+Ero Copper Corp.,ERO.TO,CANADA,S&P/TSX
+Exchange Income Corporation,EIF.TO,CANADA,S&P/TSX
+Extendicare Inc.,EXE.TO,CANADA,S&P/TSX
+Fairfax Financial Holdings Limited Subordinate Voting Shares,FFH.TO,CANADA,S&P/TSX
+Finning International Inc.,FTT.TO,CANADA,S&P/TSX
+First Majestic Silver Corp.,FR.TO,CANADA,S&P/TSX
+First Quantum Minerals Ltd.,FM.TO,CANADA,S&P/TSX
+FirstService Corporation,FSV.TO,CANADA,S&P/TSX
+Fortis Inc.,FTS.TO,CANADA,S&P/TSX
+Franco-Nevada Corporation,FNV.TO,CANADA,S&P/TSX
+Freehold Royalties Ltd.,FRU.TO,CANADA,S&P/TSX
+Frontera Energy Corporation,FEC.TO,CANADA,S&P/TSX
+Genworth MI Canada Inc.,MIC.TO,CANADA,S&P/TSX
+George Weston Limited,WN.TO,CANADA,S&P/TSX
+Gibson Energy Inc.,GEI.TO,CANADA,S&P/TSX
+Gildan Activewear Inc.,GIL.TO,CANADA,S&P/TSX
+Great Canadian Gaming Corporation,GC.TO,CANADA,S&P/TSX
+Great-West Lifeco Inc.,GWO.TO,CANADA,S&P/TSX
+HEXO Corp.,HEXO.TO,CANADA,S&P/TSX
+Home Capital Group Inc.,HCG.TO,CANADA,S&P/TSX
+Hudbay Minerals Inc.,HBM.TO,CANADA,S&P/TSX
+Hudson's Bay Company,HBC.TO,CANADA,S&P/TSX
+Husky Energy Inc.,HSE.TO,CANADA,S&P/TSX
+Hydro One Limited,H.TO,CANADA,S&P/TSX
+IAMGOLD Corporation,IMG.TO,CANADA,S&P/TSX
+IGM Financial Inc.,IGM.TO,CANADA,S&P/TSX
+Imperial Oil Limited,IMO.TO,CANADA,S&P/TSX
+Innergex Renewable Energy Inc.,INE.TO,CANADA,S&P/TSX
+Intact Financial Corporation,IFC.TO,CANADA,S&P/TSX
+Inter Pipeline Ltd.,IPL.TO,CANADA,S&P/TSX
+Interfor Corporation,IFP.TO,CANADA,S&P/TSX
+Intertape Polymer Group Inc.,ITP.TO,CANADA,S&P/TSX
+Ivanhoe Mines Ltd.,IVN.TO,CANADA,S&P/TSX
+Jamieson Wellness Inc.,JWEL.TO,CANADA,S&P/TSX
+Keyera Corp.,KEY.TO,CANADA,S&P/TSX
+Kinaxis Inc.,KXS.TO,CANADA,S&P/TSX
+Kinross Gold Corporation,K.TO,CANADA,S&P/TSX
+Kirkland Lake Gold Ltd.,KL.TO,CANADA,S&P/TSX
+Knight Therapeutics Inc.,GUD.TO,CANADA,S&P/TSX
+Labrador Iron Ore Royalty Corporation,LIF.TO,CANADA,S&P/TSX
+Laurentian Bank of Canada,LB.TO,CANADA,S&P/TSX
+Lightspeed POS Inc. Subordinate Voting Shares,LSPD.TO,CANADA,S&P/TSX
+Linamar Corporation,LNR.TO,CANADA,S&P/TSX
+Loblaw Companies Limited,L.TO,CANADA,S&P/TSX
+Lundin Mining Corporation,LUN.TO,CANADA,S&P/TSX
+MAG Silver Corp.,MAG.TO,CANADA,S&P/TSX
+MEG Energy Corp.,MEG.TO,CANADA,S&P/TSX
+MTY Food Group Inc.,MTY.TO,CANADA,S&P/TSX
+Magna International Inc.,MG.TO,CANADA,S&P/TSX
+Manulife Financial Corporation,MFC.TO,CANADA,S&P/TSX
+Maple Leaf Foods Inc.,MFI.TO,CANADA,S&P/TSX
+Martinrea International Inc.,MRE.TO,CANADA,S&P/TSX
+Methanex Corporation,MX.TO,CANADA,S&P/TSX
+Metro Inc.,MRU.TO,CANADA,S&P/TSX
+Morneau Shepell Inc.,MSI.TO,CANADA,S&P/TSX
+Mullen Group Ltd.,MTL.TO,CANADA,S&P/TSX
+NFI Group Inc.,NFI.TO,CANADA,S&P/TSX
+National Bank of Canada,NA.TO,CANADA,S&P/TSX
+Norbord Inc.,OSB.TO,CANADA,S&P/TSX
+Northland Power Inc.,NPI.TO,CANADA,S&P/TSX
+NovaGold Resources Inc.,NG.TO,CANADA,S&P/TSX
+Nutrien Ltd.,NTR.TO,CANADA,S&P/TSX
+ONEX Corporation Subordinate Voting Shares,ONEX.TO,CANADA,S&P/TSX
+OceanaGold Corporation,OGC.TO,CANADA,S&P/TSX
+Open Text Corporation,OTEX.TO,CANADA,S&P/TSX
+Osisko Gold Royalties Ltd,OR.TO,CANADA,S&P/TSX
+Pan American Silver Corp.,PAAS.TO,CANADA,S&P/TSX
+Parex Resources Inc.,PXT.TO,CANADA,S&P/TSX
+Parkland Fuel Corporation,PKI.TO,CANADA,S&P/TSX
+Pason Systems Inc.,PSI.TO,CANADA,S&P/TSX
+Pembina Pipeline Corporation,PPL.TO,CANADA,S&P/TSX
+Power Corporation of Canada Subordinate Voting Shares,POW.TO,CANADA,S&P/TSX
+Power Financial Corporation,PWF.TO,CANADA,S&P/TSX
+PrairieSky Royalty Ltd.,PSK.TO,CANADA,S&P/TSX
+Premium Brands Holdings Corporation,PBH.TO,CANADA,S&P/TSX
+Pretium Resources Inc.,PVG.TO,CANADA,S&P/TSX
+Real Matters Inc.,REAL.TO,CANADA,S&P/TSX
+Restaurant Brands International Inc.,QSR.TO,CANADA,S&P/TSX
+Richelieu Hardware Ltd.,RCH.TO,CANADA,S&P/TSX
+Ritchie Bros. Auctioneers Incorporated,RBA.TO,CANADA,S&P/TSX
+Royal Bank of Canada,RY.TO,CANADA,S&P/TSX
+Russel Metals Inc.,RUS.TO,CANADA,S&P/TSX
+SNC-Lavalin Group Inc.,SNC.TO,CANADA,S&P/TSX
+SSR Mining Inc.,SSRM.TO,CANADA,S&P/TSX
+Sandstorm Gold Ltd.,SSL.TO,CANADA,S&P/TSX
+Saputo Inc.,SAP.TO,CANADA,S&P/TSX
+Seabridge Gold Inc.,SEA.TO,CANADA,S&P/TSX
+Secure Energy Services Inc.,SES.TO,CANADA,S&P/TSX
+Semafo Inc.,SMF.TO,CANADA,S&P/TSX
+Seven Generations Energy Ltd. class A common shares,VII.TO,CANADA,S&P/TSX
+ShawCor Ltd.,SCL.TO,CANADA,S&P/TSX
+Shopify Inc. Class A Subordinate Voting Shares,SHOP.TO,CANADA,S&P/TSX
+Sienna Senior Living Inc.,SIA.TO,CANADA,S&P/TSX
+Silvercorp Metals Inc.,SVM.TO,CANADA,S&P/TSX
+Sleep Country Canada Holdings Inc.,ZZZ.TO,CANADA,S&P/TSX
+Spin Master Corp. Subordinate Voting Shares,TOY.TO,CANADA,S&P/TSX
+Stantec Inc.,STN.TO,CANADA,S&P/TSX
+Stella-Jones Inc.,SJ.TO,CANADA,S&P/TSX
+Sun Life Financial Inc.,SLF.TO,CANADA,S&P/TSX
+Suncor Energy Inc.,SU.TO,CANADA,S&P/TSX
+Superior Plus Corp.,SPB.TO,CANADA,S&P/TSX
+TC Energy Corporation,TRP.TO,CANADA,S&P/TSX
+TELUS Corporation,T.TO,CANADA,S&P/TSX
+TFI International Inc.,TFII.TO,CANADA,S&P/TSX
+TMX Group Limited,X.TO,CANADA,S&P/TSX
+The North West Company Inc.,NWC.TO,CANADA,S&P/TSX
+The Stars Group Inc.,TSGI.TO,CANADA,S&P/TSX
+Thomson Reuters Corporation,TRI.TO,CANADA,S&P/TSX
+Torex Gold Resources Inc.,TXG.TO,CANADA,S&P/TSX
+Toromont Industries Ltd.,TIH.TO,CANADA,S&P/TSX
+Toronto-Dominion Bank (The),TD.TO,CANADA,S&P/TSX
+Tourmaline Oil Corp.,TOU.TO,CANADA,S&P/TSX
+TransAlta Corporation,TA.TO,CANADA,S&P/TSX
+TransAlta Renewables Inc.,RNW.TO,CANADA,S&P/TSX
+Tricon Capital Group Inc.,TCN.TO,CANADA,S&P/TSX
+Vermilion Energy Inc.,VET.TO,CANADA,S&P/TSX
+WSP Global Inc.,WSP.TO,CANADA,S&P/TSX
+Waste Connections Inc.,WCN.TO,CANADA,S&P/TSX
+Wesdome Gold Mines Ltd.,WDO.TO,CANADA,S&P/TSX
+West Fraser Timber Co. Ltd.,WFT.TO,CANADA,S&P/TSX
+Westshore Terminals Investment Corporation,WTE.TO,CANADA,S&P/TSX
+Wheaton Precious Metals Corp.,WPM.TO,CANADA,S&P/TSX
+Whitecap Resources Inc.,WCP.TO,CANADA,S&P/TSX
+Winpak Ltd.,WPK.TO,CANADA,S&P/TSX
+Yamana Gold Inc.,YRI.TO,CANADA,S&P/TSX
+iA Financial Corporation Inc.,IAG.TO,CANADA,S&P/TSX
+Agilent Technologies, A,UNITED STATES OF AMERICA,S&P 500
+American Airlines Gp, AAL,UNITED STATES OF AMERICA,S&P 500
+Advance Auto Parts Inc, AAP,UNITED STATES OF AMERICA,S&P 500
+Apple Inc, AAPL,UNITED STATES OF AMERICA,S&P 500
+Abbvie Inc, ABBV,UNITED STATES OF AMERICA,S&P 500
+Amerisourcebergen Corp, ABC,UNITED STATES OF AMERICA,S&P 500
+Abiomed Inc, ABMD,UNITED STATES OF AMERICA,S&P 500
+Abbott Laboratories, ABT,UNITED STATES OF AMERICA,S&P 500
+Accenture Plc, ACN,UNITED STATES OF AMERICA,S&P 500
+Adobe Systems Inc, ADBE,UNITED STATES OF AMERICA,S&P 500
+Analog Devices, ADI,UNITED STATES OF AMERICA,S&P 500
+Archer Daniels Midland, ADM,UNITED STATES OF AMERICA,S&P 500
+Automatic Data Procs, ADP,UNITED STATES OF AMERICA,S&P 500
+Alliance Data Systems Corp, ADS,UNITED STATES OF AMERICA,S&P 500
+Autodesk Inc, ADSK,UNITED STATES OF AMERICA,S&P 500
+Ameren Corp, AEE,UNITED STATES OF AMERICA,S&P 500
+American Electric Power Company, AEP,UNITED STATES OF AMERICA,S&P 500
+The Aes Corp, AES,UNITED STATES OF AMERICA,S&P 500
+Aflac Incorporated, AFL,UNITED STATES OF AMERICA,S&P 500
+Allergan Plc, AGN,UNITED STATES OF AMERICA,S&P 500
+American International Group, AIG,UNITED STATES OF AMERICA,S&P 500
+Apartment Investment and Management, AIV,UNITED STATES OF AMERICA,S&P 500
+Assurant Inc, AIZ,UNITED STATES OF AMERICA,S&P 500
+Arthur J. Gallagher & Company, AJG,UNITED STATES OF AMERICA,S&P 500
+Akamai Technologies, AKAM,UNITED STATES OF AMERICA,S&P 500
+Albemarle Corp, ALB,UNITED STATES OF AMERICA,S&P 500
+Align Technology, ALGN,UNITED STATES OF AMERICA,S&P 500
+Alaska Air Group, ALK,UNITED STATES OF AMERICA,S&P 500
+Allstate Corp, ALL,UNITED STATES OF AMERICA,S&P 500
+Allegion Plc, ALLE,UNITED STATES OF AMERICA,S&P 500
+Alexion Pharm Inc, ALXN,UNITED STATES OF AMERICA,S&P 500
+Applied Materials, AMAT,UNITED STATES OF AMERICA,S&P 500
+Amcor Plc, AMCR,UNITED STATES OF AMERICA,S&P 500
+Adv Micro Devices, AMD,UNITED STATES OF AMERICA,S&P 500
+Amtek Inc, AME,UNITED STATES OF AMERICA,S&P 500
+Amgen Inc, AMGN,UNITED STATES OF AMERICA,S&P 500
+Ameriprise Financial Services, AMP,UNITED STATES OF AMERICA,S&P 500
+American Tower Corp, AMT,UNITED STATES OF AMERICA,S&P 500
+Amazon.com Inc, AMZN,UNITED STATES OF AMERICA,S&P 500
+Arista Networks Inc, ANET,UNITED STATES OF AMERICA,S&P 500
+Ansys Inc, ANSS,UNITED STATES OF AMERICA,S&P 500
+Anthem Inc, ANTM,UNITED STATES OF AMERICA,S&P 500
+AON Plc, AON,UNITED STATES OF AMERICA,S&P 500
+Smith [A.O.] Corp, AOS,UNITED STATES OF AMERICA,S&P 500
+Apache Corp, APA,UNITED STATES OF AMERICA,S&P 500
+Air Products and Chemicals, APD,UNITED STATES OF AMERICA,S&P 500
+Amphenol Corp, APH,UNITED STATES OF AMERICA,S&P 500
+Aptiv Plc, APTV,UNITED STATES OF AMERICA,S&P 500
+Alexandria Real Estate Equities, ARE,UNITED STATES OF AMERICA,S&P 500
+Arconic Inc, ARNC,UNITED STATES OF AMERICA,S&P 500
+Atmos Energy Corp, ATO,UNITED STATES OF AMERICA,S&P 500
+Activision Blizzard, ATVI,UNITED STATES OF AMERICA,S&P 500
+Avalonbay Communities, AVB,UNITED STATES OF AMERICA,S&P 500
+Broadcom Ltd, AVGO,UNITED STATES OF AMERICA,S&P 500
+Avery Dennison Corp, AVY,UNITED STATES OF AMERICA,S&P 500
+American Water Works, AWK,UNITED STATES OF AMERICA,S&P 500
+American Express Company, AXP,UNITED STATES OF AMERICA,S&P 500
+Autozone, AZO,UNITED STATES OF AMERICA,S&P 500
+Boeing Company, BA,UNITED STATES OF AMERICA,S&P 500
+Bank of America Corp, BAC,UNITED STATES OF AMERICA,S&P 500
+Baxter International Inc, BAX,UNITED STATES OF AMERICA,S&P 500
+Best Buy Company, BBY,UNITED STATES OF AMERICA,S&P 500
+Becton Dickinson and Company, BDX,UNITED STATES OF AMERICA,S&P 500
+Franklin Resources, BEN,UNITED STATES OF AMERICA,S&P 500
+Brown Forman Inc Cl B, BF.B,UNITED STATES OF AMERICA,S&P 500
+Biogen Inc, BIIB,UNITED STATES OF AMERICA,S&P 500
+Bank of New York Mellon Corp, BK,UNITED STATES OF AMERICA,S&P 500
+Booking Holdings Inc, BKNG,UNITED STATES OF AMERICA,S&P 500
+Baker Hughes A Ge Co. Cl A, BKR,UNITED STATES OF AMERICA,S&P 500
+Blackrock, BLK,UNITED STATES OF AMERICA,S&P 500
+Ball Corp, BLL,UNITED STATES OF AMERICA,S&P 500
+Bristol-Myers Squibb Company, BMY,UNITED STATES OF AMERICA,S&P 500
+Broadridge Financial Solutions Llc, BR,UNITED STATES OF AMERICA,S&P 500
+Berkshire Hathaway Cl B, BRK.B,UNITED STATES OF AMERICA,S&P 500
+Boston Scientific Corp, BSX,UNITED STATES OF AMERICA,S&P 500
+Borgwarner Inc, BWA,UNITED STATES OF AMERICA,S&P 500
+Boston Properties, BXP,UNITED STATES OF AMERICA,S&P 500
+Citigroup Inc, C,UNITED STATES OF AMERICA,S&P 500
+Conagra Brands Inc, CAG,UNITED STATES OF AMERICA,S&P 500
+Cardinal Health, CAH,UNITED STATES OF AMERICA,S&P 500
+Caterpillar Inc, CAT,UNITED STATES OF AMERICA,S&P 500
+Chubb Ltd, CB,UNITED STATES OF AMERICA,S&P 500
+CBOE Global Markets Inc, CBOE,UNITED STATES OF AMERICA,S&P 500
+CBRE Group Inc, CBRE,UNITED STATES OF AMERICA,S&P 500
+Crown Castle International Corp, CCI,UNITED STATES OF AMERICA,S&P 500
+Carnival Corp, CCL,UNITED STATES OF AMERICA,S&P 500
+Cadence Design Sys, CDNS,UNITED STATES OF AMERICA,S&P 500
+CDW Corp, CDW,UNITED STATES OF AMERICA,S&P 500
+Celanese Corp, CE,UNITED STATES OF AMERICA,S&P 500
+Cerner Corp, CERN,UNITED STATES OF AMERICA,S&P 500
+Cf Industries Holdings, CF,UNITED STATES OF AMERICA,S&P 500
+Citizens Financial Group Inc/Ri, CFG,UNITED STATES OF AMERICA,S&P 500
+Church & Dwight Company, CHD,UNITED STATES OF AMERICA,S&P 500
+C.H. Robinson Ww, CHRW,UNITED STATES OF AMERICA,S&P 500
+Charter Communicatio, CHTR,UNITED STATES OF AMERICA,S&P 500
+Cigna Corp, CI,UNITED STATES OF AMERICA,S&P 500
+Cincinnati Financial, CINF,UNITED STATES OF AMERICA,S&P 500
+Colgate-Palmolive Company, CL,UNITED STATES OF AMERICA,S&P 500
+Clorox Company, CLX,UNITED STATES OF AMERICA,S&P 500
+Comerica Inc, CMA,UNITED STATES OF AMERICA,S&P 500
+Comcast Corp A, CMCSA,UNITED STATES OF AMERICA,S&P 500
+CME Group Inc, CME,UNITED STATES OF AMERICA,S&P 500
+Chipotle Mexican Grill, CMG,UNITED STATES OF AMERICA,S&P 500
+Cummins Inc, CMI,UNITED STATES OF AMERICA,S&P 500
+Cms Energy Corp, CMS,UNITED STATES OF AMERICA,S&P 500
+Centene Corp, CNC,UNITED STATES OF AMERICA,S&P 500
+Centerpoint Energy Inc, CNP,UNITED STATES OF AMERICA,S&P 500
+Capital One Financial Corp, COF,UNITED STATES OF AMERICA,S&P 500
+Cabot Oil & Gas Corp, COG,UNITED STATES OF AMERICA,S&P 500
+Cooper Companies, COO,UNITED STATES OF AMERICA,S&P 500
+Conocophillips, COP,UNITED STATES OF AMERICA,S&P 500
+Costco Wholesale, COST,UNITED STATES OF AMERICA,S&P 500
+Coty Inc, COTY,UNITED STATES OF AMERICA,S&P 500
+Campbell Soup Company, CPB,UNITED STATES OF AMERICA,S&P 500
+Capri Holdings Ltd, CPRI,UNITED STATES OF AMERICA,S&P 500
+Copart Inc, CPRT,UNITED STATES OF AMERICA,S&P 500
+Salesforce.com Inc, CRM,UNITED STATES OF AMERICA,S&P 500
+Cisco Systems Inc, CSCO,UNITED STATES OF AMERICA,S&P 500
+CSX Corp, CSX,UNITED STATES OF AMERICA,S&P 500
+Cintas Corp, CTAS,UNITED STATES OF AMERICA,S&P 500
+Centurylink, CTL,UNITED STATES OF AMERICA,S&P 500
+Cognizant Tech Sol, CTSH,UNITED STATES OF AMERICA,S&P 500
+Corteva Inc, CTVA,UNITED STATES OF AMERICA,S&P 500
+Citrix Systems Inc, CTXS,UNITED STATES OF AMERICA,S&P 500
+CVS Corp, CVS,UNITED STATES OF AMERICA,S&P 500
+Chevron Corp, CVX,UNITED STATES OF AMERICA,S&P 500
+Concho Resources Inc, CXO,UNITED STATES OF AMERICA,S&P 500
+Dominion Resources, D,UNITED STATES OF AMERICA,S&P 500
+Delta Air Lines Inc, DAL,UNITED STATES OF AMERICA,S&P 500
+Du Pont De.Nemours Inc, DD,UNITED STATES OF AMERICA,S&P 500
+Deere & Company, DE,UNITED STATES OF AMERICA,S&P 500
+Discover Financial Services, DFS,UNITED STATES OF AMERICA,S&P 500
+Dollar General Corp, DG,UNITED STATES OF AMERICA,S&P 500
+Quest Diagnostics Inc, DGX,UNITED STATES OF AMERICA,S&P 500
+D.R. Horton, DHI,UNITED STATES OF AMERICA,S&P 500
+Danaher Corp, DHR,UNITED STATES OF AMERICA,S&P 500
+Walt Disney Company, DIS,UNITED STATES OF AMERICA,S&P 500
+Discovery Comm A, DISCA,UNITED STATES OF AMERICA,S&P 500
+Discovery Comm Inc, DISCK,UNITED STATES OF AMERICA,S&P 500
+Dish Network Corp, DISH,UNITED STATES OF AMERICA,S&P 500
+Digital Realty Trust, DLR,UNITED STATES OF AMERICA,S&P 500
+Dollar Tree Inc, DLTR,UNITED STATES OF AMERICA,S&P 500
+Dover Corp, DOV,UNITED STATES OF AMERICA,S&P 500
+Dow Inc, DOW,UNITED STATES OF AMERICA,S&P 500
+Duke Realty Corp, DRE,UNITED STATES OF AMERICA,S&P 500
+Darden Restaurants, DRI,UNITED STATES OF AMERICA,S&P 500
+Dte Energy Company, DTE,UNITED STATES OF AMERICA,S&P 500
+Duke Energy Corp, DUK,UNITED STATES OF AMERICA,S&P 500
+Davita Healthcare Partners Inc, DVA,UNITED STATES OF AMERICA,S&P 500
+Devon Energy Corp, DVN,UNITED STATES OF AMERICA,S&P 500
+Dxc Technology Company, DXC,UNITED STATES OF AMERICA,S&P 500
+Electronic Arts Inc, EA,UNITED STATES OF AMERICA,S&P 500
+Ebay Inc, EBAY,UNITED STATES OF AMERICA,S&P 500
+Ecolab Inc, ECL,UNITED STATES OF AMERICA,S&P 500
+Consolidated Edison Company of New York, ED,UNITED STATES OF AMERICA,S&P 500
+Equifax Inc, EFX,UNITED STATES OF AMERICA,S&P 500
+Edison International, EIX,UNITED STATES OF AMERICA,S&P 500
+Estee Lauder Companies, EL,UNITED STATES OF AMERICA,S&P 500
+Eastman Chemical Company, EMN,UNITED STATES OF AMERICA,S&P 500
+Emerson Electric Company, EMR,UNITED STATES OF AMERICA,S&P 500
+Eog Resources, EOG,UNITED STATES OF AMERICA,S&P 500
+Equinix Inc, EQIX,UNITED STATES OF AMERICA,S&P 500
+Equity Residential, EQR,UNITED STATES OF AMERICA,S&P 500
+Eversource Energy, ES,UNITED STATES OF AMERICA,S&P 500
+Essex Property Trust, ESS,UNITED STATES OF AMERICA,S&P 500
+E*Trade Finl Corp, ETFC,UNITED STATES OF AMERICA,S&P 500
+Eaton Corp, ETN,UNITED STATES OF AMERICA,S&P 500
+Entergy Corp, ETR,UNITED STATES OF AMERICA,S&P 500
+Evergy Inc, EVRG,UNITED STATES OF AMERICA,S&P 500
+Edwards Lifesciences Corp, EW,UNITED STATES OF AMERICA,S&P 500
+Exelon Corp, EXC,UNITED STATES OF AMERICA,S&P 500
+Expeditors Intl, EXPD,UNITED STATES OF AMERICA,S&P 500
+Expedia Group Inc, EXPE,UNITED STATES OF AMERICA,S&P 500
+Extra Space Storage Inc, EXR,UNITED STATES OF AMERICA,S&P 500
+Ford Motor Company, F,UNITED STATES OF AMERICA,S&P 500
+Diamondback Energy, FANG,UNITED STATES OF AMERICA,S&P 500
+Fastenal Company, FAST,UNITED STATES OF AMERICA,S&P 500
+Facebook Inc, FB,UNITED STATES OF AMERICA,S&P 500
+Fortune Brands Home & Security, FBHS,UNITED STATES OF AMERICA,S&P 500
+Freeport-Mcmoran Inc, FCX,UNITED STATES OF AMERICA,S&P 500
+Fedex Corp, FDX,UNITED STATES OF AMERICA,S&P 500
+Firstenergy Corp, FE,UNITED STATES OF AMERICA,S&P 500
+F5 Networks Inc, FFIV,UNITED STATES OF AMERICA,S&P 500
+Fidelity National Information Services, FIS,UNITED STATES OF AMERICA,S&P 500
+Fiserv Inc, FISV,UNITED STATES OF AMERICA,S&P 500
+Fifth Third Bncp, FITB,UNITED STATES OF AMERICA,S&P 500
+Flir Systems Inc, FLIR,UNITED STATES OF AMERICA,S&P 500
+Flowserve Corp, FLS,UNITED STATES OF AMERICA,S&P 500
+Fleetcor Technologies, FLT,UNITED STATES OF AMERICA,S&P 500
+FMC Corp, FMC,UNITED STATES OF AMERICA,S&P 500
+Fox Corp Cl B, FOX,UNITED STATES OF AMERICA,S&P 500
+Fox Corp Cl A, FOXA,UNITED STATES OF AMERICA,S&P 500
+First Republic Bank, FRC,UNITED STATES OF AMERICA,S&P 500
+Federal Realty Investment Trust, FRT,UNITED STATES OF AMERICA,S&P 500
+Technipfmc Plc, FTI,UNITED STATES OF AMERICA,S&P 500
+Fortinet Inc, FTNT,UNITED STATES OF AMERICA,S&P 500
+Fortive Corp, FTV,UNITED STATES OF AMERICA,S&P 500
+General Dynamics Corp, GD,UNITED STATES OF AMERICA,S&P 500
+General Electric Company, GE,UNITED STATES OF AMERICA,S&P 500
+Gilead Sciences Inc, GILD,UNITED STATES OF AMERICA,S&P 500
+General Mills, GIS,UNITED STATES OF AMERICA,S&P 500
+Globe Life Inc, GL,UNITED STATES OF AMERICA,S&P 500
+Corning Inc, GLW,UNITED STATES OF AMERICA,S&P 500
+General Motors Company, GM,UNITED STATES OF AMERICA,S&P 500
+Alphabet Cl C, GOOG,UNITED STATES OF AMERICA,S&P 500
+Alphabet Cl A, GOOGL,UNITED STATES OF AMERICA,S&P 500
+Genuine Parts Company, GPC,UNITED STATES OF AMERICA,S&P 500
+Global Payments Inc, GPN,UNITED STATES OF AMERICA,S&P 500
+Gap Inc, GPS,UNITED STATES OF AMERICA,S&P 500
+Garmin Ltd, GRMN,UNITED STATES OF AMERICA,S&P 500
+Goldman Sachs Group, GS,UNITED STATES OF AMERICA,S&P 500
+W.W. Grainger, GWW,UNITED STATES OF AMERICA,S&P 500
+Halliburton Company, HAL,UNITED STATES OF AMERICA,S&P 500
+Hasbro Inc, HAS,UNITED STATES OF AMERICA,S&P 500
+Huntington Bcshs, HBAN,UNITED STATES OF AMERICA,S&P 500
+Hanesbrands Inc, HBI,UNITED STATES OF AMERICA,S&P 500
+Hca Holdings Inc, HCA,UNITED STATES OF AMERICA,S&P 500
+Home Depot, HD,UNITED STATES OF AMERICA,S&P 500
+Hess Corp, HES,UNITED STATES OF AMERICA,S&P 500
+Hollyfrontier Corp, HFC,UNITED STATES OF AMERICA,S&P 500
+Hartford Financial Services Group, HIG,UNITED STATES OF AMERICA,S&P 500
+Huntington Ingalls Industries, HII,UNITED STATES OF AMERICA,S&P 500
+Hilton Inc, HLT,UNITED STATES OF AMERICA,S&P 500
+Harley-Davidson Inc, HOG,UNITED STATES OF AMERICA,S&P 500
+Hologic Inc, HOLX,UNITED STATES OF AMERICA,S&P 500
+Honeywell International Inc, HON,UNITED STATES OF AMERICA,S&P 500
+Helmerich & Payne, HP,UNITED STATES OF AMERICA,S&P 500
+Hewlett Packard Enterprise Comp, HPE,UNITED STATES OF AMERICA,S&P 500
+Hp Inc, HPQ,UNITED STATES OF AMERICA,S&P 500
+H&R Block, HRB,UNITED STATES OF AMERICA,S&P 500
+Hormel Foods Corp, HRL,UNITED STATES OF AMERICA,S&P 500
+Henry Schein Inc, HSIC,UNITED STATES OF AMERICA,S&P 500
+Host Marriott Financial Trust, HST,UNITED STATES OF AMERICA,S&P 500
+Hershey Foods Corp, HSY,UNITED STATES OF AMERICA,S&P 500
+Humana Inc, HUM,UNITED STATES OF AMERICA,S&P 500
+International Business Machines, IBM,UNITED STATES OF AMERICA,S&P 500
+Intercontinental Exchange, ICE,UNITED STATES OF AMERICA,S&P 500
+Idexx Laboratories, IDXX,UNITED STATES OF AMERICA,S&P 500
+Idex Corp, IEX,UNITED STATES OF AMERICA,S&P 500
+International Flavors & Fragrances, IFF,UNITED STATES OF AMERICA,S&P 500
+Illumina Inc, ILMN,UNITED STATES OF AMERICA,S&P 500
+Incyte Corp, INCY,UNITED STATES OF AMERICA,S&P 500
+IHS Markit Ltd, INFO,UNITED STATES OF AMERICA,S&P 500
+Intel Corp, INTC,UNITED STATES OF AMERICA,S&P 500
+Intuit Inc, INTU,UNITED STATES OF AMERICA,S&P 500
+International Paper Company, IP,UNITED STATES OF AMERICA,S&P 500
+Interpublic Group of Companies, IPG,UNITED STATES OF AMERICA,S&P 500
+Ipg Photonics Corp, IPGP,UNITED STATES OF AMERICA,S&P 500
+Iqvia Holdings Inc, IQV,UNITED STATES OF AMERICA,S&P 500
+Ingersoll-Rand Plc [Ireland], IR,UNITED STATES OF AMERICA,S&P 500
+Iron Mountain Inc, IRM,UNITED STATES OF AMERICA,S&P 500
+Intuitive Surg Inc, ISRG,UNITED STATES OF AMERICA,S&P 500
+Gartner Inc, IT,UNITED STATES OF AMERICA,S&P 500
+Illinois Tool Works Inc, ITW,UNITED STATES OF AMERICA,S&P 500
+Invesco Plc, IVZ,UNITED STATES OF AMERICA,S&P 500
+Jacobs Engineering Group Inc, J,UNITED STATES OF AMERICA,S&P 500
+J B Hunt Transport, JBHT,UNITED STATES OF AMERICA,S&P 500
+Johnson Controls Intl, JCI,UNITED STATES OF AMERICA,S&P 500
+Jack Henry & Assoc, JKHY,UNITED STATES OF AMERICA,S&P 500
+Johnson & Johnson, JNJ,UNITED STATES OF AMERICA,S&P 500
+Juniper Networks, JNPR,UNITED STATES OF AMERICA,S&P 500
+JP Morgan Chase & Company, JPM,UNITED STATES OF AMERICA,S&P 500
+Nordstrom, JWN,UNITED STATES OF AMERICA,S&P 500
+Kellogg Company, K,UNITED STATES OF AMERICA,S&P 500
+Keycorp, KEY,UNITED STATES OF AMERICA,S&P 500
+Keysight Technologies Inc Comm, KEYS,UNITED STATES OF AMERICA,S&P 500
+Kraft Heinz Company, KHC,UNITED STATES OF AMERICA,S&P 500
+Kimco Realty Corp, KIM,UNITED STATES OF AMERICA,S&P 500
+K L A-Tencor Corp, KLAC,UNITED STATES OF AMERICA,S&P 500
+Kimberly-Clark Corp, KMB,UNITED STATES OF AMERICA,S&P 500
+Kinder Morgan, KMI,UNITED STATES OF AMERICA,S&P 500
+Carmax Inc, KMX,UNITED STATES OF AMERICA,S&P 500
+Coca-Cola Company, KO,UNITED STATES OF AMERICA,S&P 500
+Kroger Company, KR,UNITED STATES OF AMERICA,S&P 500
+Kohl's Corp, KSS,UNITED STATES OF AMERICA,S&P 500
+Kansas City Southern, KSU,UNITED STATES OF AMERICA,S&P 500
+Loews Corp, L,UNITED STATES OF AMERICA,S&P 500
+L Brands Inc, LB,UNITED STATES OF AMERICA,S&P 500
+Leidos Holdings Inc, LDOS,UNITED STATES OF AMERICA,S&P 500
+Leggett & Platt Inc, LEG,UNITED STATES OF AMERICA,S&P 500
+Lennar Corp, LEN,UNITED STATES OF AMERICA,S&P 500
+Laboratory Corp of America Holdings, LH,UNITED STATES OF AMERICA,S&P 500
+L3Harris Technologies Inc, LHX,UNITED STATES OF AMERICA,S&P 500
+Linde Plc, LIN,UNITED STATES OF AMERICA,S&P 500
+LKQ Corp, LKQ,UNITED STATES OF AMERICA,S&P 500
+Eli Lilly and Company, LLY,UNITED STATES OF AMERICA,S&P 500
+Lockheed Martin Corp, LMT,UNITED STATES OF AMERICA,S&P 500
+Lincoln National Corp, LNC,UNITED STATES OF AMERICA,S&P 500
+Alliant Energy Corp, LNT,UNITED STATES OF AMERICA,S&P 500
+Lowe's Companies, LOW,UNITED STATES OF AMERICA,S&P 500
+Lam Research Corp, LRCX,UNITED STATES OF AMERICA,S&P 500
+Southwest Airlines Company, LUV,UNITED STATES OF AMERICA,S&P 500
+Las Vegas Sands, LVS,UNITED STATES OF AMERICA,S&P 500
+Lamb Weston Holdings Inc, LW,UNITED STATES OF AMERICA,S&P 500
+Lyondellbasell Industries NV, LYB,UNITED STATES OF AMERICA,S&P 500
+Live Nation Entertainment, LYV,UNITED STATES OF AMERICA,S&P 500
+Macy's Inc, M,UNITED STATES OF AMERICA,S&P 500
+Mastercard Inc, MA,UNITED STATES OF AMERICA,S&P 500
+Mid-America Apartment Communities, MAA,UNITED STATES OF AMERICA,S&P 500
+Marriot Int Cl A, MAR,UNITED STATES OF AMERICA,S&P 500
+Masco Corp, MAS,UNITED STATES OF AMERICA,S&P 500
+McDonald's Corp, MCD,UNITED STATES OF AMERICA,S&P 500
+Microchip Technology, MCHP,UNITED STATES OF AMERICA,S&P 500
+Mckesson Corp, MCK,UNITED STATES OF AMERICA,S&P 500
+Moody's Corp, MCO,UNITED STATES OF AMERICA,S&P 500
+Mondelez Intl Inc, MDLZ,UNITED STATES OF AMERICA,S&P 500
+Medtronic Inc, MDT,UNITED STATES OF AMERICA,S&P 500
+Metlife Inc, MET,UNITED STATES OF AMERICA,S&P 500
+MGM Resorts International, MGM,UNITED STATES OF AMERICA,S&P 500
+Mohawk Industries, MHK,UNITED STATES OF AMERICA,S&P 500
+Mccormick & Company Inc, MKC,UNITED STATES OF AMERICA,S&P 500
+Marketaxess Holdings, MKTX,UNITED STATES OF AMERICA,S&P 500
+Martin Marietta Materials, MLM,UNITED STATES OF AMERICA,S&P 500
+Marsh & Mclennan Companies, MMC,UNITED STATES OF AMERICA,S&P 500
+3M Company, MMM,UNITED STATES OF AMERICA,S&P 500
+Monster Beverage Cp, MNST,UNITED STATES OF AMERICA,S&P 500
+Altria Group, MO,UNITED STATES OF AMERICA,S&P 500
+Mosaic Company, MOS,UNITED STATES OF AMERICA,S&P 500
+Marathon Petroleum Corp, MPC,UNITED STATES OF AMERICA,S&P 500
+Merck & Company, MRK,UNITED STATES OF AMERICA,S&P 500
+Marathon Oil Corp, MRO,UNITED STATES OF AMERICA,S&P 500
+Morgan Stanley, MS,UNITED STATES OF AMERICA,S&P 500
+MSCI Inc, MSCI,UNITED STATES OF AMERICA,S&P 500
+Microsoft Corp, MSFT,UNITED STATES OF AMERICA,S&P 500
+Motorola Solutions, MSI,UNITED STATES OF AMERICA,S&P 500
+M&T Bank Corp, MTB,UNITED STATES OF AMERICA,S&P 500
+Mettler-Toledo International, MTD,UNITED STATES OF AMERICA,S&P 500
+Micron Technology, MU,UNITED STATES OF AMERICA,S&P 500
+Maxim Integrated, MXIM,UNITED STATES OF AMERICA,S&P 500
+Mylan NV Ord Shs, MYL,UNITED STATES OF AMERICA,S&P 500
+Noble Energy Inc, NBL,UNITED STATES OF AMERICA,S&P 500
+Norwegian Cruise Ord, NCLH,UNITED STATES OF AMERICA,S&P 500
+Nasdaq Inc, NDAQ,UNITED STATES OF AMERICA,S&P 500
+Nextera Energy, NEE,UNITED STATES OF AMERICA,S&P 500
+Newmont Mining Corp, NEM,UNITED STATES OF AMERICA,S&P 500
+Netflix Inc, NFLX,UNITED STATES OF AMERICA,S&P 500
+NiSource Inc, NI,UNITED STATES OF AMERICA,S&P 500
+Nike Inc, NKE,UNITED STATES OF AMERICA,S&P 500
+Nortonlifelock Inc., NLOK,UNITED STATES OF AMERICA,S&P 500
+Nielsen Holdings Plc, NLSN,UNITED STATES OF AMERICA,S&P 500
+Northrop Grumman Corp, NOC,UNITED STATES OF AMERICA,S&P 500
+National-Oilwell, NOV,UNITED STATES OF AMERICA,S&P 500
+Servicenow Inc, NOW,UNITED STATES OF AMERICA,S&P 500
+NRG Energy, NRG,UNITED STATES OF AMERICA,S&P 500
+Norfolk Southern Corp, NSC,UNITED STATES OF AMERICA,S&P 500
+Netapp Inc, NTAP,UNITED STATES OF AMERICA,S&P 500
+Northern Trust Corp, NTRS,UNITED STATES OF AMERICA,S&P 500
+Nucor Corp, NUE,UNITED STATES OF AMERICA,S&P 500
+Nvidia Corp, NVDA,UNITED STATES OF AMERICA,S&P 500
+NVR Inc, NVR,UNITED STATES OF AMERICA,S&P 500
+Newell Rubbermaid Inc, NWL,UNITED STATES OF AMERICA,S&P 500
+News Cp Cl B, NWS,UNITED STATES OF AMERICA,S&P 500
+News Cp Cl A, NWSA,UNITED STATES OF AMERICA,S&P 500
+Realty Income Corp, O,UNITED STATES OF AMERICA,S&P 500
+Old Dominion Freig, ODFL,UNITED STATES OF AMERICA,S&P 500
+Oneok Inc, OKE,UNITED STATES OF AMERICA,S&P 500
+Omnicom Group Inc, OMC,UNITED STATES OF AMERICA,S&P 500
+Oracle Corp, ORCL,UNITED STATES OF AMERICA,S&P 500
+O'Reilly Automotive, ORLY,UNITED STATES OF AMERICA,S&P 500
+Occidental Petroleum Corp, OXY,UNITED STATES OF AMERICA,S&P 500
+Paycom Software Inc, PAYC,UNITED STATES OF AMERICA,S&P 500
+Paychex Inc, PAYX,UNITED STATES OF AMERICA,S&P 500
+People's United Finl, PBCT,UNITED STATES OF AMERICA,S&P 500
+Paccar Inc, PCAR,UNITED STATES OF AMERICA,S&P 500
+Healthpeak Properties Inc., PEAK,UNITED STATES OF AMERICA,S&P 500
+Public Service Enterprise Group Inc, PEG,UNITED STATES OF AMERICA,S&P 500
+Pepsico Inc, PEP,UNITED STATES OF AMERICA,S&P 500
+Pfizer Inc, PFE,UNITED STATES OF AMERICA,S&P 500
+Principal Financial Group Inc, PFG,UNITED STATES OF AMERICA,S&P 500
+Procter & Gamble Company, PG,UNITED STATES OF AMERICA,S&P 500
+Progressive Corp, PGR,UNITED STATES OF AMERICA,S&P 500
+Parker-Hannifin Corp, PH,UNITED STATES OF AMERICA,S&P 500
+Pultegroup, PHM,UNITED STATES OF AMERICA,S&P 500
+Packaging Corp of America, PKG,UNITED STATES OF AMERICA,S&P 500
+Perkinelmer, PKI,UNITED STATES OF AMERICA,S&P 500
+Prologis Inc, PLD,UNITED STATES OF AMERICA,S&P 500
+Philip Morris International Inc, PM,UNITED STATES OF AMERICA,S&P 500
+PNC Bank, PNC,UNITED STATES OF AMERICA,S&P 500
+Pentair Ltd, PNR,UNITED STATES OF AMERICA,S&P 500
+Pinnacle West Capital Corp, PNW,UNITED STATES OF AMERICA,S&P 500
+PPG Industries, PPG,UNITED STATES OF AMERICA,S&P 500
+PPL Corp, PPL,UNITED STATES OF AMERICA,S&P 500
+Perrigo Company, PRGO,UNITED STATES OF AMERICA,S&P 500
+Prudential Financial Inc, PRU,UNITED STATES OF AMERICA,S&P 500
+Public Storage, PSA,UNITED STATES OF AMERICA,S&P 500
+Phillips 66, PSX,UNITED STATES OF AMERICA,S&P 500
+Phillips-Van Heusen Corp, PVH,UNITED STATES OF AMERICA,S&P 500
+Quanta Services, PWR,UNITED STATES OF AMERICA,S&P 500
+Pioneer Natural Resources Company, PXD,UNITED STATES OF AMERICA,S&P 500
+Paypal Holdings, PYPL,UNITED STATES OF AMERICA,S&P 500
+Qualcomm Inc, QCOM,UNITED STATES OF AMERICA,S&P 500
+Qorvo Inc, QRVO,UNITED STATES OF AMERICA,S&P 500
+Royal Caribbean Cruises Ltd, RCL,UNITED STATES OF AMERICA,S&P 500
+Everest Re Group, RE,UNITED STATES OF AMERICA,S&P 500
+Regency Centers Corp, REG,UNITED STATES OF AMERICA,S&P 500
+Regeneron Pharmaceuticals, REGN,UNITED STATES OF AMERICA,S&P 500
+Regions Financial Corp, RF,UNITED STATES OF AMERICA,S&P 500
+Robert Half International Inc, RHI,UNITED STATES OF AMERICA,S&P 500
+Raymond James Financial, RJF,UNITED STATES OF AMERICA,S&P 500
+Ralph Lauren Corp, RL,UNITED STATES OF AMERICA,S&P 500
+Resmed Inc, RMD,UNITED STATES OF AMERICA,S&P 500
+Rockwell Automation Inc, ROK,UNITED STATES OF AMERICA,S&P 500
+Rollins Inc, ROL,UNITED STATES OF AMERICA,S&P 500
+Roper Industries, ROP,UNITED STATES OF AMERICA,S&P 500
+Ross Stores Inc, ROST,UNITED STATES OF AMERICA,S&P 500
+Republic Services, RSG,UNITED STATES OF AMERICA,S&P 500
+Raytheon Company, RTN,UNITED STATES OF AMERICA,S&P 500
+SBA Communications, SBAC,UNITED STATES OF AMERICA,S&P 500
+Starbucks Corp, SBUX,UNITED STATES OF AMERICA,S&P 500
+The Charles Schwab Corp, SCHW,UNITED STATES OF AMERICA,S&P 500
+Sealed Air Corp, SEE,UNITED STATES OF AMERICA,S&P 500
+Sherwin-Williams Company, SHW,UNITED STATES OF AMERICA,S&P 500
+Svb Financial Group, SIVB,UNITED STATES OF AMERICA,S&P 500
+J.M. Smucker Company, SJM,UNITED STATES OF AMERICA,S&P 500
+Schlumberger N.V., SLB,UNITED STATES OF AMERICA,S&P 500
+SL Green Realty Corp, SLG,UNITED STATES OF AMERICA,S&P 500
+Snap-On Inc, SNA,UNITED STATES OF AMERICA,S&P 500
+Synopsys Inc, SNPS,UNITED STATES OF AMERICA,S&P 500
+Southern Company, SO,UNITED STATES OF AMERICA,S&P 500
+Simon Property Group, SPG,UNITED STATES OF AMERICA,S&P 500
+S&P Global Inc, SPGI,UNITED STATES OF AMERICA,S&P 500
+Sempra Energy, SRE,UNITED STATES OF AMERICA,S&P 500
+Steris Corp, STE,UNITED STATES OF AMERICA,S&P 500
+State Street Corp, STT,UNITED STATES OF AMERICA,S&P 500
+Seagate Tech Ord Shs, STX,UNITED STATES OF AMERICA,S&P 500
+Constellation Brands Inc, STZ,UNITED STATES OF AMERICA,S&P 500
+Stanley Black & Decker Inc, SWK,UNITED STATES OF AMERICA,S&P 500
+Skyworks Solutions, SWKS,UNITED STATES OF AMERICA,S&P 500
+Synchrony Financial, SYF,UNITED STATES OF AMERICA,S&P 500
+Stryker Corp, SYK,UNITED STATES OF AMERICA,S&P 500
+Sysco Corp, SYY,UNITED STATES OF AMERICA,S&P 500
+AT&T Inc, T,UNITED STATES OF AMERICA,S&P 500
+Molson Coors Brewing Company, TAP,UNITED STATES OF AMERICA,S&P 500
+Transdigm Group Inc, TDG,UNITED STATES OF AMERICA,S&P 500
+Te Connectivity Ltd, TEL,UNITED STATES OF AMERICA,S&P 500
+Truist Financial Corp., TFC,UNITED STATES OF AMERICA,S&P 500
+Teleflex Inc, TFX,UNITED STATES OF AMERICA,S&P 500
+Target Corp, TGT,UNITED STATES OF AMERICA,S&P 500
+Tiffany & Company, TIF,UNITED STATES OF AMERICA,S&P 500
+TJX Companies, TJX,UNITED STATES OF AMERICA,S&P 500
+Thermo Fisher Scientific Inc, TMO,UNITED STATES OF AMERICA,S&P 500
+T-Mobile US, TMUS,UNITED STATES OF AMERICA,S&P 500
+Tapestry Inc, TPR,UNITED STATES OF AMERICA,S&P 500
+T Rowe Price Group, TROW,UNITED STATES OF AMERICA,S&P 500
+The Travelers Companies Inc, TRV,UNITED STATES OF AMERICA,S&P 500
+Tractor Supply Company, TSCO,UNITED STATES OF AMERICA,S&P 500
+Tyson Foods, TSN,UNITED STATES OF AMERICA,S&P 500
+Take-Two Interacti, TTWO,UNITED STATES OF AMERICA,S&P 500
+Twitter Inc, TWTR,UNITED STATES OF AMERICA,S&P 500
+Texas Instruments, TXN,UNITED STATES OF AMERICA,S&P 500
+Textron Inc, TXT,UNITED STATES OF AMERICA,S&P 500
+Under Armour Inc Cl C, UA,UNITED STATES OF AMERICA,S&P 500
+Under Armour, UAA,UNITED STATES OF AMERICA,S&P 500
+United Continental Holdings, UAL,UNITED STATES OF AMERICA,S&P 500
+United Dominion Realty Trust, UDR,UNITED STATES OF AMERICA,S&P 500
+Universal Health Services, UHS,UNITED STATES OF AMERICA,S&P 500
+Ulta Beauty Inc, ULTA,UNITED STATES OF AMERICA,S&P 500
+Unitedhealth Group Inc, UNH,UNITED STATES OF AMERICA,S&P 500
+Unumprovident Corp, UNM,UNITED STATES OF AMERICA,S&P 500
+Union Pacific Corp, UNP,UNITED STATES OF AMERICA,S&P 500
+United Parcel Service, UPS,UNITED STATES OF AMERICA,S&P 500
+United Rentals, URI,UNITED STATES OF AMERICA,S&P 500
+U.S. Bancorp, USB,UNITED STATES OF AMERICA,S&P 500
+United Technologies Corp, UTX,UNITED STATES OF AMERICA,S&P 500
+Visa Inc, V,UNITED STATES OF AMERICA,S&P 500
+Varian Medical Systems, VAR,UNITED STATES OF AMERICA,S&P 500
+V.F. Corp, VFC,UNITED STATES OF AMERICA,S&P 500
+Viacomcbs Inc. Cl B, VIAC,UNITED STATES OF AMERICA,S&P 500
+Valero Energy Corp, VLO,UNITED STATES OF AMERICA,S&P 500
+Vulcan Materials Company, VMC,UNITED STATES OF AMERICA,S&P 500
+Vornado Realty Trust, VNO,UNITED STATES OF AMERICA,S&P 500
+Verisk Analytics Inc, VRSK,UNITED STATES OF AMERICA,S&P 500
+Verisign Inc, VRSN,UNITED STATES OF AMERICA,S&P 500
+Vertex Pharmaceutic, VRTX,UNITED STATES OF AMERICA,S&P 500
+Ventas Inc, VTR,UNITED STATES OF AMERICA,S&P 500
+Verizon Communications Inc, VZ,UNITED STATES OF AMERICA,S&P 500
+Wabtec Corp, WAB,UNITED STATES OF AMERICA,S&P 500
+Waters Corp, WAT,UNITED STATES OF AMERICA,S&P 500
+Walgreens Boots Alliance, WBA,UNITED STATES OF AMERICA,S&P 500
+Western Digital Cp, WDC,UNITED STATES OF AMERICA,S&P 500
+Wisconsin Energy Corp, WEC,UNITED STATES OF AMERICA,S&P 500
+Welltower Inc, WELL,UNITED STATES OF AMERICA,S&P 500
+Wells Fargo & Company, WFC,UNITED STATES OF AMERICA,S&P 500
+Whirlpool Corp, WHR,UNITED STATES OF AMERICA,S&P 500
+Willis Towers WT, WLTW,UNITED STATES OF AMERICA,S&P 500
+Waste Management, WM,UNITED STATES OF AMERICA,S&P 500
+Williams Companies, WMB,UNITED STATES OF AMERICA,S&P 500
+Wal-Mart Stores, WMT,UNITED STATES OF AMERICA,S&P 500
+W.R. Berkley Corp, WRB,UNITED STATES OF AMERICA,S&P 500
+Westrock Company, WRK,UNITED STATES OF AMERICA,S&P 500
+Western Union Company, WU,UNITED STATES OF AMERICA,S&P 500
+Weyerhaeuser Company, WY,UNITED STATES OF AMERICA,S&P 500
+Wynn Resorts Ltd, WYNN,UNITED STATES OF AMERICA,S&P 500
+Cimarex Energy Company, XEC,UNITED STATES OF AMERICA,S&P 500
+XCEL Energy Inc, XEL,UNITED STATES OF AMERICA,S&P 500
+Xilinx Inc, XLNX,UNITED STATES OF AMERICA,S&P 500
+Exxon Mobil Corp, XOM,UNITED STATES OF AMERICA,S&P 500
+Dentsply Sirona Inc, XRAY,UNITED STATES OF AMERICA,S&P 500
+Xerox Corp, XRX,UNITED STATES OF AMERICA,S&P 500
+Xylem Inc, XYL,UNITED STATES OF AMERICA,S&P 500
+Yum! Brands, YUM,UNITED STATES OF AMERICA,S&P 500
+Zimmer Biomet Holdings, ZBH,UNITED STATES OF AMERICA,S&P 500
+Zebra Technologies, ZBRA,UNITED STATES OF AMERICA,S&P 500
+Zions Bancorp, ZION,UNITED STATES OF AMERICA,S&P 500
+Zoetis Inc Cl A, ZTS,UNITED STATES OF AMERICA,S&P 500
+Covestro AG ,1COV.DB,GERMANY,DAX
+adidas AG ,ADS.DB,GERMANY,DAX
+Allianz SE ,ALV.DB,GERMANY,DAX
+BASF SE ,BAS.DB,GERMANY,DAX
+Bayer AG ,BAYN.DB,GERMANY,DAX
+Beiersdorf AG ,BEI.DB,GERMANY,DAX
+Bayerische Motoren Werke AG ,BMW.DB,GERMANY,DAX
+Continental AG ,CON.DB,GERMANY,DAX
+Daimler AG ,DAI.DB,GERMANY,DAX
+Deutsche Boerse AG ,DB1.DB,GERMANY,DAX
+Deutsche Bank AG ,DBK.DB,GERMANY,DAX
+Deutsche Post AG ,DPW.DB,GERMANY,DAX
+Deutsche Telekom AG ,DTE.DB,GERMANY,DAX
+E.ON SE ,EOAN.DB,GERMANY,DAX
+Fresenius Medical Care AG & CO KGaA ,FME.DB,GERMANY,DAX
+Fresenius SE &Co KGaA ,FRE.DB,GERMANY,DAX
+HeidelbergCement AG ,HEI.DB,GERMANY,DAX
+Henkel AG & Co KGaA ,HEN3.DB,GERMANY,DAX
+Infineon Technologies AG ,IFX.DB,GERMANY,DAX
+Deutsche Lufthansa AG ,LHA.DB,GERMANY,DAX
+Linde PLC ,LIN.DB,GERMANY,DAX
+Merck KGaA ,MRK.DB,GERMANY,DAX
+MTU Aero Engines AG ,MTX.DB,GERMANY,DAX
+Muenchener Rueckversicherungs-Gesellschaft AG in Muenchen ,MUV2.DB,GERMANY,DAX
+RWE AG ,RWE.DB,GERMANY,DAX
+SAP SE ,SAP.DB,GERMANY,DAX
+Siemens AG ,SIE.DB,GERMANY,DAX
+Vonovia SE ,VNA.DB,GERMANY,DAX
+Volkswagen AG ,VOW3.DB,GERMANY,DAX
+Wirecard AG ,WDI.DB,GERMANY,DAX
+Adani Ports and Special Economic Zone Ltd.,ADANIPORTS.BO,INDIA,Nifty 50
+Asian Paints Ltd.,ASIANPAINT.BO,INDIA,Nifty 50
+Axis Bank Ltd.,AXISBANK.BO,INDIA,Nifty 50
+Bajaj Auto Ltd.,BAJAJ-AUTO.BO,INDIA,Nifty 50
+Bajaj Finance Ltd.,BAJFINANCE.BO,INDIA,Nifty 50
+Bajaj Finserv Ltd.,BAJAJFINSV.BO,INDIA,Nifty 50
+Bharat Petroleum Corporation Ltd.,BPCL.BO,INDIA,Nifty 50
+Bharti Airtel Ltd.,BHARTIARTL.BO,INDIA,Nifty 50
+Bharti Infratel Ltd.,INFRATEL.BO,INDIA,Nifty 50
+Britannia Industries Ltd.,BRITANNIA.BO,INDIA,Nifty 50
+Cipla Ltd.,CIPLA.BO,INDIA,Nifty 50
+Coal India Ltd.,COALINDIA.BO,INDIA,Nifty 50
+Dr. Reddy's Laboratories Ltd.,DRREDDY.BO,INDIA,Nifty 50
+Eicher Motors Ltd.,EICHERMOT.BO,INDIA,Nifty 50
+GAIL (India) Ltd.,GAIL.BO,INDIA,Nifty 50
+Grasim Industries Ltd.,GRASIM.BO,INDIA,Nifty 50
+HCL Technologies Ltd.,HCLTECH.BO,INDIA,Nifty 50
+HDFC Bank Ltd.,HDFCBANK.BO,INDIA,Nifty 50
+Hero MotoCorp Ltd.,HEROMOTOCO.BO,INDIA,Nifty 50
+Hindalco Industries Ltd.,HINDALCO.BO,INDIA,Nifty 50
+Hindustan Unilever Ltd.,HINDUNILVR.BO,INDIA,Nifty 50
+Housing Development Finance Corporation Ltd.,HDFC.BO,INDIA,Nifty 50
+ICICI Bank Ltd.,ICICIBANK.BO,INDIA,Nifty 50
+ITC Ltd.,ITC.BO,INDIA,Nifty 50
+Indian Oil Corporation Ltd.,IOC.BO,INDIA,Nifty 50
+IndusInd Bank Ltd.,INDUSINDBK.BO,INDIA,Nifty 50
+Infosys Ltd.,INFY.BO,INDIA,Nifty 50
+JSW Steel Ltd.,JSWSTEEL.BO,INDIA,Nifty 50
+Kotak Mahindra Bank Ltd.,KOTAKBANK.BO,INDIA,Nifty 50
+Larsen & Toubro Ltd.,LT.BO,INDIA,Nifty 50
+Mahindra & Mahindra Ltd.,M&M.BO,INDIA,Nifty 50
+Maruti Suzuki India Ltd.,MARUTI.BO,INDIA,Nifty 50
+NTPC Ltd.,NTPC.BO,INDIA,Nifty 50
+Nestle India Ltd.,NESTLEIND.BO,INDIA,Nifty 50
+Oil & Natural Gas Corporation Ltd.,ONGC.BO,INDIA,Nifty 50
+Power Grid Corporation of India Ltd.,POWERGRID.BO,INDIA,Nifty 50
+Reliance Industries Ltd.,RELIANCE.BO,INDIA,Nifty 50
+State Bank of India,SBIN.BO,INDIA,Nifty 50
+Sun Pharmaceutical Industries Ltd.,SUNPHARMA.BO,INDIA,Nifty 50
+Tata Consultancy Services Ltd.,TCS.BO,INDIA,Nifty 50
+Tata Motors Ltd.,TATAMOTORS.BO,INDIA,Nifty 50
+Tata Steel Ltd.,TATASTEEL.BO,INDIA,Nifty 50
+Tech Mahindra Ltd.,TECHM.BO,INDIA,Nifty 50
+Titan Company Ltd.,TITAN.BO,INDIA,Nifty 50
+UPL Ltd.,UPL.BO,INDIA,Nifty 50
+UltraTech Cement Ltd.,ULTRACEMCO.BO,INDIA,Nifty 50
+Vedanta Ltd.,VEDL.BO,INDIA,Nifty 50
+Wipro Ltd.,WIPRO.BO,INDIA,Nifty 50
+Yes Bank Ltd.,YESBANK.BO,INDIA,Nifty 50
+Zee Entertainment Enterprises Ltd.,ZEEL.BO,INDIA,Nifty 50
+Accor,AC.PA,FRANCE,CAC 40
+Air Liquide,AI.PA,FRANCE,CAC 40
+Airbus SE,AIR.PA,FRANCE,CAC 40
+ArcelorMittal SA,MT.PA,FRANCE,CAC 40
+Atos,ATO.PA,FRANCE,CAC 40
+AXA,CS.PA,FRANCE,CAC 40
+BNP Paribas,BNP.PA,FRANCE,CAC 40
+Bouygues,EN.PA,FRANCE,CAC 40
+Capgemini,CAP.PA,FRANCE,CAC 40
+Carrefour,CA.PA,FRANCE,CAC 40
+Credit Agricole,ACA.PA,FRANCE,CAC 40
+Danone,BN.PA,FRANCE,CAC 40
+Dassault Systemes,DSY.PA,FRANCE,CAC 40
+ENGIE,ENGI.PA,FRANCE,CAC 40
+Essilorluxottica,EL.PA,FRANCE,CAC 40
+Hermes International,RMS.PA,FRANCE,CAC 40
+Kering,KER.PA,FRANCE,CAC 40
+L'Oreal,OR.PA,FRANCE,CAC 40
+Legrand SA,LR.PA,FRANCE,CAC 40
+LVMH,MC.PA,FRANCE,CAC 40
+Michelin,ML.PA,FRANCE,CAC 40
+Orange.,ORA.PA,FRANCE,CAC 40
+Pernod Ricard,RI.PA,FRANCE,CAC 40
+Peugeot,UG.PA,FRANCE,CAC 40
+Publicis Groupe Sa,PUB.PA,FRANCE,CAC 40
+Renault,RNO.PA,FRANCE,CAC 40
+Safran,SAF.PA,FRANCE,CAC 40
+Saint Gobain,SGO.PA,FRANCE,CAC 40
+Sanofi,SAN.PA,FRANCE,CAC 40
+Schneider Electric,SU.PA,FRANCE,CAC 40
+Societe Generale S.A.,GLE.PA,FRANCE,CAC 40
+Sodexo,SW.PA,FRANCE,CAC 40
+ST Microelectronics,STM.PA,FRANCE,CAC 40
+TECHNIPFMC,FTI.PA,FRANCE,CAC 40
+Total,FP.PA,FRANCE,CAC 40
+Unibail-Rodamco,UL.PA,FRANCE,CAC 40
+Valeo,FR.PA,FRANCE,CAC 40
+Veolia Environnement,VIE.PA,FRANCE,CAC 40
+Vinci,DG.PA,FRANCE,CAC 40
+Vivendi,VIV.PA,FRANCE,CAC 40
