@@ -2,4 +2,51 @@
 
 {% block header %}
   <h1>{% block title %}THIS IS THE DASHBOARD{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('Dashboard.create') }}">Create New Security</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <style>
+    table{
+      border: 1px solid black;
+    }
+  </style>
+    <table>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    {% for item in table1 %}
+    <TR>
+      <TD class="c2">{{item.name}}</TD>
+      <TD class="c3">{{item.quantity}}</TD>
+      <TD class="c3">{{item.price}}</TD>
+    </TR>
+    {% endfor %}
+    </table>
+  {% for item in watchlist %}
+    <article class="securities">
+      <header>
+        <div>
+          <h1>Order ID: {{ item['id'] }}</h1>
+          <h4>Name: {{ item['name'] }} </h4>
+          <p>Quantity: {{ item['quantity'] }} Price: {{ item['price'] }}</p>
+          <div class="details">Created: {{ item['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+        {% if g.user['id'] == item['holder_id'] %}
+          <a class="action" href="{{ url_for('Dashboard.update', id=item['id']) }}">Edit</a>
+          <br>
+          <br>
+          <form action="{{ url_for('Dashboard.delete', id=item['id']) }}" method="post">
+            <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+          </form>
+        {% endif %}
+      </header>
+      <p class="comments">Comments: {{ item['comments'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
 {% endblock %}

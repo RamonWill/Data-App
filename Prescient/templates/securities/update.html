@@ -1,0 +1,19 @@
+{% extends 'base_layout.html' %}
+
+{% block header %}
+  <h1>{% block title %}THIS IS WHERE YOU UPDATE AN EXISTING SECURITY{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <p>Editing "{{ info['name'] }}"</p>
+  {% from "_formhelpers.html" import render_field %}
+  <form method=post>
+    <dl>
+      {{ render_field(form.quantity) }}
+      {{ render_field(form.price) }}
+      {{ render_field(form.sector) }}
+      {{ render_field(form.comments) }}
+    </dl>
+    <p><input type=submit value="Save">
+  </form>
+{% endblock %}
