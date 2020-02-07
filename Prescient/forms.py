@@ -13,7 +13,7 @@ class LoginForm(Form):
 
 class WatchlistForm(Form):
 
-    ticker = StringField("Ticker", validators=[validators.Length(min=3, max=20), validators.DataRequired()])
+    ticker = StringField("Ticker", validators=[validators.Length(min=3, max=20), validators.Optional()])
     quantity = IntegerField("Quantity", validators=[validators.InputRequired(), validators.NumberRange(min=-10000000, max=10000000)])
     price = DecimalField("Price", validators=[validators.InputRequired(), validators.NumberRange(min=0, max=100000)])
     sector = SelectField("Sector",  validators=[validators.InputRequired()])  # From database
