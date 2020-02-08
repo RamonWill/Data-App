@@ -32,7 +32,7 @@
           <h1>Order ID: {{ item['id'] }}</h1>
           <h4>Name: {{ item['name'] }} </h4>
           <p>Quantity: {{ item['quantity'] }} Price: {{ item['price'] }}</p>
-          <div class="details">Created: {{ item['created'].strftime('%Y-%m-%d') }}</div>
+          <div class="details">Created: {{ item['created'].strftime('%d-%m-%Y') }}</div>
         </div>
         {% if g.user['id'] == item['holder_id'] %}
           <a class="action" href="{{ url_for('Dashboard.update', id=item['id']) }}">Edit</a>
