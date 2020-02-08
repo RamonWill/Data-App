@@ -1,30 +1,32 @@
-{% extends 'base_layout.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/dashboard-styles.css') }}">
 
+{% extends 'base_layout.html' %}
 {% block header %}
-  <h1>{% block title %}THIS IS THE DASHBOARD{% endblock %}</h1>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('Dashboard.create') }}">Create New Security</a>
-  {% endif %}
+  <h1 class="main-heading">{% block title %}THIS IS THE DASHBOARD{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <style>
-    table{
-      border: 1px solid black;
-    }
-  </style>
-    <table>
-      <th>Name</th>
-      <th>Quantity</th>
-      <th>Price</th>
-    {% for item in table1 %}
-    <TR>
-      <TD class="c2">{{item.name}}</TD>
-      <TD class="c3">{{item.quantity}}</TD>
-      <TD class="c3">{{item.price}}</TD>
-    </TR>
-    {% endfor %}
-    </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Average Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in table1 %}
+      <tr class="watchlist-rows">
+        <td class="c2">{{item.name}}</td>
+        <td class="c3">{{item.quantity}}</td>
+        <td class="c3">{{item.price}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('Dashboard.create') }}"><span class="change-links">Add to Watchlist</span></a>
+  {% endif %}
   {% for item in watchlist %}
     <article class="securities">
       <header>
@@ -35,7 +37,7 @@
           <div class="details">Created: {{ item['created'].strftime('%d-%m-%Y') }}</div>
         </div>
         {% if g.user['id'] == item['holder_id'] %}
-          <a class="action" href="{{ url_for('Dashboard.update', id=item['id']) }}">Edit</a>
+          <a class="action" href="{{ url_for('Dashboard.update', id=item['id']) }}"><span class="change-links">Edit</span></a>
           <br>
           <br>
           <form action="{{ url_for('Dashboard.delete', id=item['id']) }}" method="post">

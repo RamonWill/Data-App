@@ -9,19 +9,31 @@ nav{
   justify-content: space-around;
   align-items: center;
   min-height: 12vh;
-  background-color: #161616;
+  background-image: linear-gradient(135deg, #161616, #0F2027,#203A43);
+  /*background-color: #161616;*/
   font-family: 'Ubuntu', sans-serif;
 }
 .nav-icons li{
   list-style: none;
   font-size: 20px;
-  color: #c5d1e0;
 }
 
+.username{
+  color: #BED2FA;
+  font-size: 25px;
+}
 .nav-icons a{
   text-decoration: none;
-  color: #54729c;
+  color: #1e67fa;
+  transition: 0.3s;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
+.nav-icons a:hover{
+  color: #94b7ff;
+  font-size: 25px;
+}
+
 .nav-icons{
   display: flex;
   justify-content: space-around;
@@ -32,7 +44,7 @@ nav{
 }
 
 .breaks{
-  display: none
+  display: none;
 }
 
 .breaks div{
@@ -59,7 +71,7 @@ nav{
     left: 0px;
     height: 80vh;
     top: 12vh;
-    background-color: #161616;
+    background-image: linear-gradient(135deg, #161616, #0F2027,#203A43);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,4 +112,17 @@ nav{
 .toggle .bk3{
   transform: rotate(+45deg) translate(-5px,-5px);
   background-color: #91ACD2;
+}
+
+.main-content {
+  padding-left: 10px;
+  background-image: linear-gradient(135deg, #0F2027, #17323d, #17323d,#3b4a6b);
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  transition: 1.3s ease;
+}
+
+.main-content-active{
+  padding-left: 30%;
+  transition: 0.45s ease;
 }

@@ -3,6 +3,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='base_style.css') }}">
   <title>Prescient Finance</title>
 </head>
@@ -19,9 +20,9 @@
     </div>
     <ul class="nav-icons">
       {% if g.user %}
-        <li><span>{{ g.user['username'] }}</span></li>
+        <li><span class="username">{{ g.user['username'] }}</span></li>
       {% endif %}
-      <li><a href="#">DASHBOARD</a></li>
+      <li><a href="{{ url_for('dashboard') }}">DASHBOARD</a></li>
       <li><a href="#">CHARTS</a></li>
       <li><a href="#">WATCHLIST</a></li>
       {% if g.user %}
@@ -34,7 +35,7 @@
   </nav>
   <script src="{{ url_for('static', filename='javascript/navbarscript.js') }}"></script>
 </body>
-<section class="content">
+<section class="main-content">
   <header>
     {% block header %}{% endblock %}
   </header>
