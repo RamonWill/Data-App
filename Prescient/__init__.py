@@ -1,9 +1,11 @@
 import os
 from flask import Flask
 
+# views
 from . import db
 from . import auth
 from . import dashboard
+from . import watchlist
 
 
 def create_app(test_config=None):
@@ -26,6 +28,8 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp)
     app.register_blueprint(dashboard.bp)
     app.add_url_rule("/", endpoint="dashboard")
+    app.register_blueprint(watchlist.bp)
+
 
     @app.route("/test")
     def test_page():

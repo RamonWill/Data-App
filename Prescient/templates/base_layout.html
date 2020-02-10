@@ -24,7 +24,7 @@
       {% endif %}
       <li><a href="{{ url_for('dashboard') }}">DASHBOARD</a></li>
       <li><a href="#">CHARTS</a></li>
-      <li><a href="#">WATCHLIST</a></li>
+      <li><a href="{{ url_for('watchlist.main') }}">WATCHLIST</a></li>
       {% if g.user %}
         <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
       {% else %}

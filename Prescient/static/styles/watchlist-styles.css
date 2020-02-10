@@ -1,0 +1,28 @@
+table {
+ margin-left: auto;
+ margin-right: auto;
+ width: 500px;
+ border-collapse: collapse;
+ overflow: hidden;
+ box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+ border-radius: 10px 30px 30px 5px;
+}
+
+th, td {
+ padding: 15px;
+ background-color: rgba(255, 255, 255, 0.2);
+ color: black;
+}
+
+th {
+ text-align: left;
+ font-weight: bolder;
+}
+
+thead {
+  background-color: #4f88bd;
+}
+
+tbody {
+   background-color: #80bbf2;
+}
