@@ -64,7 +64,7 @@ tbody {
   min-width: 0;
   min-height: 0;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .main-wrapper{
     display: block;
   }

@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/dashboard-styles.css') }}">
 <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js></script>
-
 {% extends 'base_layout.html' %}
 {% block header %}
   <h1 class="main-heading">{% block title %}Portfolio Overview{% endblock %}</h1>
@@ -219,7 +218,7 @@
         },
         title: {
           display: true,
-          text: "Your Largest 5 Positions",
+          text: "Your 5 Largest Positions",
           fontColor: "#d4eaff"
         },
         layout: {
@@ -261,8 +260,4 @@
   });
   </script>
 </div>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('Dashboard.create') }}"><span class="change-links">Add to Watchlist</span></a>
-  {% endif %}
-
 {% endblock %}

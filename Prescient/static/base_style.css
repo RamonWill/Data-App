@@ -62,7 +62,7 @@ nav{
   }
 }
 
-@media screen and (max-width:800px) {
+@media screen and (max-width:1000px) {
   body{
     overflow-x: hidden;
   }
@@ -125,4 +125,24 @@ nav{
 .main-content-active{
   padding-left: 30%;
   transition: 0.45s ease;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 13px;
+}
+
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #0F2027;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #612f80;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #45205c;
 }
