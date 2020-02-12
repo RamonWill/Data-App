@@ -58,9 +58,11 @@ tbody {
 .main-wrapper{
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0,1fr) minmax(0, 1fr);
   grid-column-gap: 1px;
   grid-row-gap: 1px;
+  min-width: 0;
+  min-height: 0;
 }
 @media screen and (max-width: 800px) {
   .main-wrapper{
@@ -84,8 +86,10 @@ tbody {
   padding: 2px;
   border: 1px solid grey;
   max-width:100vw;
-  box-sizing:border-box; /* Don't forget this !*/
+  box-sizing:border-box;
+  overflow: hidden;
 }
+
 .pie-chart-container{
   display: flex;
   align-items: center;
@@ -93,7 +97,7 @@ tbody {
   padding: 2px;
   border: 1px solid grey;
   max-width:100vw;
-  box-sizing:border-box; /* Don't forget this !*/
+  box-sizing:border-box;
 }
 
 .bar-chart-container{
@@ -103,5 +107,6 @@ tbody {
   padding: 2px;
   border: 1px solid grey;
   max-width:100vw;
-  box-sizing:border-box; /* Don't forget this !*/
+  box-sizing:border-box;
+  overflow: hidden;
 }
