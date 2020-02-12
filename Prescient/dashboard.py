@@ -80,8 +80,8 @@ def get_line_chart_info(symbol):
     df2["avg_cost"] = df2["avg_cost"].fillna(method="ffill")
     df2["price"] = pd.to_numeric(df2["price"])
     df2["pct_change"] = round(((df2["price"] - df2["avg_cost"])/df2["avg_cost"])*100,3)
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-        print(df2)
+    # with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+    #     print(df2)
     df2 = df2.reset_index()
     df2 = list(df2.itertuples(index=False))
     return df2
@@ -166,74 +166,3 @@ GROUP BY name"""
     pie_chart = db.execute(query3, {"holder_id":holder_id}).fetchall()
     bar_chart = db.execute(query4, {"holder_id":holder_id}).fetchall()
     return render_template("securities/dashboard.html", table1=table1, line_chart=line_chart, pie_chart=pie_chart, bar_chart=bar_chart)
-
-
-@bp.route('/create', methods=('GET', 'POST'))
-@login_required
-def create():
-    form = forms.WatchlistForm(request.form)  # request.form fills in the form with data from the request
-    form.sector.choices = get_sectors()
-    if request.method == 'POST':
-        name = form.ticker.data
-        quantity = form.quantity.data
-        price = form.price.data
-
-        sector = form.sector.data
-        comments = form.comments.data
-        holder_id = g.user["id"]
-        error = None
-
-        db = get_db()
-        check = db.execute("SELECT ticker FROM available_securities WHERE ticker = ?", (name,)).fetchone()
-        if check is None:
-            error = f"The ticker {name} is not available."
-            flash(error)
-
-        elif form.validate():
-            db = get_db()
-            db.execute(
-                """INSERT INTO securities (name, quantity, price, sector, holder_id, comments)
-                   VALUES (?, ?, ?, ?, ?, ?)""", (name, int(quantity), float(price), sector, holder_id, comments,))
-            db.commit()
-            return redirect(url_for('dashboard'))
-
-
-    return render_template('securities/create.html', form=form)
-
-
-@bp.route('/<int:id>/update', methods=('GET', 'POST'))
-@login_required
-def update(id):
-    info = get_watchlist_id(id)
-    form = forms.WatchlistForm(request.form)  # request.form fills in the form with data from the request
-    form.sector.choices = get_sectors()
-
-    if request.method == 'POST':
-        quantity = form.quantity.data
-        price = form.price.data
-        sector = form.sector.data
-        comments = form.comments.data
-
-        if form.validate():
-            db = get_db()
-
-            db.execute(
-                """UPDATE securities
-                   SET quantity=?, price=?, sector=?, comments=?
-                   WHERE id = ?""", (int(quantity), float(price), sector, comments, id,))
-            db.commit()
-            return redirect(url_for('dashboard'))
-
-    return render_template('securities/update.html', info=info, form=form)
-
-
-@bp.route('/<int:id>/delete', methods=('POST',))
-@login_required
-def delete(id):
-    info = get_watchlist_id(id)
-    db = get_db()
-    db.execute(
-        """DELETE FROM securities
-           WHERE id = ?""", (id,))
-    db.commit()
-    return redirect(url_for('dashboard'))

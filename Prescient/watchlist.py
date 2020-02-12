@@ -8,7 +8,38 @@ from . import forms
 
 bp = Blueprint("watchlist", __name__)
 
-@bp.route("/main")
+
+def get_sectors():
+    db = get_db()
+    query = """SELECT name
+               FROM sector_definitions"""
+
+    data = db.execute(query).fetchall()
+    sectors = [(name[0], name[0]) for name in data]
+
+    return sectors
+
+
+def get_watchlist_id(id, check_holder=True):
+    db = get_db()
+    query = """SELECT securities.id,
+                      securities.name,
+                      securities.quantity,
+                      securities.price,
+                      securities.sector,
+                      securities.comments,
+                      securities.holder_id
+                FROM securities
+                JOIN login_details ON securities.holder_id = login_details.id
+                WHERE securities.id = ?"""
+    info = db.execute(query, (id,)).fetchone()
+    if info is None:
+        abort(404, f"Order ID {id} doesn't exist.")
+    if check_holder and info["holder_id"] != g.user["id"]:
+        abort(403)
+    return info
+
+@bp.route("/main", methods=('GET', 'POST'))
 @login_required
 def main():
     db = get_db()
@@ -47,5 +78,73 @@ def main():
 
     watchlist = db.execute(query1, (holder_id,)).fetchall()
     table1 = db.execute(query2, {"holder_id":holder_id}).fetchall()
+    add_form = forms.WatchlistForm(request.form)
+    add_form.sector.choices = get_sectors()
+    return render_template("watchlist/main.html", watchlist=watchlist, table1=table1, add_form=add_form)
 
-    return render_template("watchlist/main.html", watchlist=watchlist, table1=table1)
+@bp.route('/create', methods=('GET', 'POST'))
+@login_required
+def create():
+    form = forms.WatchlistForm(request.form)  # request.form fills in the form with data from the request
+    form.sector.choices = get_sectors()
+    if request.method == 'POST':
+        name = form.ticker.data
+        quantity = form.quantity.data
+        price = form.price.data
+
+        sector = form.sector.data
+        comments = form.comments.data
+        holder_id = g.user["id"]
+        error = None
+
+        db = get_db()
+        check = db.execute("SELECT ticker FROM available_securities WHERE ticker = ?", (name,)).fetchone()
+        if check is None:
+            error = f"The ticker {name} is not available."
+            flash(error)
+
+        elif form.validate():
+            db = get_db()
+            db.execute(
+                """INSERT INTO securities (name, quantity, price, sector, holder_id, comments)
+                   VALUES (?, ?, ?, ?, ?, ?)""", (name, int(quantity), float(price), sector, holder_id, comments,))
+            db.commit()
+            return redirect(url_for('watchlist.main'))
+
+
+    return render_template("watchlist/main.html", form=form)
+
+@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@login_required
+def update(id):
+    info = get_watchlist_id(id)
+    form = forms.WatchlistForm(request.form)  # request.form fills in the form with data from the request
+    form.sector.choices = get_sectors()
+
+    if request.method == 'POST':
+        quantity = form.quantity.data
+        price = form.price.data
+        sector = form.sector.data
+        comments = form.comments.data
+
+        if form.validate():
+            db = get_db()
+            db.execute(
+                """UPDATE securities
+                   SET quantity=?, price=?, sector=?, comments=?
+                   WHERE id = ?""", (int(quantity), float(price), sector, comments, id,))
+            db.commit()
+            return redirect(url_for('watchlist.main'))
+    print("NO")
+    return render_template('watchlist/main.html', info=info, form=form)
+
+
+@bp.route('/<int:id>/delete', methods=('POST',))
+@login_required
+def delete(id):
+    db = get_db()
+    db.execute(
+        """DELETE FROM securities
+           WHERE id = ?""", (id,))
+    db.commit()
+    return redirect(url_for('watchlist.main'))
