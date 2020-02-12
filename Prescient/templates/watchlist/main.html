@@ -1,7 +1,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/watchlist-styles.css') }}">
+<script src="{{ url_for('static', filename='javascript/bootstrap/jquery-3.4.1.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/bootstrap/bootstrap.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap/bootstrap.css') }}">
 {% extends 'base_layout.html' %}
 {% block header %}
-  <h1 class="main-heading">{% block title %}THIS IS THE WATCHLIST{% endblock %}</h1>
+  <h1 class="main-heading">{% block title %}Your Watchlist{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -24,7 +27,31 @@
     </tbody>
   </table>
   {% if g.user %}
-    <a class="action" href="{{ url_for('Dashboard.create') }}"><span class="change-links">Add to Watchlist</span></a>
+    <button style=color:black; type="button" class="btn-new-wl"
+    data-toggle="modal" data-target="#mymodal">Add to Watchlist</button>
+      <div id="mymodal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add to Watchlist</h4>
+            </div>
+            <div class="modal-body">
+              {% from "_formhelpers.html" import render_field %}
+              <form action="{{ url_for('watchlist.create')}}" method="post">
+                <dl>
+                  {{ render_field(add_form.ticker) }}
+                  {{ render_field(add_form.quantity) }}
+                  {{ render_field(add_form.price) }}
+                  {{ render_field(add_form.sector) }}
+                  {{ render_field(add_form.comments) }}
+                </dl>
+                <button type="submit" name="button">Add</button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
   {% endif %}
     <table>
       <thead>
@@ -35,8 +62,8 @@
           <th>Price</th>
           <th>Sector</th>
           <th>Date</th>
-          <th>changes?</th>
           <th>comments</th>
+          <th>changes?</th>
         </tr>
       </thead>
       <tbody>
@@ -48,15 +75,37 @@
           <td class="c4">{{item.price}}</td>
           <td class="c5">{{item.sector}}</td>
           <td class="c6">{{item.created.strftime('%d-%m-%Y')}}</td>
+          <td>{{item.comments}}</td>
           <td class="edit-trade">
             {% if g.user['id'] == item['holder_id'] %}
-              <a class="action" href="{{ url_for('Dashboard.update', id=item['id']) }}"><span class="change-links">Edit</span></a>
-              <form action="{{ url_for('Dashboard.delete', id=item['id']) }}" method="post">
+              <button style=color:black; type="button" class="btn-new-wl"
+              data-toggle="modal" data-target="#mymodal2{{item.id}}">Edit</button>
+                <div id="mymodal2{{item.id}}" class="modal fade" role="dialog">
+                  <div class="modal-dialog" id="{{item.id}}">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Edit</h4>
+                      </div>
+                      <div class="modal-body">
+                        {% from "_formhelpers.html" import render_field %}
+                        <form action="{{ url_for('watchlist.update', id=item.id) }}" method="post">
+                          <dl>
+                            {{ render_field(add_form.quantity) }}
+                            {{ render_field(add_form.price) }}
+                            {{ render_field(add_form.sector) }}
+                            {{ render_field(add_form.comments) }}
+                          </dl>
+                          <button type="submit" name="button" class="btn btn-primary">Save Changes</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <form action="{{ url_for('watchlist.delete', id=item['id']) }}" method="post">
                 <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
               </form>
             {% endif %}
           </td>
-          <td>{{item.comments}}</td>
         </tr>
         {% endfor %}
       </tbody>
