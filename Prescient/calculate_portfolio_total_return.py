@@ -2,8 +2,8 @@ import pandas as pd
 import sqlite3
 
 
-def get_holding_summary(symbol):
-
+def get_quantity_cumsum(symbol):
+    # this gets the cumulative sum for the security
     conn = sqlite3.connect(r"C:\Users\Owner\Documents\Data-App\instance\MainDB.sqlite")
     query = f"""Select DATE(created), quantity
     From securities
@@ -14,8 +14,8 @@ def get_holding_summary(symbol):
     return df.to_numpy().tolist()
 
 def get_daily_mv(symbol):
-    # using amazon
-    watchlist = get_holding_summary(symbol)
+    # this calculates the daily Market Value for all holdings of the security
+    watchlist = get_quantity_cumsum(symbol)
     conn = sqlite3.connect(r"C:\Users\Owner\Documents\Data-App\instance\price_data.sqlite")
     query = f"""SELECT * FROM {symbol}"""
     df = pd.read_sql_query(query, conn, index_col="index")
@@ -41,9 +41,10 @@ def get_daily_mv(symbol):
     return df2
     # df2 = list(df2.itertuples(index=False)) # changes df to  named tuples so it can be rendered
 
-get_daily_mv("AMZN")
+
 def full_table():
-    x = ["AMZN","MSFT","IBM","DIS","CAT","AAPL"]
+    # builds a table from the current positions marketvalue and joins them by their date
+    x = ["AMZN","MSFT","IBM","DIS","CAT","AAPL"] # this needs to be a filter of current positions from sql (ordered by DATE!!!!)
     p = pd.DataFrame()
     for i in x:
         if p.empty:
@@ -60,6 +61,8 @@ def full_table():
 
 #full_table()
 def summed_table():
+    # calculates the holding period return on the total portfolio value. takes flows(buys and sells into account aka new entries)
+    # USE THIS FOR TESTING PURPOSES https://www.fool.com/about/how-to-calculate-investment-returns/
     table = full_table()
     table["portfolio_val"] = table.sum(axis=1)
     table = table[["portfolio_val"]]
@@ -84,12 +87,13 @@ ORDER BY DATE(created)"""
     table["pct_change"] = table["pct_change"].shift(1)
     with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
         print(table)
+    table = list(table.itertuples(index=False))
+    return table
     # df["quantity"], df["market_val"] = float("nan"), float("nan")
     # start_date = watchlist[0][0]
     # df2 = df.loc[start_date:]
     # df2 = df2.copy()  # prevents chain assignment
     # for i in watchlist:
     #     df2.at[i[0], "quantity"] = i[1]  # at the date, insert price
-summed_table()
-#print(get_holding_summary("AMZN"))
-# USE THIS FOR TESTING PURPOSES https://www.fool.com/about/how-to-calculate-investment-returns/
+
+#print(get_quantity_cumsum("AMZN"))
