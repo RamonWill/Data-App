@@ -1,0 +1,19 @@
+{#% extends 'base_layout.html' %#}
+
+{% block header %}
+  <h1>{% block title %}THIS IS THE LOGIN PAGE{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% from "_formhelpers.html" import render_field %}
+  <form action="{{ url_for('auth.login') }}" method="post">
+    <dl>
+      {{ render_field(form.username) }}
+      {{ render_field(form.password) }}
+      {{ render_field(form.remember_me) }}
+    </dl>
+    <p>{{ form.submit() }}</p>
+    {{ form.csrf_token }}
+  </form>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='base_style.css') }}">
+  <title>Prescient Finance</title>
+</head>
+<title>{% block title %}{% endblock %} - Prescient</title>
+<body>
+  <nav>
+    <div class="breaks">
+      <div class="bk1"></div>
+      <div class="bk2"></div>
+      <div class="bk3"></div>
+    </div>
+    <div class="Logo">
+      <img src="{{ url_for('static', filename='assets/finance-prescient2.png') }}" alt="Prescient Finance">
+    </div>
+    <ul class="nav-icons">
+      {% if g.user %}
+        <li><span class="username">{{ g.user['username'] }}</span></li>
+      {% endif %}
+      <li><a href="{{ url_for('dashboard') }}">DASHBOARD</a></li>
+      <li><a href="#">CHARTS</a></li>
+      <li><a href="{{ url_for('watchlist.main') }}">WATCHLIST</a></li>
+      {% if g.user %}
+        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+      {% else %}
+        <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+        <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  <script src="{{ url_for('static', filename='javascript/navbarscript.js') }}"></script>
+</body>
+<section class="main-content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
