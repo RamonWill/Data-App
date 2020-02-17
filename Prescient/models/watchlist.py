@@ -4,7 +4,7 @@ from datetime import datetime
 
 class Watchlist(db.Model):
     __tablename__ = "watchlist_securities"
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, index=True)
     ticker = db.Column(db.String(), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)

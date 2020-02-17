@@ -6,7 +6,7 @@ from Prescient.models import User
 class RegistrationForm(FlaskForm):
     username = StringField("Username", [validators.Length(min=4, max=25)])
     password = PasswordField("New Password", [validators.DataRequired(), validators.Length(min=5), validators.EqualTo("confirm", message="Passswords must match")])
-    confirm = PasswordField("Repeat Password")
+    confirm = PasswordField("Confirm Password")
     submit = SubmitField("Register")
 
     def validate_username(self, username):

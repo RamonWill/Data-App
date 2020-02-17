@@ -11,15 +11,15 @@ from Prescient import forms
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
-@app.route('/')
-def index():
+@bp.route('/test')
+def test():
     return render_template("test.html")
 
 
 @bp.route("/register", methods=("GET", "POST"))
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for("index"))
+        return redirect(url_for("dashboard"))
 
     form = forms.RegistrationForm()
     if form.validate_on_submit():
@@ -37,7 +37,7 @@ def register():
 @bp.route("/login", methods=("GET", "POST"))
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("index"))
+        return redirect(url_for("dashboard.index"))
 
     form = forms.LoginForm()
     if form.validate_on_submit():
@@ -50,11 +50,11 @@ def login():
             flash("Invalid username or password")
             return redirect(url_for("auth.login"))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for("index"))
+        return redirect(url_for("dashboard.index"))
     return render_template("auth/login.html", title="Log In", form=form)
 
 
-@app.route('/logout')
+@bp.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))

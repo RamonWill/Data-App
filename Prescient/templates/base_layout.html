@@ -19,13 +19,13 @@
       <img src="{{ url_for('static', filename='assets/finance-prescient2.png') }}" alt="Prescient Finance">
     </div>
     <ul class="nav-icons">
-      {% if g.user %}
-        <li><span class="username">{{ g.user['username'] }}</span></li>
+      {% if current_user.is_authenticated %}
+        <li><span class="username">{{ current_user.username }}</span></li>
       {% endif %}
-      <li><a href="{{ url_for('dashboard') }}">DASHBOARD</a></li>
+      <li><a href="{{ url_for('dashboard.index') }}">DASHBOARD</a></li>
       <li><a href="#">CHARTS</a></li>
-      <li><a href="{{ url_for('watchlist.main') }}">WATCHLIST</a></li>
-      {% if g.user %}
+      <li><a href="#">WATCHLIST</a></li>
+      {% if current_user.is_authenticated %}
         <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
       {% else %}
         <li><a href="{{ url_for('auth.register') }}">Register</a></li>

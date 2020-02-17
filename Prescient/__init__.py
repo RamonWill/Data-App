@@ -11,10 +11,13 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 login = LoginManager(app)
-login.login_view = "login"
+login.login_view = "auth.login"
 
 from . import views
 from . import models
 
 
 app.register_blueprint(views.auth.bp)
+app.register_blueprint(views.dashboard.bp)
+app.add_url_rule("/", endpoint="dashboard")
+app.register_blueprint(views.watchlist.bp)
