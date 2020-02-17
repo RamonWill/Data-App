@@ -1,5 +1,5 @@
 from Prescient import app, db
-from Prescient.models import User, Watchlist
+from Prescient import models
 
 
 @app.shell_context_processor

@@ -13,8 +13,8 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = "login"
 
-from . import auth
+from . import views
 from . import models
 
 
-app.register_blueprint(auth.bp)
+app.register_blueprint(views.auth.bp)
