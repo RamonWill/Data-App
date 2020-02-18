@@ -15,6 +15,7 @@ def get_sectors():
     sectors_list = [(s.name, s.name) for s in sectors]
     return sectors_list
 
+
 def get_summary_table():
     user_id = current_user.id
     query = """SELECT
@@ -48,6 +49,7 @@ def get_summary_table():
     result = db.session.execute(query, {"user_id": user_id})
     return result
 
+
 def check_watchlist_id(id, check_holder=True):
     info = Watchlist.query.filter_by(id=id).first()
     if info is None:
@@ -69,6 +71,7 @@ def main():
     #i will also need one function to get the sectors
 
     return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form)
+
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -132,32 +135,6 @@ def delete(id):
 
 ## To get data from the DB its
 # x = pd. read_sql(sql=query, con=db.engine)
+# to get mainDB db.engine
+# to get pricesDB db.get_engine(app, "Security_PricesDB")
 #ive tested this in terminal and it works
-"""SELECT
-    ticker,
-    SUM(units) as quantity,
-    ROUND(AVG(price),2) as price,
-    user_id
-FROM
-    (SELECT
-        a.user_id,
-        a.ticker,
-        CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
-        CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price'
-    FROM watchlist_securities a
-    WHERE a.quantity < 0 and user_id=1
-    GROUP BY a.ticker
-    HAVING 'price' > 0
-
-    UNION ALL
-    SELECT
-        b.user_id,
-        b.ticker,
-        CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
-        CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price'
-    FROM watchlist_securities b
-    WHERE b.quantity > 0 and user_id=1
-    GROUP BY b.ticker
-    HAVING 'price' > 0)
-    WHERE user_id=1
-    GROUP BY ticker"""

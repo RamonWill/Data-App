@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import sqlite3
 
-# A quick script that loads csv data to the Main DataBase
+# A quick script that loads csv data to the Main DataBase using raw sql
 
 FILE_PATH = os.path.abspath(os.path.dirname(__file__))
 DATABASE_FILE = os.path.abspath(os.path.join(__file__, "../..", "MainDB.db"))
