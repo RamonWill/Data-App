@@ -1,5 +1,6 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/auth-styles.css') }}">
 {% extends 'base_layout.html' %}
-
+<div class="main-wrapper">
 {% block header %}
   <h1>{% block title %}THIS IS THE REGISTER PAGE{% endblock %}</h1>
 {% endblock %}
@@ -15,4 +16,5 @@
     <p>{{ form.submit() }}</p>
     {{ form.csrf_token }}
   </form>
+</div>
 {% endblock %}

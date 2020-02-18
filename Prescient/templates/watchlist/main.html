@@ -26,7 +26,7 @@
       {% endfor %}
     </tbody>
   </table>
-  {% if g.user %}
+  {% if current_user %}
     <button style=color:black; type="button" class="btn-new-wl"
     data-toggle="modal" data-target="#mymodal">Add to Watchlist</button>
       <div id="mymodal" class="modal fade" role="dialog">
@@ -39,13 +39,14 @@
               {% from "_formhelpers.html" import render_field %}
               <form action="{{ url_for('watchlist.create')}}" method="post">
                 <dl>
-                  {{ render_field(add_form.ticker) }}
-                  {{ render_field(add_form.quantity) }}
-                  {{ render_field(add_form.price) }}
-                  {{ render_field(add_form.sector) }}
-                  {{ render_field(add_form.comments) }}
+                  {{ render_field(form.ticker) }}
+                  {{ render_field(form.quantity) }}
+                  {{ render_field(form.price) }}
+                  {{ render_field(form.sector) }}
+                  {{ render_field(form.comments) }}
                 </dl>
-                <button type="submit" name="button">Add</button>
+                <p>{{ form.submit() }}</p>
+                {{ form.csrf_token }}
               </form>
             </div>
 
@@ -77,7 +78,7 @@
           <td class="c6">{{item.created.strftime('%d-%m-%Y')}}</td>
           <td>{{item.comments}}</td>
           <td class="edit-trade">
-            {% if g.user['id'] == item['holder_id'] %}
+            {% if current_user == item['holder_id'] %}
               <button style=color:black; type="button" class="btn-new-wl"
               data-toggle="modal" data-target="#mymodal2{{item.id}}">Edit</button>
                 <div id="mymodal2{{item.id}}" class="modal fade" role="dialog">
@@ -90,11 +91,12 @@
                         {% from "_formhelpers.html" import render_field %}
                         <form action="{{ url_for('watchlist.update', id=item.id) }}" method="post">
                           <dl>
-                            {{ render_field(add_form.quantity) }}
-                            {{ render_field(add_form.price) }}
-                            {{ render_field(add_form.sector) }}
-                            {{ render_field(add_form.comments) }}
+                            {{ render_field(form.quantity) }}
+                            {{ render_field(form.price) }}
+                            {{ render_field(form.sector) }}
+                            {{ render_field(form.comments) }}
                           </dl>
+                          {{ form.csrf_token }}
                           <button type="submit" name="button" class="btn btn-primary">Save Changes</button>
                         </form>
                       </div>

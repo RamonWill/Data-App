@@ -1,85 +1,101 @@
+from Prescient import db
 from flask import(Blueprint, flash, g, redirect,
                   render_template, request, session,
                   url_for)
 from werkzeug.exceptions import abort
 from flask_login import login_required, current_user
-
+from Prescient.forms import WatchlistForm
+from Prescient.models import Watchlist, Sector_Definitions
 
 bp = Blueprint("watchlist", __name__)
 
+def get_sectors():
+    sectors = Sector_Definitions.query.all()
+    sectors_list = [(s.name, s.name) for s in sectors]
+    return sectors_list
+
+
+def check_watchlist_id(id, check_holder=True):
+
+    info = Watchlist.query.filter_by(id=id).first()
+    if info is None:
+        abort(404, f"Order ID {id} doesn't exist.")
+    if info.holder_id != current_user.id:
+        abort(403)
+    return True
 
 
 @bp.route("/main", methods=('GET', 'POST'))
 @login_required
 def main():
-    db = get_db()
-    holder_id = g.user["id"]
-    query1 = """SELECT securities.*
-                FROM securities
-                WHERE holder_id = ?"""
-    query2 = """SELECT
-                    name,
-                    SUM(units) as quantity,
-                    ROUND(AVG(price),2) as price,
-                    holder_id
-                FROM
-                    (SELECT
-                        a.holder_id,
-                        a.name,
-                        CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
-                        CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price'
-                    FROM securities a
-                    WHERE a.quantity < 0 and holder_id=:holder_id
-                    GROUP BY a.name
-                    HAVING 'price' > 0
+    form = WatchlistForm()
+    form.sector.choices = get_sectors()
+    watchlist = []
+    table1 = []
+    #i will also need one function to get the sectors
 
-                    UNION ALL
-                    SELECT
-                        b.holder_id,
-                        b.name,
-                        CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
-                        CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price'
-                    FROM securities b
-                    WHERE b.quantity > 0 and holder_id=:holder_id
-                    GROUP BY b.name
-                    HAVING 'price' > 0)
-                    WHERE holder_id=:holder_id
-                    GROUP BY name """
-
-    watchlist = db.execute(query1, (holder_id,)).fetchall()
-    table1 = db.execute(query2, {"holder_id":holder_id}).fetchall()
-    add_form = forms.WatchlistForm(request.form)
-    add_form.sector.choices = get_sectors()
-    return render_template("watchlist/main.html", watchlist=watchlist, table1=table1, add_form=add_form)
+    return render_template("watchlist/main.html", watchlist=watchlist, table1=table1, form=form)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
-    form = forms.WatchlistForm(request.form)  # request.form fills in the form with data from the request
+    form = WatchlistForm()
     form.sector.choices = get_sectors()
-    if request.method == 'POST':
+
+    if form.validate_on_submit():
         name = form.ticker.data
         quantity = form.quantity.data
         price = form.price.data
-
         sector = form.sector.data
         comments = form.comments.data
-        holder_id = g.user["id"]
-        error = None
-
-        db = get_db()
-        check = db.execute("SELECT ticker FROM available_securities WHERE ticker = ?", (name,)).fetchone()
-        if check is None:
-            error = f"The ticker {name} is not available."
-            flash(error)
-
-        elif form.validate():
-            db = get_db()
-            db.execute(
-                """INSERT INTO securities (name, quantity, price, sector, holder_id, comments)
-                   VALUES (?, ?, ?, ?, ?, ?)""", (name, int(quantity), float(price), sector, holder_id, comments,))
-            db.commit()
-            return redirect(url_for('watchlist.main'))
-
+        user_id = current_user.id
+        new_item = Watchlist(ticker=name, quantity=quantity,
+                             price=price, sector=sector,
+                             comments=comments, user_id=user_id)
+        db.session.add(new_item)
+        db.session.commit()
+        flash(f"{name} has been added to your watchlist")
+        return redirect(url_for("watchlist.main"))
+        # Follow the registration view
+        # I will also need one function to get the sectors
 
     return render_template("watchlist/main.html", form=form)
+
+@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@login_required
+def update(id):
+    check = check_watchlist_id(id)
+    form = WatchlistForm()
+    form.sector.choices = get_sectors()
+    user_id = current_user.id
+    if form.validate_on_submit() and check:
+        new_quantity = form.quantity.data
+        new_price = form.price.data
+        new_sector = form.sector.data
+        new_comment = form.comments.data
+        item = Watchlist.query.filter_by(id=id, user_id=user_id).first()
+        item.quantity = new_quantity
+        item.price = new_price
+        item.sector = new_sector
+        item.comments = new_comment
+        db.session.commit()
+        flash(f"Order ID {id} has now been updated")
+        return redirect(url_for("watchlist.main"))
+
+    return render_template("watchlist/main.html", form=form)
+
+@bp.route('/<int:id>/delete', methods=('POST',))
+@login_required
+def delete(id):
+    check = check_watchlist_id(id)
+    user_id = current_user.id
+    if check:
+        item = Watchlist.query.filter_by(id=id, user_id=user_id).first()
+        db.session.delete(item)
+        db.session.commit()
+        return redirect(url_for('watchlist.main'))
+    return redirect(url_for('watchlist.main'))
+
+## To get data from the DB its
+# x = pd. read_sql(sql=query, con=db.engine)
+#ive tested this in terminal and it works

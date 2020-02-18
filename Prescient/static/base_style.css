@@ -12,6 +12,7 @@ nav{
   background-image: linear-gradient(135deg, #0b071f, #0F2027,#203A43);
   /*background-color: #161616;*/
   font-family: 'Ubuntu', sans-serif;
+
 }
 .nav-icons li{
   list-style: none;
@@ -115,6 +116,7 @@ nav{
 }
 
 .main-content {
+  min-height: 100vh;
   padding-left: 10px;
   background-image: linear-gradient(135deg,#224080, #0F2027, #17323d, #17323d,#3b4a6b);
   font-family: 'Open Sans', sans-serif;

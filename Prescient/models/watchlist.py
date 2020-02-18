@@ -14,4 +14,4 @@ class Watchlist(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("login_details.id"), nullable=False)
 
     def __repr__(self):
-        return "<ID {}, Ticker{}>".format(self.id, self.ticker)
+        return "<ID {}, Ticker {}>".format(self.id, self.ticker)

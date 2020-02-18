@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField ,PasswordField, BooleanField, TextAreaField, IntegerField, SelectField, DecimalField, validators
-from Prescient.models import User
+from Prescient.models import User, Available_Securities
 
 
 class RegistrationForm(FlaskForm):
@@ -28,3 +28,9 @@ class WatchlistForm(FlaskForm):
     price = DecimalField("Price", validators=[validators.InputRequired(), validators.NumberRange(min=0, max=100000)])
     sector = SelectField("Sector",  validators=[validators.InputRequired()])  # From database
     comments = TextAreaField("Comments", validators=[validators.Optional(), validators.Length(max=140)])
+    submit = SubmitField("Add to Watchlist")
+
+    def validate_ticker(self, ticker):
+        ticker_check = Available_Securities.query.filter_by(ticker=ticker.data).first()
+        if ticker_check is None:
+            raise validators.ValidationError(f'The ticker {ticker} is not available.')
