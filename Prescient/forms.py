@@ -38,5 +38,5 @@ class WatchlistForm(FlaskForm):
 
 
 class ChartForm(FlaskForm):
-    ticker = SelectField("Sector",  validators=[validators.InputRequired()])
+    ticker = SelectField("Ticker",  validators=[validators.InputRequired()])
     submit = SubmitField("Plot")

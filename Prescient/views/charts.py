@@ -1,5 +1,5 @@
 from Prescient import db
-from flask import (Blueprint,
+from flask import (Blueprint, request,
                    render_template,
                    redirect,
                    url_for)
@@ -34,7 +34,7 @@ def chart_breakdown():
         plot_data = obj.performance_table(selection)
         line_chart = plot_data
         breakdown = plot_data
-        return redirect(url_for("charts.chart_breakdown", line_chart=line_chart, breakdown=breakdown, form=form))
+        return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form)
 
     line_chart = plot_data
     breakdown = plot_data
