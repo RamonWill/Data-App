@@ -16,9 +16,9 @@
         </tr>
       </thead>
       <tbody>
-        {% for item in table1 %}
+        {% for item in summary %}
         <tr class="watchlist-rows">
-          <td class="c2">{{item.name}}</td>
+          <td class="c2">{{item.ticker}}</td>
           <td class="c3">{{item.quantity}}</td>
           <td class="c3">{{item.price}}</td>
         </tr>
@@ -127,7 +127,7 @@
       maintainAspectRatio: false,
       data: {
           labels: [{% for item in pie_chart %}
-          "{{item.name}}",
+          "{{item.ticker}}",
           {% endfor %}],
           datasets: [{
               label: 'Weighting',
@@ -188,7 +188,7 @@
       maintainAspectRatio: false,
       data: {
           labels: [{% for item in bar_chart %}
-          "{{item.name}}",
+          "{{item.ticker}}",
           {% endfor %}],
           datasets: [{
               label: 'Market Value',
