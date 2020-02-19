@@ -21,6 +21,7 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField("Remember Me")
     submit = SubmitField("Sign In")
 
+
 class WatchlistForm(FlaskForm):
 
     ticker = StringField("Ticker", validators=[validators.Length(min=3, max=20), validators.Optional()])
@@ -34,3 +35,8 @@ class WatchlistForm(FlaskForm):
         ticker_check = Available_Securities.query.filter_by(ticker=ticker.data).first()
         if ticker_check is None:
             raise validators.ValidationError(f'The ticker {ticker} is not available.')
+
+
+class ChartForm(FlaskForm):
+    ticker = SelectField("Sector",  validators=[validators.InputRequired()])
+    submit = SubmitField("Plot")

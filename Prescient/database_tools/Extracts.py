@@ -189,3 +189,103 @@ class Portfolio_Summaries(object):
         c.close()
         conn.close()
         return result
+
+class Security_Breakdown(object):
+    """docstring for Security_Breakdown."""
+
+    def __init__(self, user_id):
+        self.user_id = user_id
+
+
+    def get_tickers(self):
+        conn = sqlite3.connect(MAIN_DATABASE)
+        conn.row_factory = sqlite3.Row
+        params = {"user_id": self.user_id}
+        distinct_query = """SELECT DISTINCT ticker FROM watchlist_securities WHERE user_id=:user_id"""
+        c = conn.cursor()
+        all_tickers = c.execute(distinct_query, params).fetchall()
+        c.close()
+        conn.close()
+        if all_tickers is None:
+            return []
+        tickers_list = [(i["ticker"], i["ticker"]) for i in all_tickers]
+        return tickers_list
+
+    def get_holding_summary(self, ticker):
+
+        conn = sqlite3.connect(MAIN_DATABASE)
+        query = f"""SELECT
+        DATE(created_timestamp) as 'date',
+        ticker,
+        SUM(units) as 'quantity',
+        ROUND(AVG(price),2) as 'price'
+        FROM
+        (SELECT
+        	a.created_timestamp,
+        	a.user_id,
+        	a.ticker,
+        	CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
+        	CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price'
+        FROM watchlist_securities a
+        WHERE a.quantity < 0 and user_id=:user_id and ticker=:ticker
+        GROUP BY DATE(a.created_timestamp)
+        HAVING 'price' > 0
+        UNION ALL
+        SELECT
+        	b.created_timestamp,
+        	b.user_id,
+        	b.ticker,
+        	CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
+        	CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price'
+        FROM watchlist_securities b
+        WHERE b.quantity > 0 and user_id=:user_id and ticker=:ticker
+        GROUP BY DATE(b.created_timestamp)
+        HAVING 'price' > 0)
+        WHERE user_id=:user_id
+        GROUP BY DATE(created_timestamp)"""
+        # need to filter this excution by the user_id and ticker
+        params = {"user_id": self.user_id, "ticker": ticker}
+        df = pd.read_sql_query(query, conn, params=params)
+
+        averages = []
+        for i in range(0, len(df)):
+
+            if i > 0:
+                sum_of_weighted_terms = sum(df["quantity"].iloc[0:i+1] * df["price"].iloc[0:i+1])
+                sum_of_terms = sum(df["quantity"].iloc[0:i+1])
+                weighted_avg = sum_of_weighted_terms/sum_of_terms
+                averages.append(weighted_avg)
+            else:
+                averages.append(df["price"].iloc[0])
+        df["weighted_average"] = averages
+        df["weighted_average"] = round(df["weighted_average"], 4)
+        final_df = df[["date", "weighted_average"]]
+        return final_df.to_numpy().tolist()
+
+    def performance_table(self, ticker):
+
+        watchlist = self.get_holding_summary(ticker)
+        conn = sqlite3.connect(PRICE_DATABASE)
+        query = f"""SELECT * FROM {ticker}"""
+        df = pd.read_sql_query(query, conn, index_col="index")
+        df["avg_cost"], df["pct_change"] = float("nan"), float("nan")
+        start_date = watchlist[0][0]
+        df2 = df.loc[start_date:]
+        df2 = df2.copy()  # prevents chain assignment
+        for i in watchlist:
+            df2.at[i[0], "avg_cost"] = i[1]  # at the date, insert price
+        df2["price"] = df2["price"].fillna(method="ffill")
+        df2["avg_cost"] = df2["avg_cost"].fillna(method="ffill")
+        df2["price"] = pd.to_numeric(df2["price"])
+        df2["pct_change"] = round(((df2["price"] - df2["avg_cost"])/df2["avg_cost"])*100,3)
+        # with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+        #     print(df2)
+        df2 = df2.reset_index()
+        #df2 = df2[["index", "pct_change"]]
+        df2 = list(df2.itertuples(index=False))
+        return df2
+
+# x = Security_Breakdown(1)
+# x.get_tickers()
+# print(x.get_holding_summary("AAPL"))
+# print(x.performance_table())
