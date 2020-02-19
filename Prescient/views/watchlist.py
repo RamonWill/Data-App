@@ -1,7 +1,6 @@
 from Prescient import db
-from flask import(Blueprint, flash, g, redirect,
-                  render_template, request, session,
-                  url_for)
+from flask import (Blueprint, flash, redirect,
+                   render_template, url_for)
 from werkzeug.exceptions import abort
 from flask_login import login_required, current_user
 from Prescient.forms import WatchlistForm

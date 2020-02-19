@@ -23,7 +23,7 @@
         <li><span class="username">{{ current_user.username }}</span></li>
       {% endif %}
       <li><a href="{{ url_for('dashboard.index') }}">DASHBOARD</a></li>
-      <li><a href="#">CHARTS</a></li>
+      <li><a href="{{ url_for('charts.chart_breakdown') }}">CHARTS</a></li>
       <li><a href="{{ url_for('watchlist.main') }}">WATCHLIST</a></li>
       {% if current_user.is_authenticated %}
         <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
