@@ -149,7 +149,8 @@ class Portfolio_Summaries(object):
                 GROUP BY b.ticker
                 HAVING 'price' > 0)
                 WHERE user_id=:user_id
-                GROUP BY ticker"""
+                GROUP BY ticker
+                """
         conn = sqlite3.connect(MAIN_DATABASE)
         conn.row_factory = sqlite3.Row
         params = {"user_id": self.user_id}
@@ -289,3 +290,39 @@ class Security_Breakdown(object):
 # x.get_tickers()
 # print(x.get_holding_summary("AAPL"))
 # print(x.performance_table())
+
+# another way to get the pie chart info
+
+
+def get_better_pie():
+    x = Portfolio_Performance(1)
+    y = x.full_table().tail(1)
+    y = y.T.reset_index()
+    if y.empty:
+        return y
+    # it is pythonic to have the smallest amount of code possible in try block
+    renamed_headers = {y.columns[0]: "ticker", y.columns[1]: "Market_val"}
+    y = y.rename(columns=renamed_headers)
+    total_portfolio_val = sum(y["Market_val"])
+
+    y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
+    y["Market_val_perc"] = round(y["Market_val"]/total_portfolio_val, 2)
+    z = list(y.itertuples(index=False))
+    return z
+
+
+def get_better_bar():
+    x = Portfolio_Performance(1)
+    y = x.full_table().tail(1)
+    y = y.T.reset_index()
+    if y.empty:
+        return y
+    # it is pythonic to have the smallest amount of code possible in try block
+    renamed_headers = {y.columns[0]: "ticker", y.columns[1]: "Market_val"}
+    y = y.rename(columns=renamed_headers)
+
+
+    y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
+    y = y.nlargest(n=5, columns="Market_val")  # 5 largest positions by mv
+    z = list(y.itertuples(index=False))
+    return z
