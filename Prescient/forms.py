@@ -22,8 +22,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Sign In")
 
 
-class WatchlistForm(FlaskForm):
-
+class WatchlistItemsForm(FlaskForm):
+    #Watchlist = SelectField("Sector",  validators=[validators.InputRequired()])
     ticker = StringField("Ticker", validators=[validators.Length(min=3, max=20), validators.Optional()])
     quantity = IntegerField("Quantity", validators=[validators.InputRequired(), validators.NumberRange(min=-10000000, max=10000000)])
     price = DecimalField("Price", validators=[validators.InputRequired(), validators.NumberRange(min=0, max=100000)])

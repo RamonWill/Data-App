@@ -6,5 +6,5 @@ from Prescient import models
 def make_shell_context():
     return {"db": db,
             "User": models.User,
-            "Watchlist": models.Watchlist,
+            "Watchlist": models.WatchlistItems,
             "sectors": models.Sector_Definitions}

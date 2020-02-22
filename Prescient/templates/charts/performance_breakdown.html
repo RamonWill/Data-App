@@ -1,130 +1,134 @@
-<link rel="stylesheet" href="#">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/performance-styles.css') }}">
 <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js></script>
 {% extends 'base_layout.html' %}
 <div class="main-wrapper">
 {% block header %}
-  <h1>{% block title %}THIS IS THE CHART BREAKDOWN PAGE{% endblock %}</h1>
+  <h1>{% block title %}Performance Breakdown by Security{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Average Cost</th>
-      <th>Price</th>
-      <th>Daily Change</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for item in breakdown %}
-    <tr class="watchlist-rows">
-      <td class="c2">{{item.index}}</td>
-      <td class="c2">{{item.avg_cost}}</td>
-      <td class="c3">{{item.price}}</td>
-      <td class="c3">{{item.pct_change}}%</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-<div class="selection">
-  {% from "_formhelpers.html" import render_field %}
-  <form action="" method="post">
-    <dl>
-      {{ render_field(form.ticker) }}
-    </dl>
-    <p>{{ form.submit() }}</p>
-    {{ form.csrf_token }}
-  </form>
-</div>
-<div class="line-chart-container">
-  <canvas id="myChart"></canvas>
-</div>
-<script>
-//Chart.defaults.global.responsive = false;
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    tooltipCaretSize: 10,
-    maintainAspectRatio: false,
-    data: {
-        labels: [{% for item in line_chart %}
-        "{{item.index}}",
-        {% endfor %}],
-        datasets: [{
-            label: '%',
-            data: [{% for item in line_chart %}
-            "{{item.pct_change}}",
-            {% endfor %}],
-            backgroundColor: [
-                'rgba(54, 162, 235, 0.2)'
-            ],
-            borderColor: [{% for item in line_chart %}
-                'rgba(54, 162, 235, 1)',
-                {% endfor %}
-            ],
-            borderWidth: 2,
-            pointBorderWidth: 1,
-            pointBorderColor: 'rgba(127, 64, 222, 1)'
-        }]
-    },
-    options: {
-      responsive:true,
-      tooltips: {
-        mode: "index",
-        intersect:false,
+<div class="main-wrapper">
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Average Cost</th>
+          <th>Price</th>
+          <th>Daily Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in breakdown %}
+        <tr class="watchlist-rows">
+          <td class="c2">{{item.index}}</td>
+          <td class="c2">{{item.avg_cost}}</td>
+          <td class="c3">{{item.price}}</td>
+          <td class="c3">{{item.pct_change}}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="line-chart-container">
+    <canvas id="myChart"></canvas>
+  </div>
+  <script>
+  //Chart.defaults.global.responsive = false;
+  var ctx = document.getElementById('myChart');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      tooltipCaretSize: 10,
+      maintainAspectRatio: false,
+      data: {
+          labels: [{% for item in line_chart %}
+          "{{item.index}}",
+          {% endfor %}],
+          datasets: [{
+              label: '%',
+              data: [{% for item in line_chart %}
+              "{{item.pct_change}}",
+              {% endfor %}],
+              backgroundColor: [
+                  'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [{% for item in line_chart %}
+                  'rgba(54, 162, 235, 1)',
+                  {% endfor %}
+              ],
+              borderWidth: 2,
+              pointBorderWidth: 1,
+              pointBorderColor: 'rgba(127, 64, 222, 1)'
+          }]
       },
-      hover:{
-        mode: "nearest",
-        intersect: true,
-      },
-      legend: {
-        display: false,
-        labels: {
+      options: {
+        responsive:true,
+        tooltips: {
+          mode: "index",
+          intersect:false,
+        },
+        hover:{
+          mode: "nearest",
+          intersect: true,
+        },
+        legend: {
+          display: false,
+          labels: {
+            fontColor: "#d4eaff"
+          }
+        },
+        title: {
+          display: true,
+          text: "(Ticker Name) Performance",
           fontColor: "#d4eaff"
-        }
-      },
-      title: {
-        display: true,
-        text: "(Ticker Name) Performance",
-        fontColor: "#d4eaff"
-      },
-      layout: {
-        padding:{
-          left: 20,
-          right: 20,
-          top: 0,
-          bottom: 0
-        }
-      },
-        scales: {
-            xAxes: [{
-              scaleLabel:{
-                display: true,
-                labelString: "Date",
-                fontColor: "#d4eaff"
-              },
-                ticks: {
-                    fontColor: "#d4eaff",
-                    autoSkip: true,
-                    maxTicksLimit: 6,
-                    maxRotation: 15,
-                    minRotation:15
+        },
+        layout: {
+          padding:{
+            left: 20,
+            right: 20,
+            top: 0,
+            bottom: 0
+          }
+        },
+          scales: {
+              xAxes: [{
+                scaleLabel:{
+                  display: true,
+                  labelString: "Date",
+                  fontColor: "#d4eaff"
+                },
+                  ticks: {
+                      fontColor: "#d4eaff",
+                      autoSkip: true,
+                      maxTicksLimit: 6,
+                      maxRotation: 15,
+                      minRotation:15
+                  }
+              }],
+              yAxes: [{
+                display:true,
+                scaleLabel:{
+                  fontColor: "#d4eaff",
+                  display: true,
+                  labelString:"Performance (%)"
+                },
+                ticks:{
+                  fontColor: "#d4eaff",
                 }
-            }],
-            yAxes: [{
-              display:true,
-              scaleLabel:{
-                fontColor: "#d4eaff",
-                display: true,
-                labelString:"Performance (%)"
-              },
-              ticks:{
-                fontColor: "#d4eaff",
-              }
-            }]
-        }
-    }
-});
-</script>
+              }]
+          }
+      }
+  });
+  </script>
+  <div class="selection">
+    {% from "_formhelpers.html" import render_field %}
+    <form action="" method="post">
+      <dl>
+        {{ render_field(form.ticker) }}
+      </dl>
+      <p>{{ form.submit() }}</p>
+      {{ form.csrf_token }}
+    </form>
+  </div>
+</div>
 {% endblock %}

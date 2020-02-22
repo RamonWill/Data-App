@@ -2,7 +2,7 @@
 <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js></script>
 {% extends 'base_layout.html' %}
 {% block header %}
-  <h1 class="main-heading">{% block title %}Portfolio Overview{% endblock %}</h1>
+  <h1 class="main-heading">{% block title %}Portfolio Overview for {{ current_user.username }}{% endblock %}</h1>
 {% endblock %}
 {% block content %}
 <div class="main-wrapper">
@@ -26,8 +26,156 @@
       </tbody>
     </table>
   </div>
+  <div class="pie-chart-container">
+    <canvas id="mypieChart"></canvas>
+  </div>
+  <script>
+  //Chart.defaults.global.responsive = false;
+  var ctx = document.getElementById('mypieChart');
+  var myChart = new Chart(ctx, {
+      type: 'pie',
+      maintainAspectRatio: false,
+      data: {
+          labels: [{% for item in pie_chart %}
+          "{{item.ticker}}",
+          {% endfor %}],
+          datasets: [{
+              label: 'Weighting',
+              data: [{% for item in pie_chart %}
+              "{{item.market_val_perc}}",
+              {% endfor %}],
+              backgroundColor: [
+                  'rgba(54, 162, 235, 0.3)',
+                  'rgba(161, 120, 227, 0.3)',
+                  'rgba(120, 245, 155, 0.3)',
+                  'rgba(120, 245, 203, 0.3)'
+              ],
+              borderColor: [
+                  'rgba(140, 203, 245, 1)',
+                  'rgba(177, 134, 247, 1)',
+                  'rgba(44, 242, 98, 1)',
+                  'rgba(125, 255, 211, 1)'
+              ],
+              borderWidth: 2
+          }]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          labels: {
+            fontColor: "#d4eaff"
+          },
+          position: "right",
+        },
+        title: {
+          display: true,
+          text: "Portfolio Distribution by Position",
+          fontColor: "#d4eaff"
+        },
+        layout: {
+          padding:{
+            left: 0,
+            right: 50,
+            top: 0,
+            bottom: 0
+          }
+        },
+        animation: {
+          animateScale: true,
+          animateRotate:true
+        }
+      }
+  });
+  </script>
+  <div class="bar-chart-container">
+    <canvas id="mybarChart"></canvas>
+  </div>
+  <script>
+  //Chart.defaults.global.responsive = false;
+  var ctx = document.getElementById('mybarChart');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      maintainAspectRatio: false,
+      data: {
+          labels: [{% for item in bar_chart %}
+          "{{item.ticker}}",
+          {% endfor %}],
+          datasets: [{
+              label: 'Market Value',
+              data: [{% for item in bar_chart %}
+              "{{item.market_val}}",
+              {% endfor %}],
+              backgroundColor: [
+                  'rgba(213, 0, 249, 0.2)',
+                  'rgba(194, 24, 91, 0.2)',
+                  'rgba(229, 57, 53, 0.2)',
+                  'rgba(192, 202, 51, 0.2)',
+                  'rgba(255, 214, 0, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(234, 128, 252, 1)',
+                  'rgba(236, 64, 122, 1)',
+                  'rgba(239, 154, 154, 1)',
+                  'rgba(230, 238, 156, 1)',
+                  'rgba(255, 234, 0, 0.2)'
+              ],
+              borderWidth: 2
+          }]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          labels:{
+            fontColor: "#d4eaff"
+          },
+          position: "right",
+          fontColor: "#d4eaff"
+        },
+        title: {
+          display: true,
+          text: "Your Largest Positions by Market Value",
+          fontColor: "#d4eaff"
+        },
+        layout: {
+          padding:{
+            left: 20,
+            right: 80,
+            top: 0,
+            bottom: 0
+          }
+        },
+        animation: {
+          animateScale: true,
+          animateRotate:true
+        },
+        scales: {
+            xAxes: [{
+              scaleLabel:{
+                display: true,
+                labelString: "Date",
+                fontColor: "#d4eaff"
+              },
+                ticks: {
+                    fontColor: "#d4eaff",
+                }
+            }],
+            yAxes: [{
+              scaleLabel:{
+                fontColor: "#d4eaff",
+                display: true,
+                labelString:"Market Value"
+              },
+              ticks:{
+                fontColor: "#d4eaff",
+                minTicksLimit:6
+              }
+            }]
+        },
+      }
+  });
+  </script>
   <div class="line-chart-container">
-    <canvas id="myChart"></canvas>
+    <canvas id="myChart" style=""></canvas>
   </div>
   <script>
   //Chart.defaults.global.responsive = false;
@@ -113,154 +261,6 @@
                 }
               }]
           }
-      }
-  });
-  </script>
-  <div class="pie-chart-container">
-    <canvas id="mypieChart"></canvas>
-  </div>
-  <script>
-  //Chart.defaults.global.responsive = false;
-  var ctx = document.getElementById('mypieChart');
-  var myChart = new Chart(ctx, {
-      type: 'pie',
-      maintainAspectRatio: false,
-      data: {
-          labels: [{% for item in pie_chart %}
-          "{{item.ticker}}",
-          {% endfor %}],
-          datasets: [{
-              label: 'Weighting',
-              data: [{% for item in pie_chart %}
-              "{{item.market_val_perc}}",
-              {% endfor %}],
-              backgroundColor: [
-                  'rgba(54, 162, 235, 0.3)',
-                  'rgba(161, 120, 227, 0.3)',
-                  'rgba(120, 245, 155, 0.3)',
-                  'rgba(120, 245, 203, 0.3)'
-              ],
-              borderColor: [
-                  'rgba(140, 203, 245, 1)',
-                  'rgba(177, 134, 247, 1)',
-                  'rgba(44, 242, 98, 1)',
-                  'rgba(125, 255, 211, 1)'
-              ],
-              borderWidth: 2
-          }]
-      },
-      options: {
-        responsive: true,
-        legend: {
-          labels: {
-            fontColor: "#d4eaff"
-          },
-          position: "right",
-        },
-        title: {
-          display: true,
-          text: "Position Distribution",
-          fontColor: "#d4eaff"
-        },
-        layout: {
-          padding:{
-            left: 0,
-            right: 50,
-            top: 0,
-            bottom: 0
-          }
-        },
-        animation: {
-          animateScale: true,
-          animateRotate:true
-        }
-      }
-  });
-  </script>
-  <div class="bar-chart-container">
-    <canvas id="mybarChart"></canvas>
-  </div>
-  <script>
-  //Chart.defaults.global.responsive = false;
-  var ctx = document.getElementById('mybarChart');
-  var myChart = new Chart(ctx, {
-      type: 'bar',
-      maintainAspectRatio: false,
-      data: {
-          labels: [{% for item in bar_chart %}
-          "{{item.ticker}}",
-          {% endfor %}],
-          datasets: [{
-              label: 'Market Value',
-              data: [{% for item in bar_chart %}
-              "{{item.market_val}}",
-              {% endfor %}],
-              backgroundColor: [
-                  'rgba(213, 0, 249, 0.2)',
-                  'rgba(194, 24, 91, 0.2)',
-                  'rgba(229, 57, 53, 0.2)',
-                  'rgba(192, 202, 51, 0.2)',
-                  'rgba(255, 214, 0, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(234, 128, 252, 1)',
-                  'rgba(236, 64, 122, 1)',
-                  'rgba(239, 154, 154, 1)',
-                  'rgba(230, 238, 156, 1)',
-                  'rgba(255, 234, 0, 0.2)'
-              ],
-              borderWidth: 2
-          }]
-      },
-      options: {
-        responsive: true,
-        legend: {
-          labels:{
-            fontColor: "#d4eaff"
-          },
-          position: "right",
-          fontColor: "#d4eaff"
-        },
-        title: {
-          display: true,
-          text: "Your 5 Largest Positions",
-          fontColor: "#d4eaff"
-        },
-        layout: {
-          padding:{
-            left: 20,
-            right: 80,
-            top: 0,
-            bottom: 0
-          }
-        },
-        animation: {
-          animateScale: true,
-          animateRotate:true
-        },
-        scales: {
-            xAxes: [{
-              scaleLabel:{
-                display: true,
-                labelString: "Date",
-                fontColor: "#d4eaff"
-              },
-                ticks: {
-                    fontColor: "#d4eaff",
-                }
-            }],
-            yAxes: [{
-              scaleLabel:{
-                fontColor: "#d4eaff",
-                display: true,
-                labelString:"Market Value"
-              },
-              ticks:{
-                fontColor: "#d4eaff",
-                minTicksLimit:6
-              }
-            }]
-        },
       }
   });
   </script>

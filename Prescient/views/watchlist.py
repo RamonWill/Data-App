@@ -3,8 +3,8 @@ from flask import (Blueprint, flash, redirect,
                    render_template, url_for)
 from werkzeug.exceptions import abort
 from flask_login import login_required, current_user
-from Prescient.forms import WatchlistForm
-from Prescient.models import Watchlist, Sector_Definitions
+from Prescient.forms import WatchlistItemsForm
+from Prescient.models import WatchlistItems, Sector_Definitions
 
 bp = Blueprint("watchlist", __name__)
 
@@ -50,7 +50,7 @@ def get_summary_table():
 
 
 def check_watchlist_id(id, check_holder=True):
-    info = Watchlist.query.filter_by(id=id).first()
+    info = WatchlistItems.query.filter_by(id=id).first()
     if info is None:
         abort(404, f"Order ID {id} doesn't exist.")
     if info.user_id != current_user.id:
@@ -63,9 +63,9 @@ def check_watchlist_id(id, check_holder=True):
 def main():
     user_id = current_user.id
 
-    form = WatchlistForm()
+    form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
-    watchlist = Watchlist.query.filter_by(user_id=user_id)  # this is good because it defaults to an empty list
+    watchlist = WatchlistItems.query.filter_by(user_id=user_id)  # this is good because it defaults to an empty list
     summary = get_summary_table()
     #i will also need one function to get the sectors
 
@@ -75,7 +75,7 @@ def main():
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
-    form = WatchlistForm()
+    form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
 
     if form.validate_on_submit():
@@ -85,7 +85,7 @@ def create():
         sector = form.sector.data
         comments = form.comments.data
         user_id = current_user.id
-        new_item = Watchlist(ticker=name, quantity=quantity,
+        new_item = WatchlistItems(ticker=name, quantity=quantity,
                              price=price, sector=sector,
                              comments=comments, user_id=user_id)
         db.session.add(new_item)
@@ -101,7 +101,7 @@ def create():
 @login_required
 def update(id):
     check = check_watchlist_id(id)
-    form = WatchlistForm()
+    form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
     user_id = current_user.id
     if form.validate_on_submit() and check:
@@ -109,7 +109,7 @@ def update(id):
         new_price = form.price.data
         new_sector = form.sector.data
         new_comment = form.comments.data
-        item = Watchlist.query.filter_by(id=id, user_id=user_id).first()
+        item = WatchlistItems.query.filter_by(id=id, user_id=user_id).first()
         item.quantity = new_quantity
         item.price = new_price
         item.sector = new_sector
@@ -126,7 +126,7 @@ def delete(id):
     check = check_watchlist_id(id)
     user_id = current_user.id
     if check:
-        item = Watchlist.query.filter_by(id=id, user_id=user_id).first()
+        item = WatchlistItems.query.filter_by(id=id, user_id=user_id).first()
         db.session.delete(item)
         db.session.commit()
         return redirect(url_for('watchlist.main'))
