@@ -8,7 +8,8 @@ class User (UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(25), index=True, unique=True, nullable=False)
     password = db.Column(db.String(64), nullable=False)
-
+    child1 = db.relationship('Watchlist_Group', backref='login_details', passive_deletes=True)
+    child2 = db.relationship('WatchlistItems', backref='login_details', passive_deletes=True)
     def __repr__(self):
         return "<User {}>".format(self.username)
 

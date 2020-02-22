@@ -39,6 +39,7 @@
               {% from "_formhelpers.html" import render_field %}
               <form action="{{ url_for('watchlist.create')}}" method="post">
                 <dl>
+                  {{ render_field(form.watchlist) }}
                   {{ render_field(form.ticker) }}
                   {{ render_field(form.quantity) }}
                   {{ render_field(form.price) }}
@@ -53,6 +54,28 @@
           </div>
         </div>
       </div>
+      <button style=color:black; type="button" class="btn-new-wl"
+      data-toggle="modal" data-target="#mymodal3">Create Watchlist Group</button>
+        <div id="mymodal3" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Create Watchlist</h4>
+              </div>
+              <div class="modal-body">
+                {% from "_formhelpers.html" import render_field %}
+                <form action="{{ url_for('watchlist.create_group')}}" method="post">
+                  <dl>
+                    {{ render_field(group_form.name) }}
+                  </dl>
+                  <p>{{ group_form.submit() }}</p>
+                  {{ group_form.csrf_token }}
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
   {% endif %}
     <table>
       <thead>
@@ -91,6 +114,7 @@
                         {% from "_formhelpers.html" import render_field %}
                         <form action="{{ url_for('watchlist.update', id=item.id) }}" method="post">
                           <dl>
+                            {{ render_field(form.watchlist) }}
                             {{ render_field(form.quantity) }}
                             {{ render_field(form.price) }}
                             {{ render_field(form.sector) }}

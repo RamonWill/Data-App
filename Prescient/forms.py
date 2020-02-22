@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField ,PasswordField, BooleanField, TextAreaField, IntegerField, SelectField, DecimalField, validators
-from Prescient.models import User, Available_Securities
+from Prescient.models import User, Available_Securities, Watchlist_Group
 
 
 class RegistrationForm(FlaskForm):
@@ -23,7 +23,7 @@ class LoginForm(FlaskForm):
 
 
 class WatchlistItemsForm(FlaskForm):
-    #Watchlist = SelectField("Sector",  validators=[validators.InputRequired()])
+    watchlist = SelectField("Sector",  validators=[validators.InputRequired()])
     ticker = StringField("Ticker", validators=[validators.Length(min=3, max=20), validators.Optional()])
     quantity = IntegerField("Quantity", validators=[validators.InputRequired(), validators.NumberRange(min=-10000000, max=10000000)])
     price = DecimalField("Price", validators=[validators.InputRequired(), validators.NumberRange(min=0, max=100000)])
@@ -35,6 +35,16 @@ class WatchlistItemsForm(FlaskForm):
         ticker_check = Available_Securities.query.filter_by(ticker=ticker.data).first()
         if ticker_check is None:
             raise validators.ValidationError(f'The ticker {ticker} is not available.')
+
+
+class WatchlistGroupForm(FlaskForm):
+    name = StringField("Watchlist Name", validators=[validators.InputRequired(), validators.Length(min=1, max=25)])
+    submit = SubmitField("Create Watchlist")
+
+    def validate_watchlist_group(self, name, user_id):
+        name_check = Watchlist_Group.query.filter_by(name=name.data, user_id=current_user.id).first()
+        if name_check is not None:
+            raise validators.ValidationError("You can not create two watchlists with the same name!")
 
 
 class ChartForm(FlaskForm):

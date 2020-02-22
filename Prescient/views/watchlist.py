@@ -3,8 +3,8 @@ from flask import (Blueprint, flash, redirect,
                    render_template, url_for)
 from werkzeug.exceptions import abort
 from flask_login import login_required, current_user
-from Prescient.forms import WatchlistItemsForm
-from Prescient.models import WatchlistItems, Sector_Definitions
+from Prescient.forms import WatchlistItemsForm, WatchlistGroupForm
+from Prescient.models import WatchlistItems, Sector_Definitions, Watchlist_Group
 
 bp = Blueprint("watchlist", __name__)
 
@@ -13,6 +13,24 @@ def get_sectors():
     sectors = Sector_Definitions.query.all()
     sectors_list = [(s.name, s.name) for s in sectors]
     return sectors_list
+
+
+def get_group_names(user_id):
+    names = Watchlist_Group.query.filter_by(user_id=user_id).all()
+    if names is None:
+        return []
+    else:
+        names_list = [(i.name, i.name) for i in names]
+        return names_list
+
+def get_group_id(watchlist, user_id):
+    group_id = Watchlist_Group.query.filter_by(name=watchlist, user_id=user_id).first()
+    if group_id is None:
+        abort(404, f"the ID for {watchlist} doesn't exist.")
+
+    else:
+        group_id = int(group_id.id)
+        return group_id
 
 
 def get_summary_table():
@@ -65,11 +83,28 @@ def main():
 
     form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
+    form.watchlist.choices = get_group_names(user_id)
     watchlist = WatchlistItems.query.filter_by(user_id=user_id)  # this is good because it defaults to an empty list
     summary = get_summary_table()
-    #i will also need one function to get the sectors
 
-    return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form)
+    group_form = WatchlistGroupForm()
+
+    return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form, group_form=group_form)
+
+@bp.route('/create-group', methods=('GET', 'POST'))
+@login_required
+def create_group():
+    group_form = WatchlistGroupForm()
+    if group_form.validate_on_submit():
+        name = group_form.name.data
+        user_id = current_user.id
+        new_group = Watchlist_Group(name=name, user_id=user_id)
+        db.session.add(new_group)
+        db.session.commit()
+        flash(f"The Watchlist group '{name}' has been created!")
+        return redirect(url_for("watchlist.main"))
+
+    return redirect(url_for("watchlist.main"))
 
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -77,17 +112,20 @@ def main():
 def create():
     form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
+    form.watchlist.choices = get_group_names(current_user.id)
 
     if form.validate_on_submit():
+        watchlist = form.watchlist.data
         name = form.ticker.data
         quantity = form.quantity.data
         price = form.price.data
         sector = form.sector.data
         comments = form.comments.data
         user_id = current_user.id
-        new_item = WatchlistItems(ticker=name, quantity=quantity,
+        group_id = get_group_id(watchlist, user_id)
+        new_item = WatchlistItems(watchlist=watchlist, ticker=name, quantity=quantity,
                              price=price, sector=sector,
-                             comments=comments, user_id=user_id)
+                             comments=comments, user_id=user_id, group_id=group_id)
         db.session.add(new_item)
         db.session.commit()
         flash(f"{name} has been added to your watchlist")
