@@ -27,7 +27,6 @@ def get_group_id(watchlist, user_id):
     group_id = Watchlist_Group.query.filter_by(name=watchlist, user_id=user_id).first()
     if group_id is None:
         abort(404, f"the ID for {watchlist} doesn't exist.")
-
     else:
         group_id = int(group_id.id)
         return group_id
@@ -132,26 +131,32 @@ def create():
         return redirect(url_for("watchlist.main"))
         # Follow the registration view
         # I will also need one function to get the sectors
-
-    return render_template("watchlist/main.html", form=form)
+    return redirect(url_for("watchlist.main"))
+    #return render_template("watchlist/main.html", form=form)
 
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 def update(id):
+    user_id = current_user.id
     check = check_watchlist_id(id)
     form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
-    user_id = current_user.id
+    form.watchlist.choices = get_group_names(user_id)
+
     if form.validate_on_submit() and check:
+        new_watchlist = form.watchlist.data
         new_quantity = form.quantity.data
         new_price = form.price.data
         new_sector = form.sector.data
         new_comment = form.comments.data
+        new_group_id = get_group_id(new_watchlist, user_id)
         item = WatchlistItems.query.filter_by(id=id, user_id=user_id).first()
+        item.watchlist = new_watchlist
         item.quantity = new_quantity
         item.price = new_price
         item.sector = new_sector
         item.comments = new_comment
+        item.group_id = new_group_id
         db.session.commit()
         flash(f"Order ID {id} has now been updated")
         return redirect(url_for("watchlist.main"))

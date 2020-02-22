@@ -14,17 +14,18 @@ PRICE_DATABASE = os.path.abspath(os.path.join(__file__, "../..", "Security_Price
 class Portfolio_Performance(object):
     """docstring for Portfolio_Performance."""
 
-    def __init__(self, user_id):
+    def __init__(self, user_id, group_id):
         self.user_id = user_id
+        self.group_id = group_id
 
     def get_quantity_cumsum(self, ticker):
         # Gets the cumulative summed quantity per date for each security
         conn = sqlite3.connect(MAIN_DATABASE)
         query = """Select DATE(created_timestamp), quantity
         From watchlist_securities
-        where user_id =:user_id and ticker=:ticker
+        where user_id =:user_id and ticker=:ticker and group_id=:group_id
         ORDER BY created_timestamp """
-        params = {"user_id": self.user_id, "ticker": ticker}
+        params = {"user_id": self.user_id, "ticker": ticker, "group_id":self.group_id}
 
         df = pd.read_sql_query(query, conn, params=params)
         df["quantity"] = df["quantity"].cumsum()
@@ -42,7 +43,6 @@ class Portfolio_Performance(object):
         df["market_val"] = float("nan")
 
         start_date = watchlist[0][0]
-
         df2 = df.loc[start_date:]  # the prices starting from the first date the security was held
         df2 = df2.copy()  # prevents chain assignment
         for i in watchlist:
@@ -65,9 +65,9 @@ class Portfolio_Performance(object):
         conn = sqlite3.connect(MAIN_DATABASE)
         distinct_query = """SELECT DISTINCT ticker
                             FROM watchlist_securities
-                            WHERE user_id=:user_id
+                            WHERE user_id=:user_id and group_id=:group_id
                             ORDER BY created_timestamp"""
-        params = {"user_id": self.user_id}
+        params = {"user_id": self.user_id, "group_id": self.group_id}
         c = conn.cursor()
         result = c.execute(distinct_query, params).fetchall()
         c.close()
@@ -86,7 +86,7 @@ class Portfolio_Performance(object):
 
         df = df.fillna(method="ffill")
         # with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-        #     print(p)
+        #     print(df)
         return df
 
     def summed_table(self):
@@ -99,10 +99,10 @@ class Portfolio_Performance(object):
                     DATE(created_timestamp) as 'index',
                     SUM(quantity * price) as flow
                   FROM watchlist_securities
-                  WHERE user_id =:user_id
+                  WHERE user_id =:user_id and group_id=:group_id
                   GROUP BY DATE(created_timestamp)
                   ORDER BY DATE(created_timestamp)"""
-        params = {"user_id": self.user_id}
+        params = {"user_id": self.user_id, "group_id": self.group_id}
         df = pd.read_sql_query(query, conn, index_col="index", params=params)  # inflows/outflows
         table = table.join(df)
         table = table.reset_index()
@@ -117,10 +117,44 @@ class Portfolio_Performance(object):
         table = list(table.itertuples(index=False))
         return table  # changes df to  named tuples so it can be rendered
 
+    def get_pie_chart(self):
+
+        y = self.full_table().tail(1)
+        y = y.T.reset_index()
+        if y.empty:
+            return y
+        # it is pythonic to have the smallest amount of code possible in try block
+        renamed_headers = {y.columns[0]: "ticker", y.columns[1]: "Market_val"}
+        y = y.rename(columns=renamed_headers)
+        total_portfolio_val = sum(y["Market_val"])
+
+        y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
+        y["market_val_perc"] = round(y["Market_val"]/total_portfolio_val, 2)
+        z = list(y.itertuples(index=False))
+        
+        return z
+
+
+    def get_bar_chart(self):
+        y = self.full_table().tail(1)
+        y = y.T.reset_index()
+        if y.empty:
+            return y
+        # it is pythonic to have the smallest amount of code possible in try block
+        renamed_headers = {y.columns[0]: "ticker", y.columns[1]: "market_val"}
+        y = y.rename(columns=renamed_headers)
+
+
+        y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
+        y = y.nlargest(n=5, columns="market_val")  # 5 largest positions by mv
+        z = list(y.itertuples(index=False))
+        return z
+
 
 class Portfolio_Summaries(object):
-    def __init__(self, user_id):
+    def __init__(self, user_id, group_id):
         self.user_id = user_id
+        self.group_id = group_id
 
     def summary_table(self):
         query = """SELECT
@@ -132,9 +166,10 @@ class Portfolio_Summaries(object):
                     a.user_id,
                     a.ticker,
                     CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
-                    CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price'
+                    CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price',
+                    a.group_id
                 FROM watchlist_securities a
-                WHERE a.quantity < 0 and user_id=:user_id
+                WHERE a.quantity < 0 and user_id=:user_id and group_id=:group_id
                 GROUP BY a.ticker
                 HAVING 'price' > 0
 
@@ -143,17 +178,18 @@ class Portfolio_Summaries(object):
                     b.user_id,
                     b.ticker,
                     CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
-                    CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price'
+                    CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price',
+                    b.group_id
                 FROM watchlist_securities b
-                WHERE b.quantity > 0 and user_id=:user_id
+                WHERE b.quantity > 0 and user_id=:user_id and group_id=:group_id
                 GROUP BY b.ticker
                 HAVING 'price' > 0)
-                WHERE user_id=:user_id
+                WHERE user_id=:user_id and group_id=:group_id
                 GROUP BY ticker
                 """
         conn = sqlite3.connect(MAIN_DATABASE)
         conn.row_factory = sqlite3.Row
-        params = {"user_id": self.user_id}
+        params = {"user_id": self.user_id, "group_id": self.group_id}
         c = conn.cursor()
         result = c.execute(query, params).fetchall()
         c.close()
@@ -162,7 +198,7 @@ class Portfolio_Summaries(object):
         return result
 
     def get_pie_chart(self):
-        query = """SELECT ticker, ROUND(ABS(SUM(quantity*price)/t.s)*100,2) as "Market_val_perc"
+        query = """SELECT ticker, ROUND(ABS(SUM(quantity*price)/t.s)*100,2) as "market_val_perc"
         from watchlist_securities
         CROSS JOIN (SELECT SUM(quantity*price) AS s FROM watchlist_securities WHERE user_id=:user_id) t
         WHERE user_id=:user_id
@@ -292,37 +328,3 @@ class Security_Breakdown(object):
 # print(x.performance_table())
 
 # another way to get the pie chart info
-
-
-def get_better_pie():
-    x = Portfolio_Performance(1)
-    y = x.full_table().tail(1)
-    y = y.T.reset_index()
-    if y.empty:
-        return y
-    # it is pythonic to have the smallest amount of code possible in try block
-    renamed_headers = {y.columns[0]: "ticker", y.columns[1]: "Market_val"}
-    y = y.rename(columns=renamed_headers)
-    total_portfolio_val = sum(y["Market_val"])
-
-    y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
-    y["Market_val_perc"] = round(y["Market_val"]/total_portfolio_val, 2)
-    z = list(y.itertuples(index=False))
-    return z
-
-
-def get_better_bar():
-    x = Portfolio_Performance(1)
-    y = x.full_table().tail(1)
-    y = y.T.reset_index()
-    if y.empty:
-        return y
-    # it is pythonic to have the smallest amount of code possible in try block
-    renamed_headers = {y.columns[0]: "ticker", y.columns[1]: "Market_val"}
-    y = y.rename(columns=renamed_headers)
-
-
-    y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
-    y = y.nlargest(n=5, columns="Market_val")  # 5 largest positions by mv
-    z = list(y.itertuples(index=False))
-    return z

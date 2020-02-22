@@ -55,7 +55,7 @@ conn = sqlite3.connect(MAIN_DATABASE)
 distinct_query = """SELECT DISTINCT ticker from watchlist_securities"""
 c = conn.cursor()
 tickers = c.execute(distinct_query).fetchall()
-
+#tickers = [("AAL", "AAL"), ("AAP", "AAP"), ("CME", "CME"), ("KO", "KO"), ("SRE","SRE")]
 prices = Price_Update(tickers)
 c.close()
 conn.close()

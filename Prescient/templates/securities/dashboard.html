@@ -2,9 +2,18 @@
 <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js></script>
 {% extends 'base_layout.html' %}
 {% block header %}
-  <h1 class="main-heading">{% block title %}Portfolio Overview for {{ current_user.username }}{% endblock %}</h1>
+  <h1 class="main-heading">{% block title %}{{ current_user.username }}'s Portfolio Overview for '{{group_name}}'{% endblock %}</h1>
 {% endblock %}
 {% block content %}
+<form class="group-selection" action="{{url_for('dashboard')}}" method="post">
+  <span class="selection-label">Select a Watchlist</span>
+  <select class="watchlist-selector" name="watchlist_group_selection">
+    {% for watchlist_name in user_watchlists %}
+    <option value="{{watchlist_name}}">{{watchlist_name}}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" name="btn btn-default">Get overview</button>
+</form>
 <div class="main-wrapper">
   <div class="summary-table">
     <table>
@@ -48,13 +57,18 @@
                   'rgba(54, 162, 235, 0.3)',
                   'rgba(161, 120, 227, 0.3)',
                   'rgba(120, 245, 155, 0.3)',
-                  'rgba(120, 245, 203, 0.3)'
+                  'rgba(120, 245, 203, 0.3)',
+                  'rgba(229, 57, 53, 0.3)',
+                  'rgba(192, 202, 51, 0.2)'
               ],
               borderColor: [
                   'rgba(140, 203, 245, 1)',
                   'rgba(177, 134, 247, 1)',
                   'rgba(44, 242, 98, 1)',
-                  'rgba(125, 255, 211, 1)'
+                  'rgba(125, 255, 211, 1)',
+                  'rgba(236, 64, 122, 1)',
+                  'rgba(230, 238, 156, 1)'
+
               ],
               borderWidth: 2
           }]
@@ -117,7 +131,7 @@
                   'rgba(236, 64, 122, 1)',
                   'rgba(239, 154, 154, 1)',
                   'rgba(230, 238, 156, 1)',
-                  'rgba(255, 234, 0, 0.2)'
+                  'rgba(255, 234, 0, 1)'
               ],
               borderWidth: 2
           }]

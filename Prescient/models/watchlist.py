@@ -27,4 +27,4 @@ class Watchlist_Group(db.Model):
     child = db.relationship("WatchlistItems", backref="watchlist_group", passive_deletes=True)
 
     def __repr__(self):
-        return "<ID: {}, Watchlist Name:>".format(self.id, self.name)
+        return "<ID: {}, Watchlist Name: {}>".format(self.id, self.name)
