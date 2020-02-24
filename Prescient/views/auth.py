@@ -1,7 +1,7 @@
 from Prescient import db
 from flask import (Blueprint, flash,
                    redirect, render_template,
-                   url_for)
+                   url_for, session)
 from Prescient.models import User
 from flask_login import current_user, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -49,11 +49,17 @@ def login():
             flash("Invalid username or password")
             return redirect(url_for("auth.login"))
         login_user(user, remember=form.remember_me.data)
+        session["ATEST"] = None
         return redirect(url_for("dashboard.index"))
     return render_template("auth/login.html", title="Log In", form=form)
 
 
 @bp.route('/logout')
 def logout():
+    try:
+        if session["ATEST"]:
+            session.pop('ATEST', None)
+    except KeyError:
+        pass
     logout_user()
     return redirect(url_for('auth.login'))

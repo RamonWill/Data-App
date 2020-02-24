@@ -67,7 +67,7 @@ def index():
     user_watchlists = get_group_names(user_id)
     if len(user_watchlists) == 0:
         watchlist_id = 0
-
+        first_watchlist_name=None
     else:
         first_watchlist_name = user_watchlists[0]
         watchlist_id = get_group_id(first_watchlist_name, user_id)

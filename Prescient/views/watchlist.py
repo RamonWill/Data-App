@@ -1,6 +1,6 @@
 from Prescient import db
 from flask import (Blueprint, flash, redirect,
-                   render_template, url_for)
+                   render_template, url_for, request)
 from werkzeug.exceptions import abort
 from flask_login import login_required, current_user
 from Prescient.forms import WatchlistItemsForm, WatchlistGroupForm
@@ -15,7 +15,15 @@ def get_sectors():
     return sectors_list
 
 
-def get_group_names(user_id):
+def get_group_names1(user_id):
+    names = Watchlist_Group.query.filter_by(user_id=user_id).all()
+    if names is None:
+        return []
+    else:
+        names_list = [i.name for i in names]
+        return names_list
+
+def get_group_names2(user_id):
     names = Watchlist_Group.query.filter_by(user_id=user_id).all()
     if names is None:
         return []
@@ -32,37 +40,40 @@ def get_group_id(watchlist, user_id):
         return group_id
 
 
-def get_summary_table():
+def get_summary_table(watchlist_id):
     user_id = current_user.id
     query = """SELECT
         ticker,
         SUM(units) as quantity,
         ROUND(AVG(price),2) as price,
-        user_id
+        user_id,
+        group_id
     FROM
         (SELECT
             a.user_id,
+            a.group_id,
             a.ticker,
             CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
             CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price'
         FROM watchlist_securities a
-        WHERE a.quantity < 0 and user_id=:user_id
+        WHERE a.quantity < 0 and user_id=:user_id and group_id=:group_id
         GROUP BY a.ticker
         HAVING 'price' > 0
 
         UNION ALL
         SELECT
             b.user_id,
+            b.group_id,
             b.ticker,
             CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
             CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price'
         FROM watchlist_securities b
-        WHERE b.quantity > 0 and user_id=:user_id
+        WHERE b.quantity > 0 and user_id=:user_id and group_id=:group_id
         GROUP BY b.ticker
         HAVING 'price' > 0)
-        WHERE user_id=:user_id
+        WHERE user_id=:user_id and group_id=:group_id
         GROUP BY ticker"""
-    result = db.session.execute(query, {"user_id": user_id})
+    result = db.session.execute(query, {"user_id": user_id, "group_id":watchlist_id})
     return result
 
 
@@ -80,15 +91,31 @@ def check_watchlist_id(id, check_holder=True):
 def main():
     user_id = current_user.id
 
+    user_watchlists = get_group_names1(user_id)
+    if len(user_watchlists) == 0:
+        watchlist_id = 0
+        first_watchlist_name=None
+    else:
+        first_watchlist_name = user_watchlists[0]
+        watchlist_id = get_group_id(first_watchlist_name, user_id)
     form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
-    form.watchlist.choices = get_group_names(user_id)
-    watchlist = WatchlistItems.query.filter_by(user_id=user_id)  # this is good because it defaults to an empty list
-    summary = get_summary_table()
+    form.watchlist.choices = get_group_names2(user_id)
+    if request.method == "POST":
+        selection = request.form.get('watchlist_group_selection')
+        selection_id = get_group_id(selection, user_id)
+        summary = get_summary_table(selection_id)
+        watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=selection_id)  # this is good because it defaults to an empty list
+        group_form = WatchlistGroupForm()
+        return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form, group_form=group_form, user_watchlists=user_watchlists, group_name=selection)
+    # in the watchlist variable  filter by watchlist_id too. user can choose watchlist id. sumary table should also take this into account.
+    watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=watchlist_id)  # this is good because it defaults to an empty list
+
+    summary = get_summary_table(watchlist_id)
 
     group_form = WatchlistGroupForm()
 
-    return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form, group_form=group_form)
+    return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form, group_form=group_form, user_watchlists=user_watchlists, group_name=first_watchlist_name)
 
 @bp.route('/create-group', methods=('GET', 'POST'))
 @login_required
@@ -111,7 +138,7 @@ def create_group():
 def create():
     form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
-    form.watchlist.choices = get_group_names(current_user.id)
+    form.watchlist.choices = get_group_names2(current_user.id)
 
     if form.validate_on_submit():
         watchlist = form.watchlist.data
@@ -141,7 +168,7 @@ def update(id):
     check = check_watchlist_id(id)
     form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
-    form.watchlist.choices = get_group_names(user_id)
+    form.watchlist.choices = get_group_names2(user_id)
 
     if form.validate_on_submit() and check:
         new_watchlist = form.watchlist.data
