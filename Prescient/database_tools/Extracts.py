@@ -131,7 +131,7 @@ class Portfolio_Performance(object):
         y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
         y["market_val_perc"] = round(y["Market_val"]/total_portfolio_val, 2)
         z = list(y.itertuples(index=False))
-        
+
         return z
 
 
@@ -197,48 +197,48 @@ class Portfolio_Summaries(object):
 
         return result
 
-    def get_pie_chart(self):
-        query = """SELECT ticker, ROUND(ABS(SUM(quantity*price)/t.s)*100,2) as "market_val_perc"
-        from watchlist_securities
-        CROSS JOIN (SELECT SUM(quantity*price) AS s FROM watchlist_securities WHERE user_id=:user_id) t
-        WHERE user_id=:user_id
-        GROUP BY ticker"""
-        conn = sqlite3.connect(MAIN_DATABASE)
-        conn.row_factory = sqlite3.Row
-        params = {"user_id": self.user_id}
-        c = conn.cursor()
-        result = c.execute(query, params).fetchall()
-        c.close()
-        conn.close()
-        return result
-
-    def get_bar_chart(self):
-        query = """SELECT ticker, ROUND(ABS(SUM(quantity*price)),2) as "Market_val"
-                    from watchlist_securities
-                    WHERE user_id=:user_id
-                    GROUP BY ticker
-                    LIMIT 5"""
-        conn = sqlite3.connect(MAIN_DATABASE)
-        conn.row_factory = sqlite3.Row
-        params = {"user_id": self.user_id}
-        c = conn.cursor()
-        result = c.execute(query, params).fetchall()
-        c.close()
-        conn.close()
-        return result
+    # def get_pie_chart(self):
+    #     query = """SELECT ticker, ROUND(ABS(SUM(quantity*price)/t.s)*100,2) as "market_val_perc"
+    #     from watchlist_securities
+    #     CROSS JOIN (SELECT SUM(quantity*price) AS s FROM watchlist_securities WHERE user_id=:user_id) t
+    #     WHERE user_id=:user_id
+    #     GROUP BY ticker"""
+    #     conn = sqlite3.connect(MAIN_DATABASE)
+    #     conn.row_factory = sqlite3.Row
+    #     params = {"user_id": self.user_id}
+    #     c = conn.cursor()
+    #     result = c.execute(query, params).fetchall()
+    #     c.close()
+    #     conn.close()
+    #     return result
+    #
+    # def get_bar_chart(self):
+    #     query = """SELECT ticker, ROUND(ABS(SUM(quantity*price)),2) as "Market_val"
+    #                 from watchlist_securities
+    #                 WHERE user_id=:user_id
+    #                 GROUP BY ticker
+    #                 LIMIT 5"""
+    #     conn = sqlite3.connect(MAIN_DATABASE)
+    #     conn.row_factory = sqlite3.Row
+    #     params = {"user_id": self.user_id}
+    #     c = conn.cursor()
+    #     result = c.execute(query, params).fetchall()
+    #     c.close()
+    #     conn.close()
+    #     return result
 
 class Security_Breakdown(object):
     """docstring for Security_Breakdown."""
 
-    def __init__(self, user_id):
+    def __init__(self, user_id, group_id):
         self.user_id = user_id
-
+        self.group_id = group_id
 
     def get_tickers(self):
         conn = sqlite3.connect(MAIN_DATABASE)
         conn.row_factory = sqlite3.Row
-        params = {"user_id": self.user_id}
-        distinct_query = """SELECT DISTINCT ticker FROM watchlist_securities WHERE user_id=:user_id"""
+        params = {"user_id": self.user_id, "group_id": self.group_id}
+        distinct_query = """SELECT DISTINCT ticker FROM watchlist_securities WHERE user_id=:user_id and group_id=:group_id"""
         c = conn.cursor()
         all_tickers = c.execute(distinct_query, params).fetchall()
         c.close()
@@ -251,7 +251,7 @@ class Security_Breakdown(object):
     def get_holding_summary(self, ticker):
 
         conn = sqlite3.connect(MAIN_DATABASE)
-        query = f"""SELECT
+        query = """SELECT
         DATE(created_timestamp) as 'date',
         ticker,
         SUM(units) as 'quantity',
@@ -260,28 +260,30 @@ class Security_Breakdown(object):
         (SELECT
         	a.created_timestamp,
         	a.user_id,
+            a.group_id,
         	a.ticker,
         	CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
         	CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price'
         FROM watchlist_securities a
-        WHERE a.quantity < 0 and user_id=:user_id and ticker=:ticker
+        WHERE a.quantity < 0 and user_id=:user_id and ticker=:ticker and group_id=:group_id
         GROUP BY DATE(a.created_timestamp)
         HAVING 'price' > 0
         UNION ALL
         SELECT
         	b.created_timestamp,
         	b.user_id,
+            b.group_id,
         	b.ticker,
         	CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
         	CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price'
         FROM watchlist_securities b
-        WHERE b.quantity > 0 and user_id=:user_id and ticker=:ticker
+        WHERE b.quantity > 0 and user_id=:user_id and ticker=:ticker and group_id=:group_id
         GROUP BY DATE(b.created_timestamp)
         HAVING 'price' > 0)
-        WHERE user_id=:user_id
+        WHERE user_id=:user_id and group_id=:group_id
         GROUP BY DATE(created_timestamp)"""
         # need to filter this excution by the user_id and ticker
-        params = {"user_id": self.user_id, "ticker": ticker}
+        params = {"user_id": self.user_id, "ticker": ticker, "group_id": self.group_id}
         df = pd.read_sql_query(query, conn, params=params)
 
         averages = []
