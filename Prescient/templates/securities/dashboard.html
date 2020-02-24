@@ -14,6 +14,7 @@
   </select>
   <button type="submit" name="btn btn-default">Get overview</button>
 </form>
+
 <div class="main-wrapper">
   <div class="summary-table">
     <table>
@@ -187,6 +188,16 @@
         },
       }
   });
+  </script>
+  <div class="worldmap-container" id="worldmap-container">
+
+  </div>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <script type="text/javascript">
+  var graph = {{map | safe}};
+  Plotly.plot("worldmap-container", graph.data, graph.layout);
   </script>
   <div class="line-chart-container">
     <canvas id="myChart" style=""></canvas>
