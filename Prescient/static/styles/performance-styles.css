@@ -1,3 +1,9 @@
+.main-heading{
+  text-align: center;
+  color: white;
+  font-size: 30px;
+}
+
 .main-wrapper{
   width: 100%;
   display: grid;
@@ -8,7 +14,11 @@
   min-width: 0;
   min-height: 0;
 }
-
+@media screen and (max-width: 1000px) {
+  .main-wrapper{
+    display: block;
+  }
+}
 table {
  margin-left: auto;
  margin-right: auto;
@@ -21,7 +31,7 @@ table {
 td {
   padding: 15px;
   background-color: rgba(0, 0, 0, 0.1);
-  color: #B3E5FC;
+  color: #4ed48a;
 }
 
 /*th {
@@ -38,7 +48,7 @@ thead {
 
 tbody {
   background-color: rgba(0, 0, 0, 0.2);
-  border: 2px solid #B3E5FC;
+  border: 2px solid #05260e;
 }
 
 .table-container{
@@ -49,10 +59,10 @@ tbody {
 .table-container thead, th{
   position: sticky;
   top: 0;
-  background-color: rgba(127, 64, 222);
+  background-color: rgba(3, 79, 7);
   color: white;
-  border: 2px solid #B388FF;
-  box-shadow: inset 1px 1px #B3E5FC, 0 1px #B3E5FC;
+  border: 2px solid #05260e;
+  box-shadow: inset 1px 1px #05260e, 0 1px #05260e;
   padding: 15px;
 }
 
@@ -61,4 +71,31 @@ tbody {
 }
 .watchlist-rows:hover{
   background-color: #40888f;
+}
+.watchlist-name-title{
+  color: #6397ff;
+  font-weight: bolder;
+  font-size: 40px;
+}
+.watchlist-name-ticker{
+  color: #2ed95b;
+  font-weight: bolder;
+  font-size: 35px;
+}
+
+.btn-select{
+  color:black;
+  border-radius: 5px;
+  border: 2px solid #02610f;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.7s;
+}
+.btn-select:hover{
+  background-color: #02610f;
+  color: white;
+  transition: 0.7s;
 }

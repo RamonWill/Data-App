@@ -2,7 +2,8 @@
 <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js></script>
 {% extends 'base_layout.html' %}
 {% block header %}
-  <h1 class="main-heading">{% block title %}{{ current_user.username }}'s Portfolio Overview for '{{group_name}}'{% endblock %}</h1>
+  <h1 class="main-heading">{% block title %}Your Portfolio Overview for <span class="watchlist-name-title">{{group_name}}</span>{% endblock %}</h1>
+  <br>
 {% endblock %}
 {% block content %}
 <form class="group-selection" action="{{url_for('dashboard')}}" method="post">
@@ -12,7 +13,7 @@
     <option value="{{watchlist_name}}">{{watchlist_name}}</option>
     {% endfor %}
   </select>
-  <button type="submit" name="btn btn-default">Get overview</button>
+  <button type="submit" name="btn btn-default" class="overview-select">Get overview</button>
 </form>
 
 <div class="main-wrapper">
@@ -28,9 +29,11 @@
       <tbody>
         {% for item in summary %}
         <tr class="watchlist-rows">
+          {% if item.quantity != 0 %}
           <td class="c2">{{item.ticker}}</td>
           <td class="c3">{{item.quantity}}</td>
           <td class="c3">{{item.price}}</td>
+          {% endif %}
         </tr>
         {% endfor %}
       </tbody>

@@ -21,9 +21,9 @@ th {
 }
 
 thead {
-  background-color: rgba(127, 64, 222, 0.3);
+  background-color: rgba(30, 90, 252, 0.3);
   color: white;
-  border: 2px solid #B388FF;
+  border: 2px solid #B3E5FC;
 }
 
 tbody {
@@ -36,7 +36,18 @@ tbody {
 .watchlist-rows:hover{
   background-color: #40888f;
 }
+.summary-table-container{
+  height: 42vh;
+  overflow-y: scroll;
+}
+.all-trades{
+  width: 90%;
+}
 
+.main-heading{
+  text-align: center;
+  font-size: 30px;
+}
 .action{
   color:white;
   border-radius: 5px;
@@ -44,8 +55,61 @@ tbody {
   padding: 2px;
 }
 
-.danger{
-  color:purple;
+.btn-new-wl{
+  color:black;
   border-radius: 5px;
-  background-color: skyblue;
+  border: 2px solid #081682;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.7s;
+}
+.btn-new-wl-item{
+  color:black;
+  border-radius: 5px;
+  border: 2px solid #081682;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.7s;
+  margin-left: 70px;
+}
+.btn-new-wl-item:hover{
+  background-color: #081682;
+  color: white;
+  transition: 0.7s;
+}
+.btn-new-wl:hover{
+  background-color: #081682;
+  color: white;
+  transition: 0.7s;
+}
+
+.selection-label{
+  margin-left: 70px;
+}
+.danger{
+  color:black;
+  border-radius: 5px;
+  border: 2px solid #081682;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.7s;
+}
+.danger:hover{
+  background-color: #081682;
+  color: white;
+  transition: 0.7s;
+}
+.watchlist-name-title{
+  color: #6397ff;
+  font-weight: bolder;
+  font-size: 40px;
 }

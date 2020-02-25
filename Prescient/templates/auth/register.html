@@ -1,18 +1,22 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/auth-styles.css') }}">
 {% extends 'base_layout.html' %}
-<div class="main-wrapper">
+
 {% block header %}
-  <h1>{% block title %}THIS IS THE REGISTER PAGE{% endblock %}</h1>
+  <h1>{% block title %}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
+<br>
+<div class="main-wrapper-form">
+  <h1 class="Form-title">Register</h1>
   {% from "_formhelpers.html" import render_field %}
-  <form method=post>
+  <form method=post class="auth-form">
     <dl>
       {{ render_field(form.username) }}
       {{ render_field(form.password) }}
       {{ render_field(form.confirm) }}
     </dl>
+    <br>
     <p>{{ form.submit() }}</p>
     {{ form.csrf_token }}
   </form>

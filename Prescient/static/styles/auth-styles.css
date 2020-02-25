@@ -1,5 +1,68 @@
-.main-wrapper{
-  width: 100%;
-  min-width: 0;
-  min-height: 0;
+
+
+.main-wrapper-form{
+  position: relative;
+  width: 500px;
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 150px 150px 170px 100px;
+  margin: 0 auto;
+  background: -webkit-linear-gradient(top, #221bf5, #531cb8, #531cb8);
+}
+
+.auth-form{
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  font-size: 24px;
+}
+
+.Form-title{
+  position: absolute;
+  top: 50;
+  left:200;
+  text-align: center;
+  font-size: 36;
+}
+
+input[type=text]{
+  font-size: 20;
+  border: 1px solid grey;
+  border-radius: 3px;
+  transition-duration: 0.5s
+}
+
+input[type=password]{
+  font-size: 20;
+  border: 1px solid grey;
+  border-radius: 3px;
+  transition-duration: 0.5s
+}
+
+input[type=text]:focus{
+  border: 2px solid #19b540;
+  transition-duration: 0.5s
+}
+
+input[type=password]:focus{
+  border: 2px solid #19b540;
+  transition-duration: 0.5s
+}
+
+input[type="submit"]{
+  border: 1px solid #000;
+  border-radius: 16px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.7s;
+}
+.remember-text{
+  font-size: 12px;
+}
+
+input[type="submit"]:hover{
+  background-color: #15d673;
+  transition: 0.7s;
 }

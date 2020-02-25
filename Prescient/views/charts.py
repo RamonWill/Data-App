@@ -41,7 +41,7 @@ def chart_breakdown():
     user_watchlists = get_group_names(user_id)
     if len(user_watchlists) == 0:
         watchlist_id = 0
-        first_watchlist_name = None
+        first_watchlist_name = ""
         session["ATEST"] = None
     else:
         first_watchlist_name = user_watchlists[0]
@@ -57,6 +57,7 @@ def chart_breakdown():
     if len(user_tickers) == 0:
         form = ChartForm()
         plot_data = []
+        first_ticker = ""
 
     else:
         first_ticker = user_tickers[0][0]
@@ -75,7 +76,7 @@ def chart_breakdown():
         plot_data = obj.performance_table(selection)
         line_chart = plot_data
         breakdown = plot_data
-        return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=watchlist_name)
+        return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=watchlist_name,selected_ticker=selection)
 
     if "btn_btn_default" in request.form:
         if request.method == 'POST':
@@ -96,10 +97,10 @@ def chart_breakdown():
             print(session.get('ATEST', None), "WATCHLIST_CHANGE")
             line_chart = plot_data
             breakdown = plot_data
-            return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=selection)
+            return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=selection, selected_ticker=first_ticker)
 
     line_chart = plot_data
     breakdown = plot_data
 
     print(session.get('ATEST', None), "Initial Launch")
-    return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=first_watchlist_name)
+    return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=first_watchlist_name, selected_ticker=first_ticker)

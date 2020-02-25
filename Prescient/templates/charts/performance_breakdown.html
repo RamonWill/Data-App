@@ -1,9 +1,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/performance-styles.css') }}">
 <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js></script>
 {% extends 'base_layout.html' %}
-<div class="main-wrapper">
+
 {% block header %}
-  <h1>{% block title %}Performance Breakdown by Security {{group_name}}{% endblock %}</h1>
+  <h1 class="main-heading">{% block title %}<span class="watchlist-name-title">{{group_name}}</span> Performance Breakdown for <span class="watchlist-name-ticker">{{selected_ticker}}</span> {% endblock %}</h1>
+  <br>
 {% endblock %}
 
 {% block content %}
@@ -14,7 +15,7 @@
     <option value="{{watchlist_name}}">{{watchlist_name}}</option>
     {% endfor %}
   </select>
-  <button type="submit" name="btn_btn_default">Get overview</button>
+  <button type="submit" name="btn_btn_default" class="btn-select">Get overview</button>
 </form>
 <div class="main-wrapper">
   <div class="table-container">
@@ -59,15 +60,15 @@
               "{{item.pct_change}}",
               {% endfor %}],
               backgroundColor: [
-                  'rgba(54, 162, 235, 0.2)'
+                  'rgba(94, 255, 137, 0.2)'
               ],
               borderColor: [{% for item in line_chart %}
-                  'rgba(54, 162, 235, 1)',
+                  'rgba(5, 38, 14, 1)',
                   {% endfor %}
               ],
               borderWidth: 2,
               pointBorderWidth: 1,
-              pointBorderColor: 'rgba(127, 64, 222, 1)'
+              pointBorderColor: 'rgba(40, 106, 176, 1)'
           }]
       },
       options: {
@@ -88,8 +89,8 @@
         },
         title: {
           display: true,
-          text: "(Ticker Name) Performance",
-          fontColor: "#d4eaff"
+          text: "{{selected_ticker}} Performance for {{group_name}}",
+          fontColor: "#2ed95b"
         },
         layout: {
           padding:{
@@ -104,7 +105,7 @@
                 scaleLabel:{
                   display: true,
                   labelString: "Date",
-                  fontColor: "#d4eaff"
+                  fontColor: "#2ed95b"
                 },
                   ticks: {
                       fontColor: "#d4eaff",
@@ -117,7 +118,7 @@
               yAxes: [{
                 display:true,
                 scaleLabel:{
-                  fontColor: "#d4eaff",
+                  fontColor: "#2ed95b",
                   display: true,
                   labelString:"Performance (%)"
                 },
@@ -135,7 +136,7 @@
       <dl>
         {{ render_field(form.ticker) }}
       </dl>
-      <p>{{ form.submit() }}</p>
+      <button type="submit" name="Plot" class="btn-select"> Plot</button>
       {{ form.csrf_token }}
     </form>
   </div>

@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap/bootstrap.css') }}">
 {% extends 'base_layout.html' %}
 {% block header %}
-  <h1 class="main-heading">{% block title %}Entries for {{group_name}}{% endblock %}</h1>
+  <h1 class="main-heading">{% block title %}Entries for <span class="watchlist-name-title">{{group_name}}</span>{% endblock %}</h1
+  <br>
 {% endblock %}
 
 {% block content %}
@@ -15,8 +16,9 @@
     <option value="{{watchlist_name}}">{{watchlist_name}}</option>
     {% endfor %}
   </select>
-  <button type="submit" name="btn btn-default">Get overview</button>
+  <button type="submit" class="btn-new-wl">Get overview</button>
 </form>
+<div class="summary-table-container">
   <table>
     <thead>
       <tr>
@@ -28,15 +30,19 @@
     <tbody>
       {% for item in summary %}
       <tr class="watchlist-rows">
+        {% if item.quantity != 0 %}
         <td class="c2">{{item.ticker}}</td>
         <td class="c3">{{item.quantity}}</td>
         <td class="c3">{{item.price}}</td>
+        {% endif %}
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  </div>
+  <br>
   {% if current_user %}
-    <button style=color:black; type="button" class="btn-new-wl"
+    <button style=color:black; type="button" class="btn-new-wl-item"
     data-toggle="modal" data-target="#mymodal">Add to Watchlist</button>
       <div id="mymodal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -86,7 +92,7 @@
           </div>
         </div>
   {% endif %}
-    <table>
+    <table class="all-trades">
       <thead>
         <tr>
           <th>Order ID</th>

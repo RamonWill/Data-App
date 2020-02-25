@@ -112,8 +112,8 @@ class Portfolio_Performance(object):
         table["total_portfolio_val"] = table.sum(axis=1)
         table["pct_change"] = (((table["portfolio_val"].shift(-1)/(table["total_portfolio_val"]))-1)*100)
         table["pct_change"] = round(table["pct_change"].shift(1), 2)
-        # with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-        #     print(table)
+        with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+            print(table)
         table = list(table.itertuples(index=False))
         return table  # changes df to  named tuples so it can be rendered
 
@@ -126,10 +126,12 @@ class Portfolio_Performance(object):
         # it is pythonic to have the smallest amount of code possible in try block
         renamed_headers = {y.columns[0]: "ticker", y.columns[1]: "Market_val"}
         y = y.rename(columns=renamed_headers)
+        y["Market_val"] = abs(y["Market_val"])
         total_portfolio_val = sum(y["Market_val"])
 
         y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
         y["market_val_perc"] = round(y["Market_val"]/total_portfolio_val, 2)
+        y = y[y["Market_val"] != 0] # if a position value is zero exclude it
         z = list(y.itertuples(index=False))
 
         return z
@@ -146,7 +148,10 @@ class Portfolio_Performance(object):
 
 
         y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
-        y = y.nlargest(n=5, columns="market_val")  # 5 largest positions by mv
+        y = y.iloc[y['market_val'].abs().argsort()]  # sorts market value by absolute value
+        # y = y.nlargest(n=5, columns="market_val")  # 5 largest positions by mv
+        y = y[y["market_val"] != 0] # if a position value is zero exclude it
+        y = y.tail(5) # 5 largest positions by absolute mv
         z = list(y.itertuples(index=False))
         return z
 
@@ -292,8 +297,12 @@ class Security_Breakdown(object):
             if i > 0:
                 sum_of_weighted_terms = sum(df["quantity"].iloc[0:i+1] * df["price"].iloc[0:i+1])
                 sum_of_terms = sum(df["quantity"].iloc[0:i+1])
-                weighted_avg = sum_of_weighted_terms/sum_of_terms
-                averages.append(weighted_avg)
+                print(f"sum term: {sum_of_terms}, weighted_terms: {sum_of_weighted_terms}")
+                if sum_of_weighted_terms == 0:
+                    averages.append(float("nan"))
+                else:
+                    weighted_avg = sum_of_weighted_terms/sum_of_terms
+                    averages.append(weighted_avg)
             else:
                 averages.append(df["price"].iloc[0])
         df["weighted_average"] = averages

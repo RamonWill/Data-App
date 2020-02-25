@@ -1,7 +1,9 @@
 .main-heading{
   text-align: center;
   color: white;
+  font-size: 30px;
 }
+
 a {
   text-decoration: none;
 }
@@ -123,4 +125,26 @@ tbody {
   max-width:100vw;
   box-sizing:border-box;
   overflow: hidden;
+}
+
+.watchlist-name-title{
+  color: #6397ff;
+  font-weight: bolder;
+  font-size: 40px;
+}
+.overview-select{
+  color:black;
+  border-radius: 5px;
+  border: 2px solid #7f40de;
+  border-radius: 8px;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.7s;
+}
+.overview-select:hover{
+  background-color: #7f40de;
+  color: white;
+  transition: 0.7s;
 }
