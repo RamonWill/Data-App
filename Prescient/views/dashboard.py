@@ -22,12 +22,13 @@ def worldmap(user_id, group_id):
     query = """Select COUNT(DISTINCT a.ticker) as 'No. of Positions', b.country as 'Country', b.ISO_alpha3_codes as 'ISO Code'
     from watchlist_securities a, available_securities b
     where b.ticker=a.ticker and user_id=:user_id and group_id=:group_id
-    GROUP BY b.country
+    GROUP BY b.ticker
     HAVING SUM(a.quantity)<>0
     """
     params = {"user_id": user_id, "group_id":group_id}
 
     df = pd.read_sql_query(query, conn, params=params)
+    df = df.groupby(["Country", "ISO Code"]).count().reset_index()
     fig = dict(data=[go.Choropleth(locations=df["ISO Code"],
                                    z=df["No. of Positions"],
                                    text=df["Country"],

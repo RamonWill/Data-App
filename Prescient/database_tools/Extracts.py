@@ -5,11 +5,12 @@ import sqlite3
 MAIN_DATABASE = os.path.abspath(os.path.join(__file__, "../..", "MainDB.db"))
 PRICE_DATABASE = os.path.abspath(os.path.join(__file__, "../..", "Security_PricesDB.db"))
 
-## To get data from the DB its
+# To get data from the DB its
 # x = pd. read_sql(sql=query, con=db.engine)
 # to get mainDB db.engine
 # to get pricesDB db.get_engine(app, "Security_PricesDB")
-#ive tested this in terminal and it works
+# ive tested this in terminal and it works
+
 
 class Portfolio_Performance(object):
     """docstring for Portfolio_Performance."""
@@ -18,6 +19,9 @@ class Portfolio_Performance(object):
         self.user_id = user_id
         self.group_id = group_id
 
+    def __repr__(self):
+        return "User ID: {}\nGroup ID: {}".format(self.user_id, self.group_id)
+
     def get_quantity_cumsum(self, ticker):
         # Gets the cumulative summed quantity per date for each security
         conn = sqlite3.connect(MAIN_DATABASE)
@@ -25,7 +29,9 @@ class Portfolio_Performance(object):
         From watchlist_securities
         where user_id =:user_id and ticker=:ticker and group_id=:group_id
         ORDER BY created_timestamp """
-        params = {"user_id": self.user_id, "ticker": ticker, "group_id":self.group_id}
+        params = {"user_id": self.user_id,
+                  "ticker": ticker,
+                  "group_id": self.group_id}
 
         df = pd.read_sql_query(query, conn, params=params)
         df["quantity"] = df["quantity"].cumsum()
@@ -42,23 +48,24 @@ class Portfolio_Performance(object):
         df["quantity"] = float("nan")
         df["market_val"] = float("nan")
 
+        # the prices starting from the first date the security was held
         start_date = watchlist[0][0]
-        df2 = df.loc[start_date:]  # the prices starting from the first date the security was held
-        df2 = df2.copy()  # prevents chain assignment
+        df2 = df.loc[start_date:]
+        df2 = df2.copy()  # copied to prevent chained assignment
+        # update the quantity at each date
         for i in watchlist:
-            df2.at[i[0], "quantity"] = i[1]  # at the date, insert quantity
+            df2.at[i[0], "quantity"] = i[1]
 
         df2["price"] = df2["price"].fillna(method="ffill")
         df2["quantity"] = df2["quantity"].fillna(method="ffill")
 
         df2["price"] = pd.to_numeric(df2["price"])
-        df2["market_val"] = round((df2["price"] * df2["quantity"]),3)
+        df2["market_val"] = round((df2["price"] * df2["quantity"]), 3)
 
         df2 = df2[["market_val"]]
         new_name = f"market_val_{ticker}"
-        df2 = df2.rename(columns={"market_val": new_name})
-        # with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-        #     print(df2)
+        new_header = {"market_val": new_name}
+        df2 = df2.rename(columns=new_header)
         return df2
 
     def full_table(self):
@@ -85,17 +92,16 @@ class Portfolio_Performance(object):
                 df = df.join(df_new)
 
         df = df.fillna(method="ffill")
-        # with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-        #     print(df)
         return df
 
     def summed_table(self):
         table = self.full_table()
         table["portfolio_val"] = table.sum(axis=1)
-        table = table[["portfolio_val"]]  # The daily portfolio valuations excluding flows
+        # creates a table total daily portfolio valuations
+        table = table[["portfolio_val"]]
 
         conn = sqlite3.connect(MAIN_DATABASE)
-        query= """SELECT
+        query = """SELECT
                     DATE(created_timestamp) as 'index',
                     SUM(quantity * price) as flow
                   FROM watchlist_securities
@@ -103,57 +109,71 @@ class Portfolio_Performance(object):
                   GROUP BY DATE(created_timestamp)
                   ORDER BY DATE(created_timestamp)"""
         params = {"user_id": self.user_id, "group_id": self.group_id}
-        df = pd.read_sql_query(query, conn, index_col="index", params=params)  # inflows/outflows
-        table = table.join(df)
+        # inflows/outflows
+        df_flows = pd.read_sql_query(query, conn, index_col="index", params=params)
+        table = table.join(df_flows)
         table = table.reset_index()
-
-        table["flow"] = table["flow"].shift(-1)  # shifts the flows back by previous day to allow us to get the previous day valuation including flows
+        # shifts the flows back by previous day
+        # to get the previous day valuation including flows
+        table["flow"] = table["flow"].shift(-1)
         table["flow"] = table["flow"].fillna(value=0)
         table["total_portfolio_val"] = table.sum(axis=1)
         table["pct_change"] = (((table["portfolio_val"].shift(-1)/(table["total_portfolio_val"]))-1)*100)
         table["pct_change"] = round(table["pct_change"].shift(1), 2)
-        with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-            print(table)
+
         table = list(table.itertuples(index=False))
-        return table  # changes df to  named tuples so it can be rendered
+        return table
 
     def get_pie_chart(self):
 
-        y = self.full_table().tail(1)
-        y = y.T.reset_index()
-        if y.empty:
-            return y
-        # it is pythonic to have the smallest amount of code possible in try block
-        renamed_headers = {y.columns[0]: "ticker", y.columns[1]: "Market_val"}
-        y = y.rename(columns=renamed_headers)
-        y["Market_val"] = abs(y["Market_val"])
-        total_portfolio_val = sum(y["Market_val"])
+        df = self.full_table().tail(1)
+        df = df.T.reset_index()  # transpose table to make the tickers the rows
+        if df.empty:
+            return df
 
-        y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
-        y["market_val_perc"] = round(y["Market_val"]/total_portfolio_val, 2)
-        y = y[y["Market_val"] != 0] # if a position value is zero exclude it
-        z = list(y.itertuples(index=False))
+        new_headers = {df.columns[0]: "ticker", df.columns[1]: "Market_val"}
+        df = df.rename(columns=new_headers)
+        df["Market_val"] = abs(df["Market_val"])
+        total_portfolio_val = sum(df["Market_val"])
 
-        return z
+        df["ticker"] = df["ticker"].replace("market_val_", "", regex=True)
+        df["market_val_perc"] = round(df["Market_val"]/total_portfolio_val, 2)
+        df = df[df["Market_val"] != 0]  # filter rows where valuation isnt zero
+        df = df.sort_values(by=['market_val_perc'], ascending=False)
 
+        if len(df) >= 7:
+            # split the dataframe into two parts
+            df_bottom = df.tail(len(df)-6)
+            df = df.head(6)
+
+            # sum the bottom dataframe to create an "Other" field
+            df_bottom.loc['Other'] = df_bottom.sum(numeric_only=True, axis=0)
+            df_bottom.at["Other", "ticker"] = "Other"
+            df_bottom = df_bottom.tail(1)
+
+            df_final = pd.concat([df, df_bottom])
+            df_final = list(df_final.itertuples(index=False))
+            return df_final
+        else:
+            df_final = list(df.itertuples(index=False))
+            return df_final
 
     def get_bar_chart(self):
-        y = self.full_table().tail(1)
-        y = y.T.reset_index()
-        if y.empty:
-            return y
-        # it is pythonic to have the smallest amount of code possible in try block
-        renamed_headers = {y.columns[0]: "ticker", y.columns[1]: "market_val"}
-        y = y.rename(columns=renamed_headers)
+        df = self.full_table().tail(1)
+        df = df.T.reset_index()
+        if df.empty:
+            return df
 
+        new_headers = {df.columns[0]: "ticker", df.columns[1]: "market_val"}
+        df = df.rename(columns=new_headers)
 
-        y["ticker"] = y["ticker"].replace("market_val_", "", regex=True)
-        y = y.iloc[y['market_val'].abs().argsort()]  # sorts market value by absolute value
-        # y = y.nlargest(n=5, columns="market_val")  # 5 largest positions by mv
-        y = y[y["market_val"] != 0] # if a position value is zero exclude it
-        y = y.tail(5) # 5 largest positions by absolute mv
-        z = list(y.itertuples(index=False))
-        return z
+        df["ticker"] = df["ticker"].replace("market_val_", "", regex=True)
+        # sort the dataframe by largest exposures (descending order)
+        df = df.iloc[df['market_val'].abs().argsort()]
+        df = df[df["market_val"] != 0]  # filter rows where valuation isnt zero
+        df = df.tail(5)  # the 5 largest positions by absolute mv
+        df_final = list(df.itertuples(index=False))
+        return df_final
 
 
 class Portfolio_Summaries(object):
@@ -202,35 +222,6 @@ class Portfolio_Summaries(object):
 
         return result
 
-    # def get_pie_chart(self):
-    #     query = """SELECT ticker, ROUND(ABS(SUM(quantity*price)/t.s)*100,2) as "market_val_perc"
-    #     from watchlist_securities
-    #     CROSS JOIN (SELECT SUM(quantity*price) AS s FROM watchlist_securities WHERE user_id=:user_id) t
-    #     WHERE user_id=:user_id
-    #     GROUP BY ticker"""
-    #     conn = sqlite3.connect(MAIN_DATABASE)
-    #     conn.row_factory = sqlite3.Row
-    #     params = {"user_id": self.user_id}
-    #     c = conn.cursor()
-    #     result = c.execute(query, params).fetchall()
-    #     c.close()
-    #     conn.close()
-    #     return result
-    #
-    # def get_bar_chart(self):
-    #     query = """SELECT ticker, ROUND(ABS(SUM(quantity*price)),2) as "Market_val"
-    #                 from watchlist_securities
-    #                 WHERE user_id=:user_id
-    #                 GROUP BY ticker
-    #                 LIMIT 5"""
-    #     conn = sqlite3.connect(MAIN_DATABASE)
-    #     conn.row_factory = sqlite3.Row
-    #     params = {"user_id": self.user_id}
-    #     c = conn.cursor()
-    #     result = c.execute(query, params).fetchall()
-    #     c.close()
-    #     conn.close()
-    #     return result
 
 class Security_Breakdown(object):
     """docstring for Security_Breakdown."""
@@ -243,7 +234,9 @@ class Security_Breakdown(object):
         conn = sqlite3.connect(MAIN_DATABASE)
         conn.row_factory = sqlite3.Row
         params = {"user_id": self.user_id, "group_id": self.group_id}
-        distinct_query = """SELECT DISTINCT ticker FROM watchlist_securities WHERE user_id=:user_id and group_id=:group_id"""
+        distinct_query = """SELECT DISTINCT ticker
+                            FROM watchlist_securities
+                            WHERE user_id=:user_id and group_id=:group_id"""
         c = conn.cursor()
         all_tickers = c.execute(distinct_query, params).fetchall()
         c.close()
@@ -263,24 +256,24 @@ class Security_Breakdown(object):
         ROUND(AVG(price),2) as 'price'
         FROM
         (SELECT
-        	a.created_timestamp,
-        	a.user_id,
+            a.created_timestamp,
+            a.user_id,
             a.group_id,
-        	a.ticker,
-        	CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
-        	CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price'
+            a.ticker,
+            CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
+            CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price'
         FROM watchlist_securities a
         WHERE a.quantity < 0 and user_id=:user_id and ticker=:ticker and group_id=:group_id
         GROUP BY DATE(a.created_timestamp)
         HAVING 'price' > 0
         UNION ALL
         SELECT
-        	b.created_timestamp,
-        	b.user_id,
+            b.created_timestamp,
+            b.user_id,
             b.group_id,
-        	b.ticker,
-        	CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
-        	CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price'
+            b.ticker,
+            CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
+            CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price'
         FROM watchlist_securities b
         WHERE b.quantity > 0 and user_id=:user_id and ticker=:ticker and group_id=:group_id
         GROUP BY DATE(b.created_timestamp)
@@ -288,16 +281,16 @@ class Security_Breakdown(object):
         WHERE user_id=:user_id and group_id=:group_id
         GROUP BY DATE(created_timestamp)"""
         # need to filter this excution by the user_id and ticker
-        params = {"user_id": self.user_id, "ticker": ticker, "group_id": self.group_id}
+        params = {"user_id": self.user_id,
+                  "ticker": ticker,
+                  "group_id": self.group_id}
         df = pd.read_sql_query(query, conn, params=params)
 
         averages = []
         for i in range(0, len(df)):
-
             if i > 0:
                 sum_of_weighted_terms = sum(df["quantity"].iloc[0:i+1] * df["price"].iloc[0:i+1])
                 sum_of_terms = sum(df["quantity"].iloc[0:i+1])
-                print(f"sum term: {sum_of_terms}, weighted_terms: {sum_of_weighted_terms}")
                 if sum_of_weighted_terms == 0:
                     averages.append(float("nan"))
                 else:
@@ -319,23 +312,14 @@ class Security_Breakdown(object):
         df["avg_cost"], df["pct_change"] = float("nan"), float("nan")
         start_date = watchlist[0][0]
         df2 = df.loc[start_date:]
-        df2 = df2.copy()  # prevents chain assignment
+        df2 = df2.copy()  # copied to prevent chained assignment
         for i in watchlist:
-            df2.at[i[0], "avg_cost"] = i[1]  # at the date, insert price
+            df2.at[i[0], "avg_cost"] = i[1]
         df2["price"] = df2["price"].fillna(method="ffill")
         df2["avg_cost"] = df2["avg_cost"].fillna(method="ffill")
         df2["price"] = pd.to_numeric(df2["price"])
-        df2["pct_change"] = round(((df2["price"] - df2["avg_cost"])/df2["avg_cost"])*100,3)
-        # with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-        #     print(df2)
+        df2["pct_change"] = round(((df2["price"] - df2["avg_cost"])/df2["avg_cost"])*100, 3)
+
         df2 = df2.reset_index()
-        #df2 = df2[["index", "pct_change"]]
         df2 = list(df2.itertuples(index=False))
         return df2
-
-# x = Security_Breakdown(1)
-# x.get_tickers()
-# print(x.get_holding_summary("AAPL"))
-# print(x.performance_table())
-
-# another way to get the pie chart info
