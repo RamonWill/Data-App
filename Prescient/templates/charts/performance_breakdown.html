@@ -23,6 +23,7 @@
       <thead>
         <tr>
           <th>Date</th>
+          <th>Quantity</th>
           <th>Average Cost</th>
           <th>Price</th>
           <th>Inception To Date</th>
@@ -32,6 +33,7 @@
         {% for item in breakdown %}
         <tr class="watchlist-rows">
           <td class="c2">{{item.index}}</td>
+          <td class="c9">{{item.quantity}}</td>
           <td class="c2">{{item.avg_cost}}</td>
           <td class="c3">{{item.price}}</td>
           <td class="c3">{{item.pct_change}}%</td>

@@ -41,7 +41,7 @@ class Portfolio_Performance(object):
 
         watchlist = self.get_quantity_cumsum(ticker)
         conn = sqlite3.connect(PRICE_DATABASE)
-        query = f"""SELECT * FROM {ticker}"""
+        query = f"""SELECT * FROM '{ticker}'"""
 
         df = pd.read_sql_query(query, conn, index_col="index")
 
@@ -225,7 +225,7 @@ class Portfolio_Summaries(object):
 
 class Security_Breakdown(object):
     """docstring for Security_Breakdown."""
-
+    # THIS IS WRONG FOR SHORT POSITIONS
     def __init__(self, user_id, group_id):
         self.user_id = user_id
         self.group_id = group_id
@@ -285,7 +285,6 @@ class Security_Breakdown(object):
                   "ticker": ticker,
                   "group_id": self.group_id}
         df = pd.read_sql_query(query, conn, params=params)
-
         averages = []
         for i in range(0, len(df)):
             if i > 0:
@@ -300,26 +299,34 @@ class Security_Breakdown(object):
                 averages.append(df["price"].iloc[0])
         df["weighted_average"] = averages
         df["weighted_average"] = round(df["weighted_average"], 4)
-        final_df = df[["date", "weighted_average"]]
+        df["quantity"] = df["quantity"].cumsum()  # cumulative quantity
+        final_df = df[["date", "quantity", "weighted_average"]]
         return final_df.to_numpy().tolist()
 
     def performance_table(self, ticker):
 
         watchlist = self.get_holding_summary(ticker)
         conn = sqlite3.connect(PRICE_DATABASE)
-        query = f"""SELECT * FROM {ticker}"""
+        query = f"""SELECT * FROM '{ticker}'"""
         df = pd.read_sql_query(query, conn, index_col="index")
-        df["avg_cost"], df["pct_change"] = float("nan"), float("nan")
+        df["quantity"] = float("nan")
+        df["avg_cost"] = float("nan")
         start_date = watchlist[0][0]
         df2 = df.loc[start_date:]
         df2 = df2.copy()  # copied to prevent chained assignment
         for i in watchlist:
-            df2.at[i[0], "avg_cost"] = i[1]
+            df2.at[i[0], "quantity"] = i[1]
+            df2.at[i[0], "avg_cost"] = i[2]
+        df2["quantity"] = df2["quantity"].fillna(method="ffill")
         df2["price"] = df2["price"].fillna(method="ffill")
         df2["avg_cost"] = df2["avg_cost"].fillna(method="ffill")
         df2["price"] = pd.to_numeric(df2["price"])
-        df2["pct_change"] = round(((df2["price"] - df2["avg_cost"])/df2["avg_cost"])*100, 3)
+        df2.loc[df2['quantity'] <= 0, 'Long/Short'] = -1
+        df2.loc[df2['quantity'] > 0, 'Long/Short'] = 1
 
+        df2["pct_change"] = (((df2["price"] - df2["avg_cost"])/df2["avg_cost"])*df2["Long/Short"])*100
+        df2["pct_change"] = round(df2["pct_change"], 3)
         df2 = df2.reset_index()
+        df2 = df2[["index", "quantity", "avg_cost", "price", "pct_change"]]
         df2 = list(df2.itertuples(index=False))
         return df2

@@ -11,7 +11,8 @@ from werkzeug.exceptions import abort
 
 bp = Blueprint("charts", __name__)
 
-
+# CALCULATIONS ON SHORT POSITION PERFORMANCE IS WRONG. YOU SHOULD BE IN PROFIT WHEN THE PRICE FALLS BELOW AVG COST.
+# CHECK SECURITY BREAKDOWN CODE
 def get_group_id(watchlist, user_id):
     group_id = Watchlist_Group.query.filter_by(name=watchlist, user_id=user_id).first()
     if group_id is None:
@@ -46,7 +47,7 @@ def chart_breakdown():
     else:
         first_watchlist_name = user_watchlists[0]
 
-        if session["ATEST"] is None:
+        if session["ATEST"] is None or session["ATEST"] != first_watchlist_name:  # fix this somehow. needs to reset back to first watchlist
             session["ATEST"] = first_watchlist_name
 
         watchlist_id = get_group_id(session.get('ATEST', None), user_id)
