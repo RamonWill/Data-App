@@ -127,13 +127,14 @@
                       </div>
                       <div class="modal-body">
                         {% from "_formhelpers.html" import render_field %}
-                        <form action="{{ url_for('watchlist.update', id=item.id) }}" method="post">
+                        <form action="{{ url_for('watchlist.update', id=item.id, ticker=item.ticker) }}" method="post">
                           <dl>
                             {{ render_field(form.watchlist) }}
-                            {{ render_field(form.quantity) }}
-                            {{ render_field(form.price) }}
-                            {{ render_field(form.sector) }}
-                            {{ render_field(form.comments) }}
+                            {{ render_field(form.ticker, value=item.ticker, readonly="readonly") }}
+                            {{ render_field(form.quantity, value=item.quantity) }}
+                            {{ render_field(form.price, value=item.price) }}
+                            {{ render_field(form.sector, value=item.sector) }}
+                            {{ render_field(form.comments, default=item.comments) }}
                           </dl>
                           {{ form.csrf_token }}
                           <button type="submit" name="button" class="btn btn-primary">Save Changes</button>
