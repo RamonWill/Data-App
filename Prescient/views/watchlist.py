@@ -1,12 +1,35 @@
-from Prescient import db
+from Prescient import db, app
 from flask import (Blueprint, flash, redirect,
                    render_template, url_for, request)
 from werkzeug.exceptions import abort
 from flask_login import login_required, current_user
 from Prescient.forms import WatchlistItemsForm, WatchlistGroupForm
 from Prescient.models import WatchlistItems, Sector_Definitions, Watchlist_Group
+from Prescient.database_tools.New_Prices import Price_Update
+import sqlite3
 
 bp = Blueprint("watchlist", __name__)
+
+
+def update_db_prices(ticker):
+    # check the tables. If the ticker doesnt exist get the price from AV and create a new table
+    conn = sqlite3.connect(r"C:\Users\Owner\Documents\Data-App\Prescient\Security_PricesDB.db")
+    c = conn.cursor()
+
+    query = """SELECT name FROM sqlite_master
+    WHERE type='table'and name=:ticker
+    ORDER BY name;
+    """
+    param = {"ticker": ticker}
+    tables = c.execute(query, param).fetchone()
+    c.close()
+    conn.close()
+
+    if tables is None:
+        obj = Price_Update(ticker)
+        obj.import_prices()
+    else:
+        print(f"{ticker} already exists")
 
 
 def get_sectors():
@@ -16,6 +39,7 @@ def get_sectors():
 
 
 def get_group_names1(user_id):
+    # returns list of items
     names = Watchlist_Group.query.filter_by(user_id=user_id).all()
     if names is None:
         return []
@@ -24,6 +48,7 @@ def get_group_names1(user_id):
         return names_list
 
 def get_group_names2(user_id):
+    # returns list of tuples
     names = Watchlist_Group.query.filter_by(user_id=user_id).all()
     if names is None:
         return []
@@ -154,6 +179,7 @@ def create():
                              comments=comments, user_id=user_id, group_id=group_id)
         db.session.add(new_item)
         db.session.commit()
+        update_db_prices(name)
         flash(f"{name} has been added to your watchlist")
         return redirect(url_for("watchlist.main"))
         # Follow the registration view
@@ -161,15 +187,15 @@ def create():
     return redirect(url_for("watchlist.main"))
     #return render_template("watchlist/main.html", form=form)
 
-@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@bp.route('/<int:id>/<ticker>/update', methods=('GET', 'POST'))
 @login_required
-def update(id):
+def update(id, ticker):
     user_id = current_user.id
     check = check_watchlist_id(id)
     form = WatchlistItemsForm()
+    group_form = WatchlistGroupForm()
     form.sector.choices = get_sectors()
     form.watchlist.choices = get_group_names2(user_id)
-
     if form.validate_on_submit() and check:
         new_watchlist = form.watchlist.data
         new_quantity = form.quantity.data
@@ -178,6 +204,7 @@ def update(id):
         new_comment = form.comments.data
         new_group_id = get_group_id(new_watchlist, user_id)
         item = WatchlistItems.query.filter_by(id=id, user_id=user_id).first()
+        item.ticker = ticker
         item.watchlist = new_watchlist
         item.quantity = new_quantity
         item.price = new_price
@@ -188,7 +215,7 @@ def update(id):
         flash(f"Order ID {id} has now been updated")
         return redirect(url_for("watchlist.main"))
 
-    return render_template("watchlist/main.html", form=form)
+    return render_template("watchlist/main.html", form=form, group_form=group_form)
 
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required

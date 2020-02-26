@@ -5,6 +5,9 @@ import pandas as pd
 # When a user adds a new item to to watchlist perform a check in the views.py
 # if the item has never existed add it to the database, otherwise do nothing
 
+av_key = "UHJKNP33E9D8KCRS"
+url = "https://www.alphavantage.co/query?"
+
 
 class Price_Update(object):
 
@@ -49,8 +52,7 @@ class Price_Update(object):
 # conn.close()
 # # If its none then load the price from alpha vantage for the last 100 days
 # # else do nothing
-# av_key = "UHJKNP33E9D8KCRS"
-# url = "https://www.alphavantage.co/query?"
+
 # if tables is None:
 #     x = Price_Update(ticker)
 #     x.import_prices()
