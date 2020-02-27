@@ -4,7 +4,7 @@ import pandas as pd
 
 # When a user adds a new item to to watchlist perform a check in the views.py
 # if the item has never existed add it to the database, otherwise do nothing
-
+# USE CRON TO UPDATE PRICS DAILY
 av_key = "UHJKNP33E9D8KCRS"
 url = "https://www.alphavantage.co/query?"
 
