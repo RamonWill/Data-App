@@ -457,13 +457,13 @@ class PositionSummary(object):
 class CostBreakdown(object):
     """docstring for CostBreakdown."""
 
-    def __init__(self, db_trades):
+    def __init__(self, db_trades, ticker):
 
         self.db_trades = db_trades
 
         self.average_cost = None
         self.open_lots = None
-        self.ticker = None
+        self.ticker = ticker
 
         self.buy_quantities = deque([])
         self.buy_prices = deque([])
@@ -478,7 +478,7 @@ class CostBreakdown(object):
         self.net_position = 0
         # remember to use decimal module
         # remember __repl__
-
+        self.apply_fifo()
 
     def total_open_lots(self):
         if self.open_direction == "long":
@@ -500,7 +500,7 @@ class CostBreakdown(object):
     def avg_cost(self):
         open_lots = self.total_open_lots()
         if open_lots == 0 or not open_lots:
-            return None
+            return 0
 
         return abs(self.total_mv()/self.total_open_lots())
 
@@ -519,18 +519,22 @@ class CostBreakdown(object):
         return popped_quantity
 
     def collapse_trade(self):
-
-        try:
+        if self.sell_quantities:
             if self.sell_quantities[0] >= 0:
                 self.remove_trade("sell")
+
+        if self.buy_quantities:
             if self.buy_quantities[0] <= 0:
                 self.remove_trade("buy")
-        except IndexError:
-            pass
+
+
 
     def get_summary(self):
         Summary = namedtuple("Summary", ["name", "quantity", "average_price"])
-        return Summary(self.ticker, self.open_lots, self.average_cost)
+        name = self.ticker
+        quantity = self.net_position
+        average_price = round(self.average_cost, 4)
+        return Summary(name, quantity, average_price)
 
     def add(self, side, units, price, date):
         if side == "buy":
@@ -548,18 +552,44 @@ class CostBreakdown(object):
         elif self.open_direction == "long" and self.net_position < 0:
             self.open_direction = "short"
 
-    def filo_method(self):
-        # try a while loop with a counter. the counter so i can move across the trades and the while loop to collapse them as i go.
 
+    def set_initial_trade(self):
+        units = self.db_trades[0]["quantity"]
+        price = self.db_trades[0]["price"]
+        date = self.db_trades[0]["date"]
+        if units >= 0:
+            self.open_direction = "long"
+            self.add("buy", units, price, date)
+
+        else:
+            self.open_direction = "short"
+            self.add("sell", units, price, date)
+        self.average_cost = self.avg_cost()
+        self.net_position = self.total_open_lots()
+        self.breakdown.append([date, self.net_position, self.average_cost])
+
+    def apply_fifo(self):
+        # try a while loop with a counter. the counter so i can move across the trades and the while loop to collapse them as i go.
         # I add to attributes and perform calculations on that
+        if self.db_trades:
+            self.set_initial_trade()
+        else:
+            return []
+
         trades = len(self.db_trades)
-        c1 = 0  # counter
+        c1 = 1  # counter
 
         while c1 < trades:
             units = self.db_trades[c1]["quantity"]
             price = self.db_trades[c1]["price"]
             date = self.db_trades[c1]["date"]
-            if c1 == 0:
+
+            if units*self.net_position > 0:  # if true both trades have the same sign
+                if self.open_direction == "long":
+                    self.add("buy", units, price, date)
+                else:
+                    self.add("sell", units, price, date)
+            elif units*self.net_position == 0:
                 if units >= 0:
                     self.open_direction = "long"
                     self.add("buy", units, price, date)
@@ -568,46 +598,35 @@ class CostBreakdown(object):
                     self.open_direction = "short"
                     self.add("sell", units, price, date)
 
-            else:
-                if units*self.net_position > 0:  # if true both trades have the same sign
-                    if self.open_direction == "long":
-                        self.add("buy", units, price, date)
-                    else:
-                        self.add("sell", units, price, date)
+            else:  # different signs
+            # elif units*self.net_position < 0:
+                if self.open_direction == "long":
+                    self.add("sell", units, price, date)
+                    while self.sell_quantities and self.buy_quantities: # while they are not empty
 
-                else:  # different signs
-                # elif units*self.net_position < 0:
-                    if self.open_direction == "long":
-                        self.add("sell", units, price, date)
-                        while self.sell_quantities and self.buy_quantities: # while they are not empty
+                        if abs(self.sell_quantities[0]) >= self.buy_quantities[0]:
+                            self.sell_quantities[0] += self.buy_quantities[0]
+                            self.remove_trade("buy")
 
-                            if abs(self.sell_quantities[0]) >= self.buy_quantities[0]:
-                                self.sell_quantities[0] += self.buy_quantities[0]
-                                self.remove_trade("buy")
+                        else:
+                            temp = self.remove_trade("sell")
+                            self.buy_quantities[0] += temp
+                    self.net_position += units  # subtract units from net position
 
-                            else:
-                                temp = self.remove_trade("sell")
-                                self.buy_quantities[0] += temp
-
-                        # check if direction is right i.e. set_direction
-                        self.net_position += units  # subtract units from net position
-                        # update breakdown
-                    else:  #self.open_direction == "short"
-                        self.add("buy", units, price, date)
-                        while self.sell_quantities and self.buy_quantities: # while they are not empty
-                            if self.buy_quantities[0] >= abs(self.sell_quantities[0]):
-                                self.buy_quantities[0] += self.sell_quantities[0]
-                                self.remove_trade("sell")
-                            else:
-                                temp = self.remove_trade("buy")
-                                self.sell_quantities[0] += temp
-
-                        self.net_position += units
+                else:  #self.open_direction == "short"
+                    self.add("buy", units, price, date)
+                    while self.sell_quantities and self.buy_quantities: # while they are not empty
+                        if self.buy_quantities[0] >= abs(self.sell_quantities[0]):
+                            self.buy_quantities[0] += self.sell_quantities[0]
+                            self.remove_trade("sell")
+                        else:
+                            temp = self.remove_trade("buy")
+                            self.sell_quantities[0] += temp
+                    self.net_position += units
 
             self.collapse_trade()
             self.set_direction()
-            average_cost = self.avg_cost()
+            self.average_cost = round(self.avg_cost(), 4)
             self.net_position = self.total_open_lots()
-            self.breakdown.append([self.net_position, average_cost, date])
+            self.breakdown.append([date, self.net_position, self.average_cost])
             c1 += 1
-            print(self.breakdown)
