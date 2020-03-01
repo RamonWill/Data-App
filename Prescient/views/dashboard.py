@@ -3,10 +3,10 @@ from flask import (Blueprint,
                    request, redirect,url_for)
 from flask_login import login_required, current_user
 from werkzeug.exceptions import abort
-from Prescient.database_tools.Extracts import Portfolio_Performance, Portfolio_Summaries
+from Prescient.database_tools.Extracts import Portfolio_Performance, Portfolio_Summaries, PositionSummary
 from Prescient.forms import WatchlistGroupForm
-from Prescient.models import Watchlist_Group
-
+from Prescient.models import Watchlist_Group, WatchlistItems
+from sqlalchemy.sql import func
 bp = Blueprint("dashboard", __name__)
 
 ## DELETE SOON
@@ -52,6 +52,30 @@ def get_group_names(user_id):
         return names_list
 
 
+def get_tickers(user_id, group_id):
+    params = {"user_id": user_id, "group_id": group_id}
+    tickers = WatchlistItems.query.\
+              with_entities(WatchlistItems.ticker).\
+              filter_by(**params).\
+              order_by(WatchlistItems.created_timestamp).\
+              distinct(WatchlistItems.ticker).all()
+    print(user_id, group_id)
+    print([item.ticker for item in tickers])
+    return [item.ticker for item in tickers]
+
+
+def get_position_summary(user_id, group_id):
+    all_tickers = get_tickers(user_id, group_id)
+    params = {"user_id": user_id, "group_id": group_id}
+    all_trades = WatchlistItems.query.with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.created_timestamp).label("date")).filter_by(**params).order_by(WatchlistItems.created_timestamp)
+    summary_table = []
+    for ticker in all_tickers:
+        trade_history = [trade for trade in all_trades if trade.ticker == ticker]
+        summary = PositionSummary(trade_history, ticker).get_summary()
+        if summary.quantity != 0:
+            summary_table.append(summary)
+    return summary_table
+
 def get_group_id(watchlist, user_id):
     group_id = Watchlist_Group.query.filter_by(name=watchlist, user_id=user_id).first()
     if group_id is None:
@@ -77,8 +101,8 @@ def index():
     if request.method == "POST":
         selection = request.form.get('watchlist_group_selection')
         selection_id = get_group_id(selection, user_id)
-        summary = Portfolio_Summaries(user_id, selection_id).summary_table()
-        if len(summary) >7:
+        summary = get_position_summary(user_id, selection_id)
+        if len(summary) > 7:
             summary = summary[0:7]
         user_details = Portfolio_Performance(user_id, selection_id)
         map = worldmap(user_id, selection_id)
@@ -87,7 +111,7 @@ def index():
         bar_chart = user_details.get_bar_chart()
         return render_template("securities/dashboard.html", summary=summary, line_chart=line_chart, pie_chart=pie_chart, bar_chart=bar_chart, user_watchlists=user_watchlists, group_name=selection, map=map)
 
-    summary = Portfolio_Summaries(user_id, watchlist_id).summary_table()
+    summary = get_position_summary(user_id, watchlist_id)
     if len(summary) > 7:
         summary = summary[0:7]
     user_details = Portfolio_Performance(user_id, watchlist_id)
