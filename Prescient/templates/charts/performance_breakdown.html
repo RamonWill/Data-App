@@ -32,7 +32,7 @@
       <tbody>
         {% for item in breakdown %}
         <tr class="watchlist-rows">
-          <td class="c2">{{item.index}}</td>
+          <td class="c2">{{item.date}}</td>
           <td class="c9">{{item.quantity}}</td>
           <td class="c2">{{item.avg_cost}}</td>
           <td class="c3">{{item.price}}</td>
@@ -54,7 +54,7 @@
       maintainAspectRatio: false,
       data: {
           labels: [{% for item in line_chart %}
-          "{{item.index}}",
+          "{{item.date}}",
           {% endfor %}],
           datasets: [{
               label: '%',

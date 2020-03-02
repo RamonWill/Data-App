@@ -6,6 +6,8 @@ from flask_login import login_required, current_user
 from Prescient.forms import WatchlistItemsForm, WatchlistGroupForm
 from Prescient.models import WatchlistItems, Sector_Definitions, Watchlist_Group
 from Prescient.database_tools.New_Prices import Price_Update
+from Prescient.database_tools.Extracts import PositionSummary
+from sqlalchemy.sql import func
 import sqlite3
 
 bp = Blueprint("watchlist", __name__)
@@ -65,41 +67,29 @@ def get_group_id(watchlist, user_id):
         return group_id
 
 
-def get_summary_table(watchlist_id):
-    user_id = current_user.id
-    query = """SELECT
-        ticker,
-        SUM(units) as quantity,
-        ROUND(AVG(price),2) as price,
-        user_id,
-        group_id
-    FROM
-        (SELECT
-            a.user_id,
-            a.group_id,
-            a.ticker,
-            CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
-            CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price'
-        FROM watchlist_securities a
-        WHERE a.quantity < 0 and user_id=:user_id and group_id=:group_id
-        GROUP BY a.ticker
-        HAVING 'price' > 0
+def get_tickers(user_id, group_id):
+    params = {"user_id": user_id, "group_id": group_id}
+    tickers = WatchlistItems.query.\
+              with_entities(WatchlistItems.ticker).\
+              filter_by(**params).\
+              order_by(WatchlistItems.created_timestamp).\
+              distinct(WatchlistItems.ticker).all()
 
-        UNION ALL
-        SELECT
-            b.user_id,
-            b.group_id,
-            b.ticker,
-            CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
-            CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price'
-        FROM watchlist_securities b
-        WHERE b.quantity > 0 and user_id=:user_id and group_id=:group_id
-        GROUP BY b.ticker
-        HAVING 'price' > 0)
-        WHERE user_id=:user_id and group_id=:group_id
-        GROUP BY ticker"""
-    result = db.session.execute(query, {"user_id": user_id, "group_id":watchlist_id})
-    return result
+    return [item.ticker for item in tickers]
+
+
+def get_position_summary(user_id, group_id):
+    all_tickers = get_tickers(user_id, group_id)
+    params = {"user_id": user_id, "group_id": group_id}
+    all_trades = WatchlistItems.query.with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.created_timestamp).label("date")).filter_by(**params).order_by(WatchlistItems.created_timestamp)
+    summary_table = []
+    for ticker in all_tickers:
+        trade_history = [trade for trade in all_trades if trade.ticker == ticker]
+        summary = PositionSummary(trade_history, ticker).get_summary()
+        if summary.quantity != 0:
+            summary_table.append(summary)
+    return summary_table
+
 
 
 def check_watchlist_id(id, check_holder=True):
@@ -129,14 +119,14 @@ def main():
     if request.method == "POST":
         selection = request.form.get('watchlist_group_selection')
         selection_id = get_group_id(selection, user_id)
-        summary = get_summary_table(selection_id)
+        summary = get_position_summary(user_id, selection_id)
         watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=selection_id)  # this is good because it defaults to an empty list
         group_form = WatchlistGroupForm()
         return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form, group_form=group_form, user_watchlists=user_watchlists, group_name=selection)
     # in the watchlist variable  filter by watchlist_id too. user can choose watchlist id. sumary table should also take this into account.
     watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=watchlist_id)  # this is good because it defaults to an empty list
 
-    summary = get_summary_table(watchlist_id)
+    summary = get_position_summary(user_id, watchlist_id)
 
     group_form = WatchlistGroupForm()
 

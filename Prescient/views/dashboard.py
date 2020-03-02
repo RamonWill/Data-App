@@ -3,7 +3,7 @@ from flask import (Blueprint,
                    request, redirect,url_for)
 from flask_login import login_required, current_user
 from werkzeug.exceptions import abort
-from Prescient.database_tools.Extracts import Portfolio_Performance, Portfolio_Summaries, PositionSummary
+from Prescient.database_tools.Extracts import Portfolio_Performance, PositionSummary
 from Prescient.forms import WatchlistGroupForm
 from Prescient.models import Watchlist_Group, WatchlistItems
 from sqlalchemy.sql import func
@@ -59,15 +59,17 @@ def get_tickers(user_id, group_id):
               filter_by(**params).\
               order_by(WatchlistItems.created_timestamp).\
               distinct(WatchlistItems.ticker).all()
-    print(user_id, group_id)
-    print([item.ticker for item in tickers])
+
     return [item.ticker for item in tickers]
 
 
 def get_position_summary(user_id, group_id):
     all_tickers = get_tickers(user_id, group_id)
     params = {"user_id": user_id, "group_id": group_id}
-    all_trades = WatchlistItems.query.with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.created_timestamp).label("date")).filter_by(**params).order_by(WatchlistItems.created_timestamp)
+    all_trades = WatchlistItems.query.\
+                 with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.created_timestamp).label("date")).\
+                 filter_by(**params).\
+                 order_by(WatchlistItems.created_timestamp)
     summary_table = []
     for ticker in all_tickers:
         trade_history = [trade for trade in all_trades if trade.ticker == ticker]

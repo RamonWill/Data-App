@@ -48,7 +48,6 @@ class Portfolio_Performance(object):
 
         df["quantity"] = float("nan")
         df["market_val"] = float("nan")
-
         # the prices starting from the first date the security was held
         start_date = watchlist[0][0]
         df2 = df.loc[start_date:]
@@ -175,162 +174,6 @@ class Portfolio_Performance(object):
         df = df.tail(5)  # the 5 largest positions by absolute mv
         df_final = list(df.itertuples(index=False))
         return df_final
-
-
-class Portfolio_Summaries(object):
-    def __init__(self, user_id, group_id):
-        self.user_id = user_id
-        self.group_id = group_id
-
-    def summary_table(self):
-        query = """SELECT
-                ticker,
-                SUM(units) as quantity,
-                ROUND(AVG(price),2) as price
-            FROM
-                (SELECT
-                    a.user_id,
-                    a.ticker,
-                    CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
-                    CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price',
-                    a.group_id
-                FROM watchlist_securities a
-                WHERE a.quantity < 0 and user_id=:user_id and group_id=:group_id
-                GROUP BY a.ticker
-                HAVING 'price' > 0
-
-                UNION ALL
-                SELECT
-                    b.user_id,
-                    b.ticker,
-                    CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
-                    CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price',
-                    b.group_id
-                FROM watchlist_securities b
-                WHERE b.quantity > 0 and user_id=:user_id and group_id=:group_id
-                GROUP BY b.ticker
-                HAVING 'price' > 0)
-                WHERE user_id=:user_id and group_id=:group_id
-                GROUP BY ticker
-                """
-        conn = sqlite3.connect(MAIN_DATABASE)
-        conn.row_factory = sqlite3.Row
-        params = {"user_id": self.user_id, "group_id": self.group_id}
-        c = conn.cursor()
-        result = c.execute(query, params).fetchall()
-        c.close()
-        conn.close()
-
-        return result
-
-
-class Security_Breakdown(object):
-    """docstring for Security_Breakdown."""
-    # THIS IS WRONG FOR SHORT POSITIONS
-    def __init__(self, user_id, group_id):
-        self.user_id = user_id
-        self.group_id = group_id
-
-    def get_tickers(self):
-        conn = sqlite3.connect(MAIN_DATABASE)
-        conn.row_factory = sqlite3.Row
-        params = {"user_id": self.user_id, "group_id": self.group_id}
-        distinct_query = """SELECT DISTINCT ticker
-                            FROM watchlist_securities
-                            WHERE user_id=:user_id and group_id=:group_id"""
-        c = conn.cursor()
-        all_tickers = c.execute(distinct_query, params).fetchall()
-        c.close()
-        conn.close()
-        if all_tickers is None:
-            return []
-        tickers_list = [(i["ticker"], i["ticker"]) for i in all_tickers]
-        return tickers_list
-
-    def get_holding_summary(self, ticker):
-
-        conn = sqlite3.connect(MAIN_DATABASE)
-        query = """SELECT
-        DATE(created_timestamp) as 'date',
-        ticker,
-        SUM(units) as 'quantity',
-        ROUND(AVG(price),2) as 'price'
-        FROM
-        (SELECT
-            a.created_timestamp,
-            a.user_id,
-            a.group_id,
-            a.ticker,
-            CASE WHEN a.quantity < 0 THEN SUM(a.quantity) ELSE 0 END AS 'units',
-            CASE WHEN a.quantity < 0 THEN SUM(a.quantity*a.price)/SUM(a.quantity) ELSE 0 END AS 'price'
-        FROM watchlist_securities a
-        WHERE a.quantity < 0 and user_id=:user_id and ticker=:ticker and group_id=:group_id
-        GROUP BY DATE(a.created_timestamp)
-        HAVING 'price' > 0
-        UNION ALL
-        SELECT
-            b.created_timestamp,
-            b.user_id,
-            b.group_id,
-            b.ticker,
-            CASE WHEN b.quantity > 0 THEN SUM(b.quantity) ELSE 0 END AS 'units',
-            CASE WHEN b.quantity > 0 THEN SUM(b.quantity*b.price)/SUM(b.quantity) ELSE 0 END AS 'price'
-        FROM watchlist_securities b
-        WHERE b.quantity > 0 and user_id=:user_id and ticker=:ticker and group_id=:group_id
-        GROUP BY DATE(b.created_timestamp)
-        HAVING 'price' > 0)
-        WHERE user_id=:user_id and group_id=:group_id
-        GROUP BY DATE(created_timestamp)"""
-        # need to filter this excution by the user_id and ticker
-        params = {"user_id": self.user_id,
-                  "ticker": ticker,
-                  "group_id": self.group_id}
-        df = pd.read_sql_query(query, conn, params=params)
-        averages = []
-        for i in range(0, len(df)):
-            if i > 0:
-                sum_of_weighted_terms = sum(df["quantity"].iloc[0:i+1] * df["price"].iloc[0:i+1])
-                sum_of_terms = sum(df["quantity"].iloc[0:i+1])
-                if sum_of_weighted_terms == 0:
-                    averages.append(float("nan"))
-                else:
-                    weighted_avg = sum_of_weighted_terms/sum_of_terms
-                    averages.append(weighted_avg)
-            else:
-                averages.append(df["price"].iloc[0])
-        df["weighted_average"] = averages
-        df["weighted_average"] = round(df["weighted_average"], 4)
-        df["quantity"] = df["quantity"].cumsum()  # cumulative quantity
-        final_df = df[["date", "quantity", "weighted_average"]]
-        return final_df.to_numpy().tolist()
-
-    def performance_table(self, ticker):
-
-        watchlist = self.get_holding_summary(ticker)
-        conn = sqlite3.connect(PRICE_DATABASE)
-        query = f"""SELECT * FROM '{ticker}'"""
-        df = pd.read_sql_query(query, conn, index_col="index")
-        df["quantity"] = float("nan")
-        df["avg_cost"] = float("nan")
-        start_date = watchlist[0][0]
-        df2 = df.loc[start_date:]
-        df2 = df2.copy()  # copied to prevent chained assignment
-        for i in watchlist:
-            df2.at[i[0], "quantity"] = i[1]
-            df2.at[i[0], "avg_cost"] = i[2]
-        df2["quantity"] = df2["quantity"].fillna(method="ffill")
-        df2["price"] = df2["price"].fillna(method="ffill")
-        df2["avg_cost"] = df2["avg_cost"].fillna(method="ffill")
-        df2["price"] = pd.to_numeric(df2["price"])
-        df2.loc[df2['quantity'] <= 0, 'Long/Short'] = -1
-        df2.loc[df2['quantity'] > 0, 'Long/Short'] = 1
-
-        df2["pct_change"] = (((df2["price"] - df2["avg_cost"])/df2["avg_cost"])*df2["Long/Short"])*100
-        df2["pct_change"] = round(df2["pct_change"], 3)
-        df2 = df2.reset_index()
-        df2 = df2[["index", "quantity", "avg_cost", "price", "pct_change"]]
-        df2 = list(df2.itertuples(index=False))
-        return df2
 
 
 class PositionSummary(object):
@@ -509,3 +352,36 @@ class PositionSummary(object):
             self.net_position = self.total_open_lots()
             self.breakdown.append([date, self.net_position, self.average_cost])
             c1 += 1
+
+
+class PositionPerformance(PositionSummary):
+    """docstring for PositionPerformance."""
+
+    def __init__(self, close_prices, db_trades, ticker):
+        PositionSummary.__init__(self, db_trades, ticker)
+        self.close_prices = close_prices
+
+    def performance_table(self):
+        df = pd.DataFrame(self.close_prices, columns=["date", "price"])
+        df = df.set_index("date")
+        df["quantity"] = float("nan")
+        df["avg_cost"] = float("nan")
+        start_date = self.breakdown[0][0]
+        df2 = df.loc[start_date:]
+        df2 = df2.copy()  # copied to prevent chained assignment
+        for row in self.breakdown:
+            df2.at[row[0], "quantity"] = row[1]
+            df2.at[row[0], "avg_cost"] = row[2]
+        df2["quantity"] = df2["quantity"].fillna(method="ffill")
+        df2["price"] = df2["price"].fillna(method="ffill")
+        df2["avg_cost"] = df2["avg_cost"].fillna(method="ffill")
+        df2["price"] = pd.to_numeric(df2["price"])
+        df2.loc[df2['quantity'] <= 0, 'Long/Short'] = -1
+        df2.loc[df2['quantity'] > 0, 'Long/Short'] = 1
+
+        df2["pct_change"] = (((df2["price"] - df2["avg_cost"])/df2["avg_cost"])*df2["Long/Short"])*100
+        df2["pct_change"] = round(df2["pct_change"], 3)
+        df2 = df2.reset_index()
+        df2 = df2[["date", "quantity", "avg_cost", "price", "pct_change"]]
+        df2 = list(df2.itertuples(index=False))
+        return df2
