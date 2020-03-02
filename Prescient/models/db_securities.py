@@ -7,6 +7,7 @@ class Available_Securities(db.Model):
     ticker = db.Column(db.String(), primary_key=True)
     country = db.Column(db.String())
     benchmark_index = db.Column(db.String())
+    ISO_alpha3_codes = db.Column(db.String(3))
 
 
 class Sector_Definitions(db.Model):
