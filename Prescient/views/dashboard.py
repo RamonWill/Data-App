@@ -1,43 +1,41 @@
+from Prescient import db
 from flask import (Blueprint,
                    render_template,
-                   request, redirect,url_for)
+                   request)
 from flask_login import login_required, current_user
 from werkzeug.exceptions import abort
-from Prescient.database_tools.Extracts import Portfolio_Performance, PositionSummary
-from Prescient.forms import WatchlistGroupForm
-from Prescient.models import Watchlist_Group, WatchlistItems
+from Prescient.database_tools.Extracts import Portfolio_Performance, PositionSummary, DashboardCharts
+from Prescient.models import Watchlist_Group, WatchlistItems, Available_Securities
 from sqlalchemy.sql import func
-bp = Blueprint("dashboard", __name__)
-
-## DELETE SOON
+from sqlalchemy.orm import aliased
 import plotly
-import pandas as pd
-import sqlite3
 import plotly.graph_objects as go
 import json
-## DELETE SOON
 
-def worldmap(user_id, group_id):
-    conn = sqlite3.connect(r"C:\Users\Owner\Documents\Data-App\Prescient\MainDB.db")
-    query = """Select COUNT(DISTINCT a.ticker) as 'No. of Positions', b.country as 'Country', b.ISO_alpha3_codes as 'ISO Code'
-    from watchlist_securities a, available_securities b
-    where b.ticker=a.ticker and user_id=:user_id and group_id=:group_id
-    GROUP BY b.ticker
-    HAVING SUM(a.quantity)<>0
-    """
-    params = {"user_id": user_id, "group_id":group_id}
+bp = Blueprint("dashboard", __name__)
 
-    df = pd.read_sql_query(query, conn, params=params)
-    df = df.groupby(["Country", "ISO Code"]).count().reset_index()
-    fig = dict(data=[go.Choropleth(locations=df["ISO Code"],
-                                   z=df["No. of Positions"],
-                                   text=df["Country"],
+
+def get_worldmap(user_id, group_id):
+    params = {"user_id": user_id, "group_id": group_id}
+    w = aliased(WatchlistItems)
+    s = aliased(Available_Securities)
+    map_data = db.session.query(WatchlistItems, Available_Securities).\
+               with_entities(func.count(w.ticker.distinct()).label("No. of Positions"), s.country.label("Country"), s.ISO_alpha3_codes.label("ISO Code")).\
+               filter(s.ticker == w.ticker).\
+               filter_by(**params).\
+               group_by(s.ticker).\
+               having(func.sum(w.quantity) != 0)
+    map_dataframe = DashboardCharts.worldmap(map_data)
+
+    fig = dict(data=[go.Choropleth(locations=map_dataframe["ISO Code"],
+                                   z=map_dataframe["No. of Positions"],
+                                   text=map_dataframe["Country"],
                                    colorscale="dense")],
                                    layout=dict(title="No. of Positions by Country",
                                                scene=dict(bgcolor='rgb(23,4,55)'),
-                                                          paper_bgcolor='rgba(0,0,0,0)',
-                                               font=dict(size = 20,
-                                                         color = "#FFFFFF")))
+                                               paper_bgcolor='rgba(0,0,0,0)',
+                                               font=dict(size=20,
+                                                         color="#FFFFFF")))
 
 
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
@@ -107,7 +105,7 @@ def index():
         if len(summary) > 7:
             summary = summary[0:7]
         user_details = Portfolio_Performance(user_id, selection_id)
-        map = worldmap(user_id, selection_id)
+        map = get_worldmap(user_id, selection_id)
         line_chart = user_details.summed_table()
         pie_chart = user_details.get_pie_chart()
         bar_chart = user_details.get_bar_chart()
@@ -120,5 +118,5 @@ def index():
     line_chart = user_details.summed_table()
     pie_chart = user_details.get_pie_chart()
     bar_chart = user_details.get_bar_chart()
-    map = worldmap(user_id, watchlist_id)
+    map = get_worldmap(user_id, watchlist_id)
     return render_template("securities/dashboard.html", summary=summary, line_chart=line_chart, pie_chart=pie_chart, bar_chart=bar_chart, user_watchlists=user_watchlists, group_name=first_watchlist_name, map=map)

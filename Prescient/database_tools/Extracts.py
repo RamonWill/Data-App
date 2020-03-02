@@ -12,7 +12,9 @@ PRICE_DATABASE = os.path.abspath(os.path.join(__file__, "../..", "Security_Price
 # to get pricesDB db.get_engine(app, "Security_PricesDB")
 # ive tested this in terminal and it works
 
-
+# Improve readability on this class
+# This class relys too much on the database leave that to the views
+# make better use of the attributes too.
 class Portfolio_Performance(object):
     """docstring for Portfolio_Performance."""
 
@@ -385,3 +387,11 @@ class PositionPerformance(PositionSummary):
         df2 = df2[["date", "quantity", "avg_cost", "price", "pct_change"]]
         df2 = list(df2.itertuples(index=False))
         return df2
+
+class DashboardCharts(object):
+    """docstring for DashboardCharts."""
+
+    def worldmap(map_data):
+        df = pd.DataFrame(map_data)
+        df = df.groupby(["Country", "ISO Code"]).count().reset_index()
+        return df
