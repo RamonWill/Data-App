@@ -303,6 +303,58 @@ class DashboardCharts(object):
         df = df.groupby(["Country", "ISO Code"]).count().reset_index()
         return df
 
+    def get_pie_chart(portfolio_valuation):
+
+        df = portfolio_valuation
+        df = df.T.reset_index()  # transpose table to make the tickers the rows
+        if df.empty:
+            return df
+
+        new_headers = {df.columns[0]: "ticker", df.columns[1]: "Market_val"}
+        df = df.rename(columns=new_headers)
+        df["Market_val"] = abs(df["Market_val"])
+        total_portfolio_val = sum(df["Market_val"])
+
+        df["ticker"] = df["ticker"].replace("market_val_", "", regex=True)
+        df["market_val_perc"] = round(df["Market_val"]/total_portfolio_val, 2)
+        df = df[df["Market_val"] != 0]  # filter rows where valuation isnt zero
+        df = df.sort_values(by=['market_val_perc'], ascending=False)
+
+        if len(df) >= 7:
+            # split the dataframe into two parts
+            df_bottom = df.tail(len(df)-6)
+            df = df.head(6)
+
+            # sum the bottom dataframe to create an "Other" field
+            df_bottom.loc['Other'] = df_bottom.sum(numeric_only=True, axis=0)
+            df_bottom.at["Other", "ticker"] = "Other"
+            df_bottom = df_bottom.tail(1)
+
+            df_final = pd.concat([df, df_bottom])
+            df_final = list(df_final.itertuples(index=False))
+            return df_final
+        else:
+            df_final = list(df.itertuples(index=False))
+            return df_final
+
+    def get_bar_chart(portfolio_valuation):
+        df = portfolio_valuation
+        df = df.T.reset_index()
+        if df.empty:
+            return df
+
+        new_headers = {df.columns[0]: "ticker", df.columns[1]: "market_val"}
+        df = df.rename(columns=new_headers)
+
+        df["ticker"] = df["ticker"].replace("market_val_", "", regex=True)
+        # sort the dataframe by largest exposures (descending order)
+        df = df.iloc[df['market_val'].abs().argsort()]
+        df = df[df["market_val"] != 0]  # filter rows where valuation isnt zero
+        df = df.tail(5)  # the 5 largest positions by absolute mv
+        df_final = list(df.itertuples(index=False))
+        return df_final
+
+
 #THIS WILL GET DELETED SOON
 class Portfolio_Performance(object):
     """docstring for Portfolio_Performance."""
