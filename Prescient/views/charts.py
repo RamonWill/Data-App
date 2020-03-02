@@ -4,7 +4,7 @@ from flask import (Blueprint, request,
                    redirect,
                    url_for, session)
 from flask_login import login_required, current_user
-from Prescient.database_tools.Extracts import PositionPerformance
+from Prescient.database_tools.Extracts import PositionAccounting
 from Prescient.forms import ChartForm
 from Prescient.models import Watchlist_Group, WatchlistItems
 from werkzeug.exceptions import abort
@@ -60,7 +60,7 @@ def get_trade_histroy(user_id, group_id, ticker):
 def get_performance(user_id, group_id, ticker):
     prices = get_ticker_prices(ticker)
     trade_history = get_trade_histroy(user_id, group_id, ticker)
-    Performance = PositionPerformance(prices, trade_history, ticker)
+    Performance = PositionAccounting(prices, trade_history, ticker)
     performance_table = Performance.performance_table()
     return performance_table
 
