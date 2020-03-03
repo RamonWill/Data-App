@@ -326,8 +326,9 @@ class DashboardCharts(object):
             df_final = list(df.itertuples(index=False))
             return df_final
 
-    def get_bar_chart(self):
-        df = self.full_table().tail(1)
+    def get_bar_chart(self, portfolio_valuation):
+
+        df = portfolio_valuation.tail(1)
         df = df.T.reset_index()
         if df.empty:
             return df
