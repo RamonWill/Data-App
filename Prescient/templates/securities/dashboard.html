@@ -214,7 +214,7 @@
       maintainAspectRatio: false,
       data: {
           labels: [{% for item in line_chart %}
-          "{{item.index}}",
+          "{{item.date}}",
           {% endfor %}],
           datasets: [{
               label: '%',

@@ -1,8 +1,7 @@
 from Prescient import db, app
 from flask import (Blueprint, request,
                    render_template,
-                   redirect,
-                   url_for, session)
+                   session)
 from flask_login import login_required, current_user
 from Prescient.database_tools.Extracts import PositionAccounting
 from Prescient.forms import ChartForm
@@ -42,7 +41,7 @@ def get_tickers(user_id, group_id):
 
     return [(item.ticker, item.ticker) for item in tickers]
 
-def get_ticker_prices(ticker):
+def get_market_prices(ticker):
     connection = db.get_engine(app, "Security_PricesDB").connect()
     query = f"SELECT * FROM '{ticker}'"
     prices = connection.execute(query).fetchall()
@@ -58,7 +57,7 @@ def get_trade_histroy(user_id, group_id, ticker):
     return all_trades
 
 def get_performance(user_id, group_id, ticker):
-    prices = get_ticker_prices(ticker)
+    prices = get_market_prices(ticker)
     trade_history = get_trade_histroy(user_id, group_id, ticker)
     Performance = PositionAccounting(prices, trade_history, ticker)
     performance_table = Performance.performance_table()
