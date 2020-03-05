@@ -113,3 +113,7 @@ tbody {
   font-weight: bolder;
   font-size: 40px;
 }
+
+.filter-bar {
+  border-radius: 8px;
+}

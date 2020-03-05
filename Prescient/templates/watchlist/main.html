@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/watchlist-styles.css') }}">
 <script src="{{ url_for('static', filename='javascript/bootstrap/jquery-3.4.1.js') }}"></script>
 <script src="{{ url_for('static', filename='javascript/bootstrap/bootstrap.js') }}"></script>
+
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap/bootstrap.css') }}">
 {% extends 'base_layout.html' %}
 {% block header %}
@@ -92,7 +93,8 @@
           </div>
         </div>
   {% endif %}
-    <table class="all-trades">
+    <input type="text" class="filter-bar" id="filter" placeholder="Filter...">
+    <table class="all-trades" id="all-trades">
       <thead>
         <tr>
           <th>Order ID</th>
@@ -152,4 +154,5 @@
         {% endfor %}
       </tbody>
     </table>
+    <script src="{{ url_for('static', filename='javascript/watchlist-filter.js') }}"></script>
 {% endblock %}
