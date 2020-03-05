@@ -2,266 +2,175 @@
 <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js></script>
 {% extends 'base_layout.html' %}
 {% block header %}
+{% if line_chart and group_name %}
   <h1 class="main-heading">{% block title %}Your Portfolio Overview for <span class="watchlist-name-title">{{group_name}}</span>{% endblock %}</h1>
   <br>
+{%else%}
+{% endif %}
 {% endblock %}
+
 {% block content %}
-<form class="group-selection" action="{{url_for('dashboard')}}" method="post">
-  <span class="selection-label">Select a Watchlist</span>
-  <select class="watchlist-selector" name="watchlist_group_selection">
-    {% for watchlist_name in user_watchlists %}
-    <option value="{{watchlist_name}}">{{watchlist_name}}</option>
-    {% endfor %}
-  </select>
-  <button type="submit" name="btn btn-default" class="overview-select">Get overview</button>
-</form>
+{% if line_chart and group_name is defined %}
+  <form class="group-selection" action="{{url_for('dashboard')}}" method="post">
+    <span class="selection-label">Select a Watchlist</span>
+    <select class="watchlist-selector" name="watchlist_group_selection">
+      {% for watchlist_name in user_watchlists %}
+      <option value="{{watchlist_name}}">{{watchlist_name}}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" name="btn btn-default" class="overview-select">Get overview</button>
+  </form>
 
-<div class="main-wrapper">
-  <div class="summary-table">
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Average Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in summary %}
-        <tr class="watchlist-rows">
-          {% if item.quantity != 0 %}
-          <td class="c2">{{item.ticker}}</td>
-          <td class="c3">{{item.quantity}}</td>
-          <td class="c3">{{item.average_price}}</td>
-          {% endif %}
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  <div class="pie-chart-container">
-    <canvas id="mypieChart"></canvas>
-  </div>
-  <script>
-  //Chart.defaults.global.responsive = false;
-  var ctx = document.getElementById('mypieChart');
-  var myChart = new Chart(ctx, {
-      type: 'pie',
-      maintainAspectRatio: false,
-      data: {
-          labels: [{% for item in pie_chart %}
-          "{{item.ticker}}",
-          {% endfor %}],
-          datasets: [{
-              label: 'Weighting',
-              data: [{% for item in pie_chart %}
-              "{{item.market_val_perc}}",
-              {% endfor %}],
-              backgroundColor: [
-                  'rgba(54, 162, 235, 0.3)',
-                  'rgba(161, 120, 227, 0.3)',
-                  'rgba(120, 245, 155, 0.3)',
-                  'rgba(120, 245, 203, 0.3)',
-                  'rgba(229, 57, 53, 0.3)',
-                  'rgba(192, 202, 51, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(140, 203, 245, 1)',
-                  'rgba(177, 134, 247, 1)',
-                  'rgba(44, 242, 98, 1)',
-                  'rgba(125, 255, 211, 1)',
-                  'rgba(236, 64, 122, 1)',
-                  'rgba(230, 238, 156, 1)'
+  <div class="main-wrapper">
+    <div class="summary-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Average Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in summary %}
+          <tr class="watchlist-rows">
+            {% if item.quantity != 0 %}
+            <td class="c2">{{item.ticker}}</td>
+            <td class="c3">{{item.quantity}}</td>
+            <td class="c3">{{item.average_price}}</td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="pie-chart-container">
+      <canvas id="mypieChart"></canvas>
+    </div>
+    <script>
+    //Chart.defaults.global.responsive = false;
+    var ctx = document.getElementById('mypieChart');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        maintainAspectRatio: false,
+        data: {
+            labels: [{% for item in pie_chart %}
+            "{{item.ticker}}",
+            {% endfor %}],
+            datasets: [{
+                label: 'Weighting',
+                data: [{% for item in pie_chart %}
+                "{{item.market_val_perc}}",
+                {% endfor %}],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.3)',
+                    'rgba(161, 120, 227, 0.3)',
+                    'rgba(120, 245, 155, 0.3)',
+                    'rgba(120, 245, 203, 0.3)',
+                    'rgba(229, 57, 53, 0.3)',
+                    'rgba(192, 202, 51, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(140, 203, 245, 1)',
+                    'rgba(177, 134, 247, 1)',
+                    'rgba(44, 242, 98, 1)',
+                    'rgba(125, 255, 211, 1)',
+                    'rgba(236, 64, 122, 1)',
+                    'rgba(230, 238, 156, 1)'
 
-              ],
-              borderWidth: 2
-          }]
-      },
-      options: {
-        responsive: true,
-        legend: {
-          labels: {
-            fontColor: "#d4eaff"
-          },
-          position: "right",
-        },
-        title: {
-          display: true,
-          text: "Portfolio Distribution by Position",
-          fontColor: "#d4eaff"
-        },
-        layout: {
-          padding:{
-            left: 0,
-            right: 50,
-            top: 0,
-            bottom: 0
-          }
-        },
-        animation: {
-          animateScale: true,
-          animateRotate:true
-        }
-      }
-  });
-  </script>
-  <div class="bar-chart-container">
-    <canvas id="mybarChart"></canvas>
-  </div>
-  <script>
-  //Chart.defaults.global.responsive = false;
-  var ctx = document.getElementById('mybarChart');
-  var myChart = new Chart(ctx, {
-      type: 'bar',
-      maintainAspectRatio: false,
-      data: {
-          labels: [{% for item in bar_chart %}
-          "{{item.ticker}}",
-          {% endfor %}],
-          datasets: [{
-              label: 'Market Value',
-              data: [{% for item in bar_chart %}
-              "{{item.market_val}}",
-              {% endfor %}],
-              backgroundColor: [
-                  'rgba(213, 0, 249, 0.2)',
-                  'rgba(194, 24, 91, 0.2)',
-                  'rgba(229, 57, 53, 0.2)',
-                  'rgba(192, 202, 51, 0.2)',
-                  'rgba(255, 214, 0, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(234, 128, 252, 1)',
-                  'rgba(236, 64, 122, 1)',
-                  'rgba(239, 154, 154, 1)',
-                  'rgba(230, 238, 156, 1)',
-                  'rgba(255, 234, 0, 1)'
-              ],
-              borderWidth: 2
-          }]
-      },
-      options: {
-        responsive: true,
-        legend: {
-          labels:{
-            fontColor: "#d4eaff"
-          },
-          position: "right",
-          fontColor: "#d4eaff"
-        },
-        title: {
-          display: true,
-          text: "Your Largest Positions by Market Value",
-          fontColor: "#d4eaff"
-        },
-        layout: {
-          padding:{
-            left: 20,
-            right: 80,
-            top: 0,
-            bottom: 0
-          }
-        },
-        animation: {
-          animateScale: true,
-          animateRotate:true
-        },
-        scales: {
-            xAxes: [{
-              scaleLabel:{
-                display: true,
-                labelString: "Date",
-                fontColor: "#d4eaff"
-              },
-                ticks: {
-                    fontColor: "#d4eaff",
-                }
-            }],
-            yAxes: [{
-              scaleLabel:{
-                fontColor: "#d4eaff",
-                display: true,
-                labelString:"Market Value"
-              },
-              ticks:{
-                fontColor: "#d4eaff",
-                minTicksLimit:6
-              }
+                ],
+                borderWidth: 2
             }]
         },
-      }
-  });
-  </script>
-  <div class="worldmap-container" id="worldmap-container">
-
-  </div>
-  <!-- Plotly.js -->
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-  <script type="text/javascript">
-  var graph = {{map | safe}};
-  Plotly.plot("worldmap-container", graph.data, graph.layout);
-  </script>
-  <div class="line-chart-container">
-    <canvas id="myChart" style=""></canvas>
-  </div>
-  <script>
-  //Chart.defaults.global.responsive = false;
-  var ctx = document.getElementById('myChart');
-  var myChart = new Chart(ctx, {
-      type: 'line',
-      tooltipCaretSize: 10,
-      maintainAspectRatio: false,
-      data: {
-          labels: [{% for item in line_chart %}
-          "{{item.date}}",
-          {% endfor %}],
-          datasets: [{
-              label: '%',
-              data: [{% for item in line_chart %}
-              "{{item.pct_change}}",
-              {% endfor %}],
-              backgroundColor: [
-                  'rgba(54, 162, 235, 0.2)'
-              ],
-              borderColor: [{% for item in line_chart %}
-                  'rgba(54, 162, 235, 1)',
-                  {% endfor %}
-              ],
-              borderWidth: 2,
-              pointBorderWidth: 1,
-              pointBorderColor: 'rgba(127, 64, 222, 1)'
-          }]
-      },
-      options: {
-        responsive:true,
-        tooltips: {
-          mode: "index",
-          intersect:false,
-        },
-        hover:{
-          mode: "nearest",
-          intersect: true,
-        },
-        legend: {
-          display: false,
-          labels: {
+        options: {
+          responsive: true,
+          legend: {
+            labels: {
+              fontColor: "#d4eaff"
+            },
+            position: "right",
+          },
+          title: {
+            display: true,
+            text: "Portfolio Distribution by Position",
             fontColor: "#d4eaff"
+          },
+          layout: {
+            padding:{
+              left: 0,
+              right: 50,
+              top: 0,
+              bottom: 0
+            }
+          },
+          animation: {
+            animateScale: true,
+            animateRotate:true
           }
+        }
+    });
+    </script>
+    <div class="bar-chart-container">
+      <canvas id="mybarChart"></canvas>
+    </div>
+    <script>
+    //Chart.defaults.global.responsive = false;
+    var ctx = document.getElementById('mybarChart');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        maintainAspectRatio: false,
+        data: {
+            labels: [{% for item in bar_chart %}
+            "{{item.ticker}}",
+            {% endfor %}],
+            datasets: [{
+                label: 'Market Value',
+                data: [{% for item in bar_chart %}
+                "{{item.market_val}}",
+                {% endfor %}],
+                backgroundColor: [
+                    'rgba(213, 0, 249, 0.2)',
+                    'rgba(194, 24, 91, 0.2)',
+                    'rgba(229, 57, 53, 0.2)',
+                    'rgba(192, 202, 51, 0.2)',
+                    'rgba(255, 214, 0, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(234, 128, 252, 1)',
+                    'rgba(236, 64, 122, 1)',
+                    'rgba(239, 154, 154, 1)',
+                    'rgba(230, 238, 156, 1)',
+                    'rgba(255, 234, 0, 1)'
+                ],
+                borderWidth: 2
+            }]
         },
-        title: {
-          display: true,
-          text: "Overall Portfolio Performance",
-          fontColor: "#d4eaff"
-        },
-        layout: {
-          padding:{
-            left: 20,
-            right: 20,
-            top: 0,
-            bottom: 0
-          }
-        },
+        options: {
+          responsive: true,
+          legend: {
+            labels:{
+              fontColor: "#d4eaff"
+            },
+            position: "right",
+            fontColor: "#d4eaff"
+          },
+          title: {
+            display: true,
+            text: "Your Largest Positions by Market Value",
+            fontColor: "#d4eaff"
+          },
+          layout: {
+            padding:{
+              left: 20,
+              right: 80,
+              top: 0,
+              bottom: 0
+            }
+          },
+          animation: {
+            animateScale: true,
+            animateRotate:true
+          },
           scales: {
               xAxes: [{
                 scaleLabel:{
@@ -271,26 +180,135 @@
                 },
                   ticks: {
                       fontColor: "#d4eaff",
-                      autoSkip: true,
-                      maxTicksLimit: 6,
-                      maxRotation: 15,
-                      minRotation:15
                   }
               }],
               yAxes: [{
-                display:true,
                 scaleLabel:{
                   fontColor: "#d4eaff",
                   display: true,
-                  labelString:"Holding Period Return (%)"
+                  labelString:"Market Value"
                 },
                 ticks:{
                   fontColor: "#d4eaff",
+                  minTicksLimit:6
                 }
               }]
-          }
-      }
-  });
-  </script>
-</div>
+          },
+        }
+    });
+    </script>
+    <div class="worldmap-container" id="worldmap-container">
+
+    </div>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script type="text/javascript">
+    var graph = {{map | safe}};
+    Plotly.plot("worldmap-container", graph.data, graph.layout);
+    </script>
+    <div class="line-chart-container">
+      <canvas id="myChart" style=""></canvas>
+    </div>
+    <script>
+    //Chart.defaults.global.responsive = false;
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        tooltipCaretSize: 10,
+        maintainAspectRatio: false,
+        data: {
+            labels: [{% for item in line_chart %}
+            "{{item.date}}",
+            {% endfor %}],
+            datasets: [{
+                label: '%',
+                data: [{% for item in line_chart %}
+                "{{item.pct_change}}",
+                {% endfor %}],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [{% for item in line_chart %}
+                    'rgba(54, 162, 235, 1)',
+                    {% endfor %}
+                ],
+                borderWidth: 2,
+                pointBorderWidth: 1,
+                pointBorderColor: 'rgba(127, 64, 222, 1)'
+            }]
+        },
+        options: {
+          responsive:true,
+          tooltips: {
+            mode: "index",
+            intersect:false,
+          },
+          hover:{
+            mode: "nearest",
+            intersect: true,
+          },
+          legend: {
+            display: false,
+            labels: {
+              fontColor: "#d4eaff"
+            }
+          },
+          title: {
+            display: true,
+            text: "Overall Portfolio Performance",
+            fontColor: "#d4eaff"
+          },
+          layout: {
+            padding:{
+              left: 20,
+              right: 20,
+              top: 0,
+              bottom: 0
+            }
+          },
+            scales: {
+                xAxes: [{
+                  scaleLabel:{
+                    display: true,
+                    labelString: "Date",
+                    fontColor: "#d4eaff"
+                  },
+                    ticks: {
+                        fontColor: "#d4eaff",
+                        autoSkip: true,
+                        maxTicksLimit: 6,
+                        maxRotation: 15,
+                        minRotation:15
+                    }
+                }],
+                yAxes: [{
+                  display:true,
+                  scaleLabel:{
+                    fontColor: "#d4eaff",
+                    display: true,
+                    labelString:"Holding Period Return (%)"
+                  },
+                  ticks:{
+                    fontColor: "#d4eaff",
+                  }
+                }]
+            }
+        }
+    });
+    </script>
+  </div>
+{% elif not line_chart and group_name is not none%}
+  <div class="Welcome2">
+    <h1 class="main-heading3">Hi {{current_user.username}},</h1>
+    <p>Your watchlist '{{group_name}}' has no trade history.</p>
+    <li><a href="{{ url_for('watchlist.main') }}">Why not add some securities?</a></li>
+  </div>
+{%else%}
+  <div class="Welcome3">
+    <h1 class="main-heading3">Welcome to Prescient Finance</h1>
+    <p>Create portfolios and strategies your way!</p>
+    <li><a href="{{ url_for('watchlist.main') }}">Get started! create a watchlist now</a></li>
+  </div>
+{% endif %}
 {% endblock %}
