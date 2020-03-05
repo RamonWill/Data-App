@@ -16,7 +16,8 @@ bp = Blueprint("charts", __name__)
 def get_group_id(watchlist, user_id):
     group_id = Watchlist_Group.query.filter_by(name=watchlist, user_id=user_id).first()
     if group_id is None:
-        abort(404, f"the ID for {watchlist} doesn't exist.")
+        return None
+        #abort(404, f"the ID for {watchlist} doesn't exist.")
     else:
         group_id = int(group_id.id)
         return group_id
