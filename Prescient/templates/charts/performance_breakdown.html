@@ -3,144 +3,165 @@
 {% extends 'base_layout.html' %}
 
 {% block header %}
+{% if group_name is defined and selected_ticker is not none %}
   <h1 class="main-heading">{% block title %}<span class="watchlist-name-title">{{group_name}}</span> Performance Breakdown for <span class="watchlist-name-ticker">{{selected_ticker}}</span> {% endblock %}</h1>
   <br>
+{% elif group_name is not none and selected_ticker is none%}
+  <h1 class="main-heading"><span class="watchlist-name-title">{{group_name}}</span> does not have any trade history</h1>
+  <p>Add securities</p>
+{% else %}
+  <h1 class="main-heading"> You do not have any active watchlists.</h1>
+  <p>Add securities</p>
+{% endif %}
 {% endblock %}
 
 {% block content %}
-<form class="group-selection" action="{{url_for('charts.chart_breakdown')}}" method="post">
-  <span class="selection-label">Select a Watchlist</span>
-  <select class="watchlist-selector" name="watchlist_group_selection">
-    {% for watchlist_name in user_watchlists %}
-    <option value="{{watchlist_name}}">{{watchlist_name}}</option>
-    {% endfor %}
-  </select>
-  <button type="submit" name="btn_btn_default" class="btn-select">Get overview</button>
-</form>
-<div class="main-wrapper">
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Quantity</th>
-          <th>Average Cost</th>
-          <th>Price</th>
-          <th>MTM</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in breakdown %}
-        <tr class="watchlist-rows">
-          <td class="c2">{{item.date}}</td>
-          <td class="c9">{{item.quantity}}</td>
-          <td class="c2">{{item.avg_cost}}</td>
-          <td class="c3">{{item.price}}</td>
-          <td class="c3">{{item.pct_change}}%</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  <div class="line-chart-container">
-    <canvas id="myChart"></canvas>
-  </div>
-  <script>
-  //Chart.defaults.global.responsive = false;
-  var ctx = document.getElementById('myChart');
-  var myChart = new Chart(ctx, {
-      type: 'line',
-      tooltipCaretSize: 10,
-      maintainAspectRatio: false,
-      data: {
-          labels: [{% for item in line_chart %}
-          "{{item.date}}",
-          {% endfor %}],
-          datasets: [{
-              label: '%',
-              data: [{% for item in line_chart %}
-              "{{item.pct_change}}",
-              {% endfor %}],
-              backgroundColor: [
-                  'rgba(94, 255, 137, 0.2)'
-              ],
-              borderColor: [{% for item in line_chart %}
-                  'rgba(5, 38, 14, 1)',
-                  {% endfor %}
-              ],
-              borderWidth: 2,
-              pointBorderWidth: 1,
-              pointBorderColor: 'rgba(40, 106, 176, 1)'
-          }]
-      },
-      options: {
-        responsive:true,
-        tooltips: {
-          mode: "index",
-          intersect:false,
+{% if group_name is defined and selected_ticker is not none %}
+  <form class="group-selection" action="{{url_for('charts.chart_breakdown')}}" method="post">
+    <span class="selection-label">Select a Watchlist</span>
+    <select class="watchlist-selector" name="watchlist_group_selection">
+      {% for watchlist_name in user_watchlists %}
+      <option value="{{watchlist_name}}">{{watchlist_name}}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" name="btn_btn_default" class="btn-select">Get overview</button>
+  </form>
+  <div class="main-wrapper">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Quantity</th>
+            <th>Average Cost</th>
+            <th>Price</th>
+            <th>MTM</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in breakdown %}
+          <tr class="watchlist-rows">
+            <td class="c2">{{item.date}}</td>
+            <td class="c9">{{item.quantity}}</td>
+            <td class="c2">{{item.avg_cost}}</td>
+            <td class="c3">{{item.price}}</td>
+            <td class="c3">{{item.pct_change}}%</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="line-chart-container">
+      <canvas id="myChart"></canvas>
+    </div>
+    <script>
+    //Chart.defaults.global.responsive = false;
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        tooltipCaretSize: 10,
+        maintainAspectRatio: false,
+        data: {
+            labels: [{% for item in line_chart %}
+            "{{item.date}}",
+            {% endfor %}],
+            datasets: [{
+                label: '%',
+                data: [{% for item in line_chart %}
+                "{{item.pct_change}}",
+                {% endfor %}],
+                backgroundColor: [
+                    'rgba(94, 255, 137, 0.2)'
+                ],
+                borderColor: [{% for item in line_chart %}
+                    'rgba(5, 38, 14, 1)',
+                    {% endfor %}
+                ],
+                borderWidth: 2,
+                pointBorderWidth: 1,
+                pointBorderColor: 'rgba(40, 106, 176, 1)'
+            }]
         },
-        hover:{
-          mode: "nearest",
-          intersect: true,
-        },
-        legend: {
-          display: false,
-          labels: {
-            fontColor: "#d4eaff"
-          }
-        },
-        title: {
-          display: true,
-          text: "{{selected_ticker}} Performance for {{group_name}}",
-          fontColor: "#2ed95b"
-        },
-        layout: {
-          padding:{
-            left: 20,
-            right: 20,
-            top: 0,
-            bottom: 0
-          }
-        },
-          scales: {
-              xAxes: [{
-                scaleLabel:{
-                  display: true,
-                  labelString: "Date",
-                  fontColor: "#2ed95b"
-                },
-                  ticks: {
-                      fontColor: "#d4eaff",
-                      autoSkip: true,
-                      maxTicksLimit: 6,
-                      maxRotation: 15,
-                      minRotation:15
+        options: {
+          responsive:true,
+          tooltips: {
+            mode: "index",
+            intersect:false,
+          },
+          hover:{
+            mode: "nearest",
+            intersect: true,
+          },
+          legend: {
+            display: false,
+            labels: {
+              fontColor: "#d4eaff"
+            }
+          },
+          title: {
+            display: true,
+            text: "{{selected_ticker}} Performance for {{group_name}}",
+            fontColor: "#2ed95b"
+          },
+          layout: {
+            padding:{
+              left: 20,
+              right: 20,
+              top: 0,
+              bottom: 0
+            }
+          },
+            scales: {
+                xAxes: [{
+                  scaleLabel:{
+                    display: true,
+                    labelString: "Date",
+                    fontColor: "#2ed95b"
+                  },
+                    ticks: {
+                        fontColor: "#d4eaff",
+                        autoSkip: true,
+                        maxTicksLimit: 6,
+                        maxRotation: 15,
+                        minRotation:15
+                    }
+                }],
+                yAxes: [{
+                  display:true,
+                  scaleLabel:{
+                    fontColor: "#2ed95b",
+                    display: true,
+                    labelString:"Performance (%)"
+                  },
+                  ticks:{
+                    fontColor: "#d4eaff",
                   }
-              }],
-              yAxes: [{
-                display:true,
-                scaleLabel:{
-                  fontColor: "#2ed95b",
-                  display: true,
-                  labelString:"Performance (%)"
-                },
-                ticks:{
-                  fontColor: "#d4eaff",
-                }
-              }]
-          }
-      }
-  });
-  </script>
-  <div class="selection">
-    {% from "_formhelpers.html" import render_field %}
-    <form action="" method="post">
-      <dl>
-        {{ render_field(form.ticker) }}
-      </dl>
-      <button type="submit" name="Plot" class="btn-select"> Plot</button>
-      {{ form.csrf_token }}
-    </form>
+                }]
+            }
+        }
+    });
+    </script>
+    <div class="selection">
+      {% from "_formhelpers.html" import render_field %}
+      <form action="" method="post">
+        <dl>
+          {{ render_field(form.ticker) }}
+        </dl>
+        <button type="submit" name="Plot" class="btn-select"> Plot</button>
+        {{ form.csrf_token }}
+      </form>
+    </div>
   </div>
-</div>
+{% elif group_name is not none and selected_ticker is none%}
+  <form class="group-selection" action="{{url_for('charts.chart_breakdown')}}" method="post">
+    <span class="selection-label">Select a Watchlist</span>
+    <select class="watchlist-selector" name="watchlist_group_selection">
+      {% for watchlist_name in user_watchlists %}
+      <option value="{{watchlist_name}}">{{watchlist_name}}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" name="btn_btn_default" class="btn-select">Get overview</button>
+  </form>
+{% else %}
+{% endif %}
 {% endblock %}

@@ -34,7 +34,7 @@ class WatchlistItemsForm(FlaskForm):
     def validate_ticker(self, ticker):
         ticker_check = Available_Securities.query.filter_by(ticker=ticker.data).first()
         if ticker_check is None:
-            raise validators.ValidationError(f'The ticker {ticker} is not available.')
+            raise validators.ValidationError(f'The ticker {ticker.data} is unavailable.')
 
 
 class WatchlistGroupForm(FlaskForm):

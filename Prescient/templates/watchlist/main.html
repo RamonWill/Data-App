@@ -5,154 +5,181 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap/bootstrap.css') }}">
 {% extends 'base_layout.html' %}
 {% block header %}
+{% if group_name is not none %}
   <h1 class="main-heading">{% block title %}Entries for <span class="watchlist-name-title">{{group_name}}</span>{% endblock %}</h1
   <br>
+{% else %}
+  <h1 class="main-heading"> You currently do not have any active watchlists.</h1>
+{% endif %}
 {% endblock %}
 
 {% block content %}
-<form class="group-selection" action="{{url_for('watchlist.main')}}" method="post">
-  <span class="selection-label">Select a Watchlist</span>
-  <select class="watchlist-selector" name="watchlist_group_selection">
-    {% for watchlist_name in user_watchlists %}
-    <option value="{{watchlist_name}}">{{watchlist_name}}</option>
-    {% endfor %}
-  </select>
-  <button type="submit" class="btn-new-wl">Get overview</button>
-</form>
-<div class="summary-table-container">
-  <table>
-    <thead>
-      <tr>
-        <th>Ticker</th>
-        <th>Quantity</th>
-        <th>Average Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in summary %}
-      <tr class="watchlist-rows">
-        {% if item.quantity != 0 %}
-        <td class="c2">{{item.ticker}}</td>
-        <td class="c3">{{item.quantity}}</td>
-        <td class="c3">{{item.average_price}}</td>
-        {% endif %}
-      </tr>
+{% if group_name is not none %}
+  <form class="group-selection" action="{{url_for('watchlist.main')}}" method="post">
+    <span class="selection-label">Select a Watchlist</span>
+    <select class="watchlist-selector" name="watchlist_group_selection">
+      {% for watchlist_name in user_watchlists %}
+      <option value="{{watchlist_name}}">{{watchlist_name}}</option>
       {% endfor %}
-    </tbody>
-  </table>
-  </div>
-  <br>
-  {% if current_user %}
-    <button style=color:black; type="button" class="btn-new-wl-item"
-    data-toggle="modal" data-target="#mymodal">Add to Watchlist</button>
-      <div id="mymodal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Add to Watchlist</h4>
-            </div>
-            <div class="modal-body">
-              {% from "_formhelpers.html" import render_field %}
-              <form action="{{ url_for('watchlist.create')}}" method="post">
-                <dl>
-                  {{ render_field(form.watchlist) }}
-                  {{ render_field(form.ticker) }}
-                  {{ render_field(form.quantity) }}
-                  {{ render_field(form.price) }}
-                  {{ render_field(form.sector) }}
-                  {{ render_field(form.comments) }}
-                </dl>
-                <p>{{ form.submit() }}</p>
-                {{ form.csrf_token }}
-              </form>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <button style=color:black; type="button" class="btn-new-wl"
-      data-toggle="modal" data-target="#mymodal3">Create Watchlist Group</button>
-        <div id="mymodal3" class="modal fade" role="dialog">
+    </select>
+    <button type="submit" class="btn-new-wl">Get overview</button>
+  </form>
+  <div class="summary-table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Quantity</th>
+          <th>Average Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in summary %}
+        <tr class="watchlist-rows">
+          {% if item.quantity != 0 %}
+          <td class="c2">{{item.ticker}}</td>
+          <td class="c3">{{item.quantity}}</td>
+          <td class="c3">{{item.average_price}}</td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <br>
+    {% if current_user %}
+      <button style=color:black; type="button" class="btn-new-wl-item"
+      data-toggle="modal" data-target="#mymodal">Add to Watchlist</button>
+        <div id="mymodal" class="modal fade" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Create Watchlist</h4>
+                <h4 class="modal-title">Add to Watchlist</h4>
               </div>
               <div class="modal-body">
                 {% from "_formhelpers.html" import render_field %}
-                <form action="{{ url_for('watchlist.create_group')}}" method="post">
+                <form action="{{ url_for('watchlist.create')}}" method="post">
                   <dl>
-                    {{ render_field(group_form.name) }}
+                    {{ render_field(form.watchlist) }}
+                    {{ render_field(form.ticker) }}
+                    {{ render_field(form.quantity) }}
+                    {{ render_field(form.price) }}
+                    {{ render_field(form.sector) }}
+                    {{ render_field(form.comments) }}
                   </dl>
-                  <p>{{ group_form.submit() }}</p>
-                  {{ group_form.csrf_token }}
+                  <p>{{ form.submit() }}</p>
+                  {{ form.csrf_token }}
                 </form>
               </div>
 
             </div>
           </div>
         </div>
-  {% endif %}
-    <input type="text" class="filter-bar" id="filter" placeholder="Filter...">
-    <table class="all-trades" id="all-trades">
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Ticker</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Sector</th>
-          <th>Date</th>
-          <th>comments</th>
-          <th>changes?</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in watchlist %}
-        <tr class="watchlist-rows">
-          <td class="c1">{{item.id}}</td>
-          <td class="c2">{{item.ticker}}</td>
-          <td class="c3">{{item.quantity}}</td>
-          <td class="c4">{{item.price}}</td>
-          <td class="c5">{{item.sector}}</td>
-          <td class="c6">{{item.created_timestamp.strftime('%d-%m-%Y')}}</td>
-          <td>{{item.comments}}</td>
-          <td class="edit-trade">
-            {% if current_user.id == item.user_id %}
-              <button style=color:black; type="button" class="btn-new-wl"
-              data-toggle="modal" data-target="#mymodal2{{item.id}}">Edit</button>
-                <div id="mymodal2{{item.id}}" class="modal fade" role="dialog">
-                  <div class="modal-dialog" id="{{item.id}}">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title">Edit</h4>
-                      </div>
-                      <div class="modal-body">
-                        {% from "_formhelpers.html" import render_field %}
-                        <form action="{{ url_for('watchlist.update', id=item.id, ticker=item.ticker) }}" method="post">
-                          <dl>
-                            {{ render_field(form.watchlist) }}
-                            {{ render_field(form.ticker, value=item.ticker, readonly="readonly") }}
-                            {{ render_field(form.quantity, value=item.quantity) }}
-                            {{ render_field(form.price, value=item.price) }}
-                            {{ render_field(form.sector, value=item.sector) }}
-                            {{ render_field(form.comments, default=item.comments) }}
-                          </dl>
-                          {{ form.csrf_token }}
-                          <button type="submit" name="button" class="btn btn-primary">Save Changes</button>
-                        </form>
+        <button style=color:black; type="button" class="btn-new-wl"
+        data-toggle="modal" data-target="#mymodal3">Create Watchlist Group</button>
+          <div id="mymodal3" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Create Watchlist</h4>
+                </div>
+                <div class="modal-body">
+                  {% from "_formhelpers.html" import render_field %}
+                  <form action="{{ url_for('watchlist.create_group')}}" method="post">
+                    <dl>
+                      {{ render_field(group_form.name) }}
+                    </dl>
+                    <p>{{ group_form.submit() }}</p>
+                    {{ group_form.csrf_token }}
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+    {% endif %}
+      <input type="text" class="filter-bar" id="filter" placeholder="Filter...">
+      <table class="all-trades" id="all-trades">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Ticker</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Sector</th>
+            <th>Date</th>
+            <th>comments</th>
+            <th>changes?</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in watchlist %}
+          <tr class="watchlist-rows">
+            <td class="c1">{{item.id}}</td>
+            <td class="c2">{{item.ticker}}</td>
+            <td class="c3">{{item.quantity}}</td>
+            <td class="c4">{{item.price}}</td>
+            <td class="c5">{{item.sector}}</td>
+            <td class="c6">{{item.created_timestamp.strftime('%d-%m-%Y')}}</td>
+            <td>{{item.comments}}</td>
+            <td class="edit-trade">
+              {% if current_user.id == item.user_id %}
+                <button style=color:black; type="button" class="btn-new-wl"
+                data-toggle="modal" data-target="#mymodal2{{item.id}}">Edit</button>
+                  <div id="mymodal2{{item.id}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog" id="{{item.id}}">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Edit</h4>
+                        </div>
+                        <div class="modal-body">
+                          {% from "_formhelpers.html" import render_field %}
+                          <form action="{{ url_for('watchlist.update', id=item.id, ticker=item.ticker) }}" method="post">
+                            <dl>
+                              {{ render_field(form.watchlist) }}
+                              {{ render_field(form.ticker, value=item.ticker, readonly="readonly") }}
+                              {{ render_field(form.quantity, value=item.quantity) }}
+                              {{ render_field(form.price, value=item.price) }}
+                              {{ render_field(form.sector, value=item.sector) }}
+                              {{ render_field(form.comments, default=item.comments) }}
+                            </dl>
+                            {{ form.csrf_token }}
+                            <button type="submit" name="button" class="btn btn-primary">Save Changes</button>
+                          </form>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              <form action="{{ url_for('watchlist.delete', id=item['id']) }}" method="post">
-                <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                <form action="{{ url_for('watchlist.delete', id=item['id']) }}" method="post">
+                  <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <script src="{{ url_for('static', filename='javascript/watchlist-filter.js') }}"></script>
+  {% else %}
+    <button style=color:black; type="button" class="btn-new-wl"
+    data-toggle="modal" data-target="#mymodal3">Create Watchlist Group</button>
+      <div id="mymodal3" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Create Watchlist</h4>
+            </div>
+            <div class="modal-body">
+              {% from "_formhelpers.html" import render_field %}
+              <form action="{{ url_for('watchlist.create_group')}}" method="post">
+                <dl>
+                  {{ render_field(group_form.name) }}
+                </dl>
+                <p>{{ group_form.submit() }}</p>
+                {{ group_form.csrf_token }}
               </form>
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <script src="{{ url_for('static', filename='javascript/watchlist-filter.js') }}"></script>
+            </div>
+          </div>
+        </div>
+      </div>
+{% endif %}
 {% endblock %}

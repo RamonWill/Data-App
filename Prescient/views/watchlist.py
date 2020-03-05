@@ -15,17 +15,15 @@ bp = Blueprint("watchlist", __name__)
 
 def update_db_prices(ticker):
     # check the tables. If the ticker doesnt exist get the price from AV and create a new table
-    conn = sqlite3.connect(r"C:\Users\Owner\Documents\Data-App\Prescient\Security_PricesDB.db")
-    c = conn.cursor()
 
+    connection = db.get_engine(app, "Security_PricesDB").connect()
     query = """SELECT name FROM sqlite_master
-    WHERE type='table'and name=:ticker
-    ORDER BY name;
-    """
+               WHERE type='table'and name=:ticker
+               ORDER BY name;"""
     param = {"ticker": ticker}
-    tables = c.execute(query, param).fetchone()
-    c.close()
-    conn.close()
+    tables = connection.execute(query, param).fetchone()
+    connection.close()
+    print(tables)
 
     if tables is None:
         obj = Price_Update(ticker)
@@ -49,6 +47,7 @@ def get_group_names1(user_id):
         names_list = [i.name for i in names]
         return names_list
 
+
 def get_group_names2(user_id):
     # returns list of tuples
     names = Watchlist_Group.query.filter_by(user_id=user_id).all()
@@ -57,6 +56,7 @@ def get_group_names2(user_id):
     else:
         names_list = [(i.name, i.name) for i in names]
         return names_list
+
 
 def get_group_id(watchlist, user_id):
     group_id = Watchlist_Group.query.filter_by(name=watchlist, user_id=user_id).first()
@@ -81,7 +81,10 @@ def get_tickers(user_id, group_id):
 def get_position_summary(user_id, group_id):
     all_tickers = get_tickers(user_id, group_id)
     params = {"user_id": user_id, "group_id": group_id}
-    all_trades = WatchlistItems.query.with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.created_timestamp).label("date")).filter_by(**params).order_by(WatchlistItems.created_timestamp)
+    all_trades = WatchlistItems.query.\
+                 with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.created_timestamp).label("date")).\
+                 filter_by(**params).\
+                 order_by(WatchlistItems.created_timestamp)
     summary_table = []
     for ticker in all_tickers:
         trade_history = [trade for trade in all_trades if trade.ticker == ticker]
@@ -89,7 +92,6 @@ def get_position_summary(user_id, group_id):
         if summary.quantity != 0:
             summary_table.append(summary)
     return summary_table
-
 
 
 def check_watchlist_id(id, check_holder=True):
@@ -109,7 +111,7 @@ def main():
     user_watchlists = get_group_names1(user_id)
     if len(user_watchlists) == 0:
         watchlist_id = 0
-        first_watchlist_name=None
+        first_watchlist_name = None
     else:
         first_watchlist_name = user_watchlists[0]
         watchlist_id = get_group_id(first_watchlist_name, user_id)
@@ -120,17 +122,17 @@ def main():
         selection = request.form.get('watchlist_group_selection')
         selection_id = get_group_id(selection, user_id)
         summary = get_position_summary(user_id, selection_id)
-        watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=selection_id)  # this is good because it defaults to an empty list
+        watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=selection_id)
         group_form = WatchlistGroupForm()
         return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form, group_form=group_form, user_watchlists=user_watchlists, group_name=selection)
-    # in the watchlist variable  filter by watchlist_id too. user can choose watchlist id. sumary table should also take this into account.
-    watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=watchlist_id)  # this is good because it defaults to an empty list
+
+    watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=watchlist_id)
 
     summary = get_position_summary(user_id, watchlist_id)
 
     group_form = WatchlistGroupForm()
-
     return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form, group_form=group_form, user_watchlists=user_watchlists, group_name=first_watchlist_name)
+
 
 @bp.route('/create-group', methods=('GET', 'POST'))
 @login_required
@@ -144,7 +146,10 @@ def create_group():
         db.session.commit()
         flash(f"The Watchlist group '{name}' has been created!")
         return redirect(url_for("watchlist.main"))
-
+    elif group_form.errors:
+        for error_name, error_desc in group_form.errors.items():
+            error_name = error_name.title()
+            flash(f"{error_name}: {error_desc[0]}")
     return redirect(url_for("watchlist.main"))
 
 
@@ -172,10 +177,13 @@ def create():
         update_db_prices(name)
         flash(f"{name} has been added to your watchlist")
         return redirect(url_for("watchlist.main"))
-        # Follow the registration view
-        # I will also need one function to get the sectors
+    elif form.errors:
+        for error_name, error_desc in form.errors.items():
+            error_name = error_name.title()
+            flash(f"{error_name}: {error_desc[0]}")
+
     return redirect(url_for("watchlist.main"))
-    #return render_template("watchlist/main.html", form=form)
+
 
 @bp.route('/<int:id>/<ticker>/update', methods=('GET', 'POST'))
 @login_required
@@ -204,8 +212,12 @@ def update(id, ticker):
         db.session.commit()
         flash(f"Order ID {id} has now been updated")
         return redirect(url_for("watchlist.main"))
-
+    elif form.errors:
+        for error_name, error_desc in form.errors.items():
+            error_name = error_name.title()
+            flash(f"{error_name}: {error_desc[0]}")
     return render_template("watchlist/main.html", form=form, group_form=group_form)
+
 
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required
@@ -218,9 +230,3 @@ def delete(id):
         db.session.commit()
         return redirect(url_for('watchlist.main'))
     return redirect(url_for('watchlist.main'))
-
-## To get data from the DB its
-# x = pd. read_sql(sql=query, con=db.engine)
-# to get mainDB db.engine
-# to get pricesDB db.get_engine(app, "Security_PricesDB")
-#ive tested this in terminal and it works

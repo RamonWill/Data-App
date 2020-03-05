@@ -5,7 +5,7 @@
 {% if line_chart and group_name %}
   <h1 class="main-heading">{% block title %}Your Portfolio Overview for <span class="watchlist-name-title">{{group_name}}</span>{% endblock %}</h1>
   <br>
-{%else%}
+{% else %}
 {% endif %}
 {% endblock %}
 
@@ -308,7 +308,7 @@
   <div class="Welcome3">
     <h1 class="main-heading3">Welcome to Prescient Finance</h1>
     <p>Create portfolios and strategies your way!</p>
-    <li><a href="{{ url_for('watchlist.main') }}">Get started! create a watchlist now</a></li>
+    <li><a href="{{ url_for('watchlist.main') }}">Get started! Create a watchlist now</a></li>
   </div>
 {% endif %}
 {% endblock %}

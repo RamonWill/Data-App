@@ -76,7 +76,7 @@ def chart_breakdown():
     user_watchlists = get_group_names(user_id)
     if len(user_watchlists) == 0:
         watchlist_id = 0
-        first_watchlist_name = ""
+        first_watchlist_name = None
         session["ATEST"] = None
 
     else:
@@ -94,7 +94,7 @@ def chart_breakdown():
     if len(user_tickers) == 0:
         form = ChartForm()
         plot_data = []
-        first_ticker = ""
+        first_ticker = None
 
     else:
         first_ticker = user_tickers[0][0]
@@ -137,5 +137,6 @@ def chart_breakdown():
 
     line_chart = plot_data
     breakdown = plot_data
+    print(first_watchlist_name)
     print(session.get('ATEST', None), "Initial Launch")
     return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=first_watchlist_name, selected_ticker=first_ticker)
