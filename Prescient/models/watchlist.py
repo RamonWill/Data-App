@@ -1,5 +1,15 @@
 from Prescient import db
-from datetime import datetime
+from datetime import datetime, timedelta, date
+
+
+def default_date():
+    trade_date = datetime.utcnow()
+    weekday = date.isoweekday(trade_date)
+    if weekday == 6:  # 6 = saturday, 7 = sunday
+        trade_date = trade_date - timedelta(days=1)
+    elif weekday == 7:
+        trade_date = trade_date - timedelta(days=2)
+    return trade_date
 
 
 class WatchlistItems(db.Model):
@@ -10,6 +20,7 @@ class WatchlistItems(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
     sector = db.Column(db.String(), nullable=False)
+    trade_date = db.Column(db.DateTime, default=default_date)
     created_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.Column(db.String())
     user_id = db.Column(db.Integer, db.ForeignKey("login_details.id", on_delete="CASCADE"), nullable=False)

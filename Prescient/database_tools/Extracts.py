@@ -274,7 +274,7 @@ class Portfolio_Summary(object):
         valuation["total_portfolio_val"] = valuation.sum(axis=1)
         valuation["pct_change"] = (((valuation["portfolio_val"].shift(-1)/(valuation["total_portfolio_val"]))-1)*100)
         valuation["pct_change"] = round(valuation["pct_change"].shift(1), 2)
-        
+
         valuation = list(valuation.itertuples(index=False))
         return valuation
 
@@ -326,7 +326,6 @@ class DashboardCharts(object):
             return df_final
 
     def get_bar_chart(self, portfolio_valuation):
-
         df = portfolio_valuation.tail(1)
         df = df.T.reset_index()
         if df.empty:

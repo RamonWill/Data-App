@@ -8,7 +8,7 @@ from Prescient.models import WatchlistItems, Sector_Definitions, Watchlist_Group
 from Prescient.database_tools.New_Prices import Price_Update
 from Prescient.database_tools.Extracts import PositionSummary
 from sqlalchemy.sql import func
-import sqlite3
+
 
 bp = Blueprint("watchlist", __name__)
 
@@ -72,7 +72,7 @@ def get_tickers(user_id, group_id):
     tickers = WatchlistItems.query.\
               with_entities(WatchlistItems.ticker).\
               filter_by(**params).\
-              order_by(WatchlistItems.created_timestamp).\
+              order_by(WatchlistItems.trade_date).\
               distinct(WatchlistItems.ticker).all()
 
     return [item.ticker for item in tickers]
@@ -82,9 +82,9 @@ def get_position_summary(user_id, group_id):
     all_tickers = get_tickers(user_id, group_id)
     params = {"user_id": user_id, "group_id": group_id}
     all_trades = WatchlistItems.query.\
-                 with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.created_timestamp).label("date")).\
+                 with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.trade_date).label("date")).\
                  filter_by(**params).\
-                 order_by(WatchlistItems.created_timestamp)
+                 order_by(WatchlistItems.trade_date)
     summary_table = []
     for ticker in all_tickers:
         trade_history = [trade for trade in all_trades if trade.ticker == ticker]
@@ -189,15 +189,19 @@ def create():
 @login_required
 def update(id, ticker):
     user_id = current_user.id
+    print("id before post", id)
     check = check_watchlist_id(id)
     form = WatchlistItemsForm()
+    form.order_id.data= id
     group_form = WatchlistGroupForm()
     form.sector.choices = get_sectors()
     form.watchlist.choices = get_group_names2(user_id)
     if form.validate_on_submit() and check:
+        print("id after post", id)
         new_watchlist = form.watchlist.data
         new_quantity = form.quantity.data
         new_price = form.price.data
+        new_trade_date = form.trade_date.data
         new_sector = form.sector.data
         new_comment = form.comments.data
         new_group_id = get_group_id(new_watchlist, user_id)
@@ -206,6 +210,7 @@ def update(id, ticker):
         item.watchlist = new_watchlist
         item.quantity = new_quantity
         item.price = new_price
+        item.trade_date = new_trade_date
         item.sector = new_sector
         item.comments = new_comment
         item.group_id = new_group_id
@@ -216,6 +221,7 @@ def update(id, ticker):
         for error_name, error_desc in form.errors.items():
             error_name = error_name.title()
             flash(f"{error_name}: {error_desc[0]}")
+            return redirect(url_for("watchlist.main"))
     return render_template("watchlist/main.html", form=form, group_form=group_form)
 
 

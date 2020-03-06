@@ -52,9 +52,9 @@ def get_market_prices(ticker):
 def get_trade_histroy(user_id, group_id, ticker):
     params = {"user_id": user_id, "group_id": group_id, "ticker": ticker}
     all_trades = WatchlistItems.query.\
-                 with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.created_timestamp).label("date")).\
+                 with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.trade_date).label("date")).\
                  filter_by(**params).\
-                 order_by(WatchlistItems.created_timestamp).all()
+                 order_by(WatchlistItems.trade_date).all()
     return all_trades
 
 def get_performance(user_id, group_id, ticker):

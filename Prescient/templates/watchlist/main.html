@@ -64,6 +64,7 @@
                     {{ render_field(form.ticker) }}
                     {{ render_field(form.quantity) }}
                     {{ render_field(form.price) }}
+                    {{ render_field(form.trade_date) }}
                     {{ render_field(form.sector) }}
                     {{ render_field(form.comments) }}
                   </dl>
@@ -106,7 +107,7 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Sector</th>
-            <th>Date</th>
+            <th>Trade Date</th>
             <th>comments</th>
             <th>changes?</th>
           </tr>
@@ -119,7 +120,7 @@
             <td class="c3">{{item.quantity}}</td>
             <td class="c4">{{item.price}}</td>
             <td class="c5">{{item.sector}}</td>
-            <td class="c6">{{item.created_timestamp.strftime('%d-%m-%Y')}}</td>
+            <td class="c6">{{item.trade_date.strftime('%d-%m-%Y')}}</td>
             <td>{{item.comments}}</td>
             <td class="edit-trade">
               {% if current_user.id == item.user_id %}
@@ -139,6 +140,7 @@
                               {{ render_field(form.ticker, value=item.ticker, readonly="readonly") }}
                               {{ render_field(form.quantity, value=item.quantity) }}
                               {{ render_field(form.price, value=item.price) }}
+                              {{ render_field(form.trade_date, value=item.trade_date.strftime('%Y-%m-%d %H:%M:%S')) }}
                               {{ render_field(form.sector, value=item.sector) }}
                               {{ render_field(form.comments, default=item.comments) }}
                             </dl>
