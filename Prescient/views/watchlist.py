@@ -236,3 +236,18 @@ def delete(id):
         db.session.commit()
         return redirect(url_for('watchlist.main'))
     return redirect(url_for('watchlist.main'))
+
+@bp.route('/delete-group', methods=('POST',))
+@login_required
+def delete_group():
+    group_form = WatchlistGroupForm(request.method)
+    if request.method == "POST":
+        name = request.form.get('watchlist_group_removed')
+        user_id = current_user.id
+        group_id = get_group_id(name, user_id)
+        item = Watchlist_Group.query.filter_by(id=group_id, name=name, user_id=user_id).first()
+        WatchlistItems.query.filter_by(group_id=group_id, user_id=user_id).delete(synchronize_session="fetch")  # temp solution until cascading works
+        db.session.delete(item)
+        db.session.commit()
+        return redirect(url_for('watchlist.main'))
+    return redirect(url_for('watchlist.main'))

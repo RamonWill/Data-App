@@ -72,7 +72,6 @@
                   {{ form.csrf_token }}
                 </form>
               </div>
-
             </div>
           </div>
         </div>
@@ -97,6 +96,29 @@
               </div>
             </div>
           </div>
+          <button style=color:black; type="button" class="btn-new-wl"
+          data-toggle="modal" data-target="#mymodal4">Remove Watchlist Group</button>
+            <div id="mymodal4" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Remove Watchlist</h4>
+                  </div>
+                  <div class="modal-body">
+                    {% from "_formhelpers.html" import render_field %}
+                    <form class="group-removal" action="{{ url_for('watchlist.delete_group') }}" method="post">
+                      <span class="selection-label">Select a Watchlist</span>
+                      <select class="watchlist-selector" name="watchlist_group_removed">
+                        {% for watchlist_name in user_watchlists %}
+                        <option value="{{watchlist_name}}">{{watchlist_name}}</option>
+                        {% endfor %}
+                      </select>
+                      <button type="submit" class="btn-new-wl">Remove Watchlist</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
     {% endif %}
       <input type="text" class="filter-bar" id="filter" placeholder="Filter...">
       <table class="all-trades" id="all-trades">
@@ -151,8 +173,8 @@
                       </div>
                     </div>
                   </div>
-                <form action="{{ url_for('watchlist.delete', id=item['id']) }}" method="post">
-                  <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+                <form action="{{ url_for('watchlist.delete', id=item.id) }}" method="post">
+                  <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete Order ID {{item.id}}?');">
                 </form>
               {% endif %}
             </td>
@@ -163,8 +185,8 @@
       <script src="{{ url_for('static', filename='javascript/watchlist-filter.js') }}"></script>
   {% else %}
     <button style=color:black; type="button" class="btn-new-wl"
-    data-toggle="modal" data-target="#mymodal3">Create Watchlist Group</button>
-      <div id="mymodal3" class="modal fade" role="dialog">
+    data-toggle="modal" data-target="#mymodal5">Create Watchlist Group</button>
+      <div id="mymodal5" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
