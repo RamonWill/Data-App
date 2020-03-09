@@ -270,13 +270,12 @@ class Portfolio_Summary(object):
 
         df_flows["cash"] = df_flows.loc[df_flows['flows'] > 0, "flows"]
         df_flows["inflows"] = df_flows.loc[df_flows['flows'] <= 0, "flows"]
-
         df_flows["cash"] = df_flows["cash"].cumsum()
         df_flows["inflows"] = df_flows["inflows"].abs()
         df_flows = df_flows.set_index("index") #need to sum groupby date
         df_flows = df_flows.groupby([df_flows.index]).sum()
         df_flows = df_flows.drop(columns=['flows'])
-
+        df_flows = df_flows.replace({'cash': 0, 'inflows': 0}, float("nan"))
         valuation = self.net_valuations()
         valuation = valuation.join(df_flows)
         valuation["cash"] = valuation["cash"].fillna(method="ffill")
