@@ -262,19 +262,30 @@ class Portfolio_Summary(object):
         return valuation
 
     def generate_hpr(self, flows):
-        valuation = self.net_valuations()
-        df_flows = pd.DataFrame(flows, columns=["index", "flow"])
-        df_flows = df_flows.set_index("index")
-        valuation = valuation.join(df_flows)
-        valuation = valuation.reset_index()
-        # shifts the flows back by previous day
-        # to get the previous day valuation including flows
-        valuation["flow"] = valuation["flow"].shift(-1)
-        valuation["flow"] = valuation["flow"].fillna(value=0)
-        valuation["total_portfolio_val"] = valuation.sum(axis=1)
-        valuation["pct_change"] = (((valuation["portfolio_val"].shift(-1)/(valuation["total_portfolio_val"]))-1)*100)
-        valuation["pct_change"] = round(valuation["pct_change"].shift(1), 2)
 
+        #valuation.to_csv(r"C:\Users\Owner\Documents\MyScripts\Random Scripts\Scrap\x5.csv")
+        df_flows = pd.DataFrame(flows, columns=["index", "flows"])
+        df_flows["cash"] = float("nan")
+        df_flows["inflows"] = float("nan")
+
+        df_flows["cash"] = df_flows.loc[df_flows['flows'] > 0, "flows"]
+        df_flows["inflows"] = df_flows.loc[df_flows['flows'] <= 0, "flows"]
+
+        df_flows["cash"] = df_flows["cash"].cumsum()
+        df_flows["inflows"] = df_flows["inflows"].abs()
+        df_flows = df_flows.set_index("index") #need to sum groupby date
+        df_flows = df_flows.groupby([df_flows.index]).sum()
+        df_flows = df_flows.drop(columns=['flows'])
+
+        valuation = self.net_valuations()
+        valuation = valuation.join(df_flows)
+        valuation["cash"] = valuation["cash"].fillna(method="ffill")
+        valuation = valuation.fillna(value=0)
+        valuation["total_portfolio_val"] = valuation["portfolio_val"] + valuation["cash"]
+        valuation["portfolio_val"] = valuation["total_portfolio_val"].shift(1)
+        valuation["pct_change"] = ((valuation["total_portfolio_val"])/(valuation["portfolio_val"]+valuation["inflows"])-1)*100
+        valuation["pct_change"] = round(valuation["pct_change"], 3)
+        valuation = valuation.reset_index()
         valuation = list(valuation.itertuples(index=False))
         return valuation
 

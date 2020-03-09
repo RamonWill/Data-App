@@ -72,7 +72,7 @@ def get_flows(user_id, group_id):
     params = {"user_id": user_id, "group_id": group_id}
     w = aliased(WatchlistItems)
     flows = WatchlistItems.query.\
-            with_entities(func.date(w.trade_date).label("index"), func.sum(w.quantity*w.price).label("flow")).\
+            with_entities(func.date(w.trade_date).label("index"), func.sum(w.quantity*w.price*-1).label("flows")).\
             filter_by(**params).\
             group_by(func.date(w.trade_date)).\
             order_by(w.trade_date).all()

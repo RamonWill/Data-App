@@ -11,8 +11,7 @@ from sqlalchemy.sql import func
 
 bp = Blueprint("charts", __name__)
 
-# CALCULATIONS ON SHORT POSITION PERFORMANCE IS WRONG. YOU SHOULD BE IN PROFIT WHEN THE PRICE FALLS BELOW AVG COST.
-# CHECK SECURITY BREAKDOWN CODE
+
 def get_group_id(watchlist, user_id):
     group_id = Watchlist_Group.query.filter_by(name=watchlist, user_id=user_id).first()
     if group_id is None:
