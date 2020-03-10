@@ -63,20 +63,22 @@
                 "{{item.market_val_perc}}",
                 {% endfor %}],
                 backgroundColor: [
-                    'rgba(54, 162, 235, 0.3)',
-                    'rgba(161, 120, 227, 0.3)',
-                    'rgba(120, 245, 155, 0.3)',
-                    'rgba(120, 245, 203, 0.3)',
-                    'rgba(229, 57, 53, 0.3)',
-                    'rgba(192, 202, 51, 0.2)'
+                    'rgba(106, 90, 205, 0.3)',
+                    'rgba(75, 0, 130, 0.3)',
+                    'rgba(178, 34, 34, 0.3)',
+                    'rgba(255, 69, 0, 0.3)',
+                    'rgba(0, 128, 128, 0.3)',
+                    'rgba(16, 87, 194, 0.2)',
+                    'rgba(54, 54, 54, 0.2)'
                 ],
                 borderColor: [
-                    'rgba(140, 203, 245, 1)',
-                    'rgba(177, 134, 247, 1)',
-                    'rgba(44, 242, 98, 1)',
-                    'rgba(125, 255, 211, 1)',
-                    'rgba(236, 64, 122, 1)',
-                    'rgba(230, 238, 156, 1)'
+                    'rgba(140, 126, 222, 1)',
+                    'rgba(178, 145, 201, 1)',
+                    'rgba(176, 113, 113, 1)',
+                    'rgba(207, 148, 126, 1)',
+                    'rgba(101, 184, 184, 1)',
+                    'rgba(130, 163, 219, 1)',
+                    'rgba(124, 124, 124, 1)'
 
                 ],
                 borderWidth: 2
@@ -88,7 +90,7 @@
             labels: {
               fontColor: "#d4eaff"
             },
-            position: "right",
+            position: "bottom",
           },
           title: {
             display: true,
@@ -151,7 +153,7 @@
             labels:{
               fontColor: "#d4eaff"
             },
-            position: "right",
+            position: "bottom",
             fontColor: "#d4eaff"
           },
           title: {
@@ -161,8 +163,8 @@
           },
           layout: {
             padding:{
-              left: 20,
-              right: 80,
+              left: 0,
+              right: 0,
               top: 0,
               bottom: 0
             }
@@ -198,15 +200,14 @@
     });
     </script>
     <div class="worldmap-container" id="worldmap-container">
+      <!-- Plotly.js -->
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
+      <script type="text/javascript">
+      var graph = {{map | safe}};
+      Plotly.plot("worldmap-container", graph.data, graph.layout);
+      </script>
     </div>
-    <!-- Plotly.js -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
-    <script type="text/javascript">
-    var graph = {{map | safe}};
-    Plotly.plot("worldmap-container", graph.data, graph.layout);
-    </script>
     <div class="line-chart-container">
       <canvas id="myChart" style=""></canvas>
     </div>
