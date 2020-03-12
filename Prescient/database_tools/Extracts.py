@@ -8,7 +8,6 @@ class PositionSummary(object):
     def __init__(self, db_trades, ticker):
 
         self.db_trades = db_trades
-
         self.average_cost = None
         self.open_lots = None
         self.ticker = ticker
@@ -179,7 +178,6 @@ class PositionSummary(object):
             self.net_position = self.total_open_lots()
             self.breakdown.append([date, self.net_position, self.average_cost])
             c1 += 1
-
 
 class PositionAccounting(PositionSummary):
     """docstring for PositionAccounting."""
