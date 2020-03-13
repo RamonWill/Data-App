@@ -259,9 +259,8 @@ class Portfolio_Summary(object):
         valuation = valuation[["portfolio_val"]]
         return valuation
 
-    def generate_hpr(self, flows):
 
-        #valuation.to_csv(r"C:\Users\Owner\Documents\MyScripts\Random Scripts\Scrap\x5.csv")
+    def convert_flows(self, flows):
         df_flows = pd.DataFrame(flows, columns=["index", "flows"])
         df_flows["cash"] = float("nan")
         df_flows["inflows"] = float("nan")
@@ -270,10 +269,15 @@ class Portfolio_Summary(object):
         df_flows["inflows"] = df_flows.loc[df_flows['flows'] <= 0, "flows"]
         df_flows["cash"] = df_flows["cash"].cumsum()
         df_flows["inflows"] = df_flows["inflows"].abs()
-        df_flows = df_flows.set_index("index") #need to sum groupby date
+        df_flows = df_flows.set_index("index")  # need to sum groupby date
         df_flows = df_flows.groupby([df_flows.index]).sum()
         df_flows = df_flows.drop(columns=['flows'])
         df_flows = df_flows.replace({'cash': 0, 'inflows': 0}, float("nan"))
+        return df_flows
+
+    def generate_hpr(self, flows):
+
+        df_flows = self.convert_flows(flows)
         valuation = self.net_valuations()
         valuation = valuation.join(df_flows)
         valuation["cash"] = valuation["cash"].fillna(method="ffill")
