@@ -191,7 +191,7 @@ def update(id, ticker):
     user_id = current_user.id
     check = check_watchlist_id(id)
     form = WatchlistItemsForm()
-    form.order_id.data= id
+    form.order_id.data = id
     group_form = WatchlistGroupForm()
     form.sector.choices = get_sectors()
     form.watchlist.choices = get_group_names2(user_id)

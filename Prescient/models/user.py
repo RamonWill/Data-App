@@ -10,8 +10,9 @@ class User (UserMixin, db.Model):
     password = db.Column(db.String(64), nullable=False)
     child1 = db.relationship('Watchlist_Group', backref='login_details', passive_deletes=True)
     child2 = db.relationship('WatchlistItems', backref='login_details', passive_deletes=True)
+
     def __repr__(self):
-        return "<User {}>".format(self.username)
+        return "<Username {}>".format(self.username)
 
 
 @login.user_loader

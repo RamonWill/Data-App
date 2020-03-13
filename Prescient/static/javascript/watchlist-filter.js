@@ -1,6 +1,7 @@
 var $rows = $('#all-trades tbody tr');
 $('#filter').keyup(function() {
-
+  
+    // Regular Expression
     var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
         reg = RegExp(val, 'i'),
         text;

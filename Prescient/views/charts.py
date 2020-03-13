@@ -6,7 +6,6 @@ from flask_login import login_required, current_user
 from Prescient.database_tools.Extracts import PositionAccounting
 from Prescient.forms import ChartForm
 from Prescient.models import Watchlist_Group, WatchlistItems
-from werkzeug.exceptions import abort
 from sqlalchemy.sql import func
 
 bp = Blueprint("charts", __name__)
@@ -16,7 +15,6 @@ def get_group_id(watchlist, user_id):
     group_id = Watchlist_Group.query.filter_by(name=watchlist, user_id=user_id).first()
     if group_id is None:
         return None
-        #abort(404, f"the ID for {watchlist} doesn't exist.")
     else:
         group_id = int(group_id.id)
         return group_id
@@ -41,12 +39,14 @@ def get_tickers(user_id, group_id):
 
     return [(item.ticker, item.ticker) for item in tickers]
 
+
 def get_market_prices(ticker):
     connection = db.get_engine(app, "Security_PricesDB").connect()
     query = f"SELECT * FROM '{ticker}'"
     prices = connection.execute(query).fetchall()
     connection.close()
     return prices
+
 
 def get_trade_histroy(user_id, group_id, ticker):
     params = {"user_id": user_id, "group_id": group_id, "ticker": ticker}
@@ -56,6 +56,7 @@ def get_trade_histroy(user_id, group_id, ticker):
                  order_by(WatchlistItems.trade_date).all()
     return all_trades
 
+
 def get_performance(user_id, group_id, ticker):
     prices = get_market_prices(ticker)
     trade_history = get_trade_histroy(user_id, group_id, ticker)
@@ -63,21 +64,19 @@ def get_performance(user_id, group_id, ticker):
     performance_table = Performance.performance_table()
     return performance_table
 
+
 @bp.route("/performance_breakdown", methods=("GET", "POST"))
 @login_required
 def chart_breakdown():
-    # A line chart with performance. A chart with average price/ performance
-    # breakdown
+    # A line chart with performance.
     user_id = current_user.id
 
-## THIS FUNCTION SHOULD BE SPLIT INTO TWO-THREE PARTS, intial, change watchlist, change security
-# FYI in auth logout the session gets closed out and in auth login the session is created
+    # Sets the first watchlist group as the selection to display
     user_watchlists = get_group_names(user_id)
     if len(user_watchlists) == 0:
         watchlist_id = 0
         first_watchlist_name = None
         session["ATEST"] = None
-
     else:
         first_watchlist_name = user_watchlists[0]
 
@@ -90,30 +89,29 @@ def chart_breakdown():
 
     user_tickers = get_tickers(user_id, watchlist_id)
 
+    # Sets the first ticker as the selection to display
     if len(user_tickers) == 0:
         form = ChartForm()
         plot_data = []
         first_ticker = None
-
     else:
         first_ticker = user_tickers[0][0]
         form = ChartForm(ticker=first_ticker)
         plot_data = get_performance(user_id, watchlist_id, first_ticker)
     form.ticker.choices = user_tickers
 
-    print(session.get('ATEST', None))
+    # request for ticker data
     if form.validate_on_submit():
         watchlist_name = session.get('ATEST', None)
         watchlist_id = get_group_id(watchlist_name, user_id)
 
-        print(session.get('ATEST', None), "NOW ON SECURITY CHANGE")
         selection = form.ticker.data
         plot_data = get_performance(user_id, watchlist_id, selection)
         line_chart = plot_data
         breakdown = plot_data
         return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=watchlist_name,selected_ticker=selection)
 
-    #selecting watchlist
+    # request for watchlist group
     if "btn_btn_default" in request.form:
         if request.method == 'POST':
             selection = request.form.get('watchlist_group_selection')

@@ -20,14 +20,13 @@ login.needs_refresh_message_category = "info"
 from . import views
 from . import models
 
-
 app.register_blueprint(views.auth.bp)
 app.register_blueprint(views.dashboard.bp)
 app.add_url_rule("/", endpoint="dashboard")
 app.register_blueprint(views.watchlist.bp)
 app.register_blueprint(views.charts.bp)
 
-# before a request is made check if session should be timedout
+# before a request is made check if the session should be timedout
 @app.before_request
 def before_request():
     session.permanent = True

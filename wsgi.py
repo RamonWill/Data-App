@@ -7,4 +7,5 @@ def make_shell_context():
     return {"db": db,
             "User": models.User,
             "Watchlist": models.WatchlistItems,
+            "Groups": models.Watchlist_Group,
             "sectors": models.Sector_Definitions}

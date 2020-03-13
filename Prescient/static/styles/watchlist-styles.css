@@ -30,16 +30,20 @@ tbody {
   background-color: rgba(0, 0, 0, 0.2);
   border: 2px solid #B3E5FC;
 }
+
 .watchlist-rows{
   transition: 0.2s
 }
+
 .watchlist-rows:hover{
   background-color: #40888f;
 }
+
 .summary-table-container{
   height: 42vh;
   overflow-y: scroll;
 }
+
 .all-trades{
   width: 90%;
 }
@@ -48,6 +52,7 @@ tbody {
   text-align: center;
   font-size: 30px;
 }
+
 .action{
   color:white;
   border-radius: 5px;
@@ -66,6 +71,7 @@ tbody {
   cursor: pointer;
   transition: 0.7s;
 }
+
 .btn-new-wl-item{
   color:black;
   border-radius: 5px;
@@ -78,11 +84,13 @@ tbody {
   transition: 0.7s;
   margin-left: 70px;
 }
+
 .btn-new-wl-item:hover{
   background-color: #081682;
   color: white;
   transition: 0.7s;
 }
+
 .btn-new-wl:hover{
   background-color: #081682;
   color: white;
@@ -92,6 +100,7 @@ tbody {
 .selection-label{
   margin-left: 70px;
 }
+
 .danger{
   color:black;
   border-radius: 5px;
@@ -103,11 +112,13 @@ tbody {
   cursor: pointer;
   transition: 0.7s;
 }
+
 .danger:hover{
   background-color: #081682;
   color: white;
   transition: 0.7s;
 }
+
 .watchlist-name-title{
   color: #6397ff;
   font-weight: bolder;

@@ -14,6 +14,7 @@
   min-width: 0;
   min-height: 0;
 }
+
 @media screen and (max-width: 1000px) {
   .main-wrapper{
     display: block;
@@ -65,14 +66,17 @@ tbody {
 .watchlist-rows{
   transition: 0.2s
 }
+
 .watchlist-rows:hover{
   background-color: #40888f;
 }
+
 .watchlist-name-title{
   color: #6397ff;
   font-weight: bolder;
   font-size: 40px;
 }
+
 .watchlist-name-ticker{
   color: #2ed95b;
   font-weight: bolder;
@@ -90,6 +94,7 @@ tbody {
   cursor: pointer;
   transition: 0.7s;
 }
+
 .btn-select:hover{
   background-color: #02610f;
   color: white;

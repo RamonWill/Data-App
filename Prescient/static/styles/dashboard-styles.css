@@ -7,12 +7,14 @@
 a {
   text-decoration: none;
 }
+
 .change-links{
   font-size: 18px;
   color: #1e67fa;
   padding: 4px;
   transition: 0.3s
 }
+
 .change-links:hover{
   font-size: 20px;
   color: #1e67fa;
@@ -40,12 +42,15 @@ th {
  font-weight: bolder;
  padding: 15px;
 }
+
 .watchlist-rows{
   transition: 0.2s
 }
+
 .watchlist-rows:hover{
   background-color: #40888f;
 }
+
 thead {
   background-color: rgba(127, 64, 222, 0.3);
   color: white;
@@ -65,11 +70,13 @@ tbody {
   grid-column-gap: 1px;
   grid-row-gap: 1px;
 }
+
 @media screen and (max-width: 1000px) {
   .main-wrapper{
     display: block;
   }
 }
+
 .summary-table {
   align-items: center;
   justify-content: center;
@@ -142,6 +149,7 @@ tbody {
   font-weight: bolder;
   font-size: 40px;
 }
+
 .overview-select{
   color:black;
   border-radius: 5px;
@@ -153,6 +161,7 @@ tbody {
   cursor: pointer;
   transition: 0.7s;
 }
+
 .overview-select:hover{
   background-color: #7f40de;
   color: white;

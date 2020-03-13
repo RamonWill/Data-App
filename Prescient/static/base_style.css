@@ -10,7 +10,6 @@ nav{
   align-items: center;
   min-height: 12vh;
   background-image: linear-gradient(135deg, #0b071f, #0F2027,#203A43);
-  /*background-color: #161616;*/
   font-family: 'Ubuntu', sans-serif;
 
 }
@@ -23,6 +22,7 @@ nav{
   color: #BED2FA;
   font-size: 25px;
 }
+
 .nav-icons a{
   text-decoration: none;
   color: #1e67fa;
@@ -30,6 +30,7 @@ nav{
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
 .nav-icons a:hover{
   color: #94b7ff;
   font-size: 25px;
@@ -107,9 +108,11 @@ nav{
   transform: rotate(-45deg) translate(-5px,5px);
   background-color: #91ACD2;
 }
+
 .toggle .bk2{
   opacity: 0;
 }
+
 .toggle .bk3{
   transform: rotate(+45deg) translate(-5px,-5px);
   background-color: #91ACD2;
@@ -134,11 +137,11 @@ nav{
   width: 13px;
 }
 
-
 /* Track */
 ::-webkit-scrollbar-track {
   background: #0F2027;
 }
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #612f80;
@@ -150,7 +153,6 @@ nav{
 }
 
 select {
-
     font-size: 13px;
     font-weight: 700;
     color: #444;
@@ -171,12 +173,15 @@ select {
     background-position: right .7em top 50%, 0 0;
     background-size: .65em auto, 100%;
 }
+
 .select::-ms-expand {
     display: none;
 }
+
 .select:hover {
     border-color: #888;
 }
+
 .select:focus {
     border-color: #aaa;
     box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
@@ -184,6 +189,7 @@ select {
     color: #222;
     outline: none;
 }
+
 .select option {
     font-weight:normal;
 }

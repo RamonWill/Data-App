@@ -5,9 +5,9 @@ from datetime import datetime, timedelta, date
 def default_date():
     trade_date = datetime.utcnow()
     weekday = date.isoweekday(trade_date)
-    if weekday == 6:  # 6 = saturday, 7 = sunday
+    if weekday == 6:  # 6 = Saturday
         trade_date = trade_date - timedelta(days=1)
-    elif weekday == 7:
+    elif weekday == 7:  # 7 = Sunday
         trade_date = trade_date - timedelta(days=2)
     return trade_date
 
@@ -27,7 +27,7 @@ class WatchlistItems(db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey("watchlist_group.id", on_delete="CASCADE"), nullable=False)
 
     def __repr__(self):
-        return "<ID: {}, Ticker: {}>".format(self.id, self.ticker)
+        return "<Order ID: {}, Ticker: {}>".format(self.id, self.ticker)
 
 
 class Watchlist_Group(db.Model):
@@ -38,4 +38,4 @@ class Watchlist_Group(db.Model):
     child = db.relationship("WatchlistItems", backref="watchlist_group", passive_deletes=True)
 
     def __repr__(self):
-        return "<ID: {}, Watchlist Name: {}>".format(self.id, self.name)
+        return "<Group ID: {}, Group Name: {}>".format(self.id, self.name)
