@@ -189,7 +189,6 @@ def create():
 @login_required
 def update(id, ticker):
     user_id = current_user.id
-    print("id before post", id)
     check = check_watchlist_id(id)
     form = WatchlistItemsForm()
     form.order_id.data= id
@@ -197,7 +196,6 @@ def update(id, ticker):
     form.sector.choices = get_sectors()
     form.watchlist.choices = get_group_names2(user_id)
     if form.validate_on_submit() and check:
-        print("id after post", id)
         new_watchlist = form.watchlist.data
         new_quantity = form.quantity.data
         new_price = form.price.data
