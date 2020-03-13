@@ -4,13 +4,17 @@ from flask import (Blueprint,
                    request)
 from flask_login import login_required, current_user
 from werkzeug.exceptions import abort
-from Prescient.database_tools.Extracts import Portfolio_Summary, PositionSummary, DashboardCharts
-from Prescient.models import Watchlist_Group, WatchlistItems, Available_Securities
 from sqlalchemy.sql import func
 from sqlalchemy.orm import aliased
 import plotly
 import plotly.graph_objects as go
 import json
+from Prescient.database_tools.Extracts import (Portfolio_Summary,
+                                               PositionSummary,
+                                               DashboardCharts)
+from Prescient.models import (Watchlist_Group, WatchlistItems,
+                              Available_Securities)
+
 
 bp = Blueprint("dashboard", __name__)
 
@@ -37,9 +41,9 @@ def get_worldmap(user_id, group_id):
                                                font=dict(size=20,
                                                          color="#FFFFFF")))
 
-
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     return graphJSON
+
 
 def get_group_names(user_id):
     names = Watchlist_Group.query.filter_by(user_id=user_id).all()
@@ -60,6 +64,7 @@ def get_tickers(user_id, group_id):
 
     return [item.ticker for item in tickers]
 
+
 def get_trade_histroy(user_id, group_id, ticker):
     params = {"user_id": user_id, "group_id": group_id, "ticker": ticker}
     all_trades = WatchlistItems.query.\
@@ -67,6 +72,7 @@ def get_trade_histroy(user_id, group_id, ticker):
                  filter_by(**params).\
                  order_by(WatchlistItems.trade_date).all()
     return all_trades
+
 
 def get_flows(user_id, group_id):
     params = {"user_id": user_id, "group_id": group_id}
@@ -78,12 +84,14 @@ def get_flows(user_id, group_id):
             order_by(w.trade_date).all()
     return flows
 
+
 def get_market_prices(ticker):
     connection = db.get_engine(app, "Security_PricesDB").connect()
     query = f"SELECT * FROM '{ticker}'"
     prices = connection.execute(query).fetchall()
     connection.close()
     return prices
+
 
 def get_position_summary(user_id, group_id):
     all_tickers = get_tickers(user_id, group_id)
@@ -102,6 +110,7 @@ def get_position_summary(user_id, group_id):
     if len(summary_table) > 7:
         summary_table = summary_table[0:7]
     return summary_table
+
 
 def get_portfolio_summary(user_id, group_id):
     Portfolio = Portfolio_Summary()
@@ -149,8 +158,12 @@ def index():
         bar_chart = Charts.get_bar_chart(portfolio_breakdown)
         map = get_worldmap(user_id, selection_id)
         line_chart = portfolio_performance
+        content = {"summary": summary, "line_chart": line_chart,
+                   "pie_chart": pie_chart, "bar_chart": bar_chart,
+                   "user_watchlists": user_watchlists, "map": map,
+                   "group_name": selection}
 
-        return render_template("securities/dashboard.html", summary=summary, line_chart=line_chart, pie_chart=pie_chart, bar_chart=bar_chart, user_watchlists=user_watchlists, group_name=selection, map=map)
+        return render_template("securities/dashboard.html", **content)
 
     summary = get_position_summary(user_id, watchlist_id)
 
@@ -164,4 +177,8 @@ def index():
     line_chart = portfolio_performance
 
     map = get_worldmap(user_id, watchlist_id)
-    return render_template("securities/dashboard.html", summary=summary, line_chart=line_chart, pie_chart=pie_chart, bar_chart=bar_chart, user_watchlists=user_watchlists, group_name=first_watchlist_name, map=map)
+    content = {"summary": summary, "line_chart": line_chart,
+               "pie_chart": pie_chart, "bar_chart": bar_chart,
+               "user_watchlists": user_watchlists, "map": map,
+               "group_name": first_watchlist_name}
+    return render_template("securities/dashboard.html", **content)

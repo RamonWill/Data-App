@@ -6,9 +6,10 @@ from Prescient.models import User
 from flask_login import current_user, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from Prescient.forms import RegistrationForm, LoginForm
-# this is a routes.py file aka a View
+
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
+
 
 @bp.route('/test')
 def test():

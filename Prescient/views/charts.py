@@ -100,7 +100,7 @@ def chart_breakdown():
         plot_data = get_performance(user_id, watchlist_id, first_ticker)
     form.ticker.choices = user_tickers
 
-    # request for ticker data
+    # POST REQUEST for ticker data
     if form.validate_on_submit():
         watchlist_name = session.get('ATEST', None)
         watchlist_id = get_group_id(watchlist_name, user_id)
@@ -109,9 +109,14 @@ def chart_breakdown():
         plot_data = get_performance(user_id, watchlist_id, selection)
         line_chart = plot_data
         breakdown = plot_data
-        return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=watchlist_name,selected_ticker=selection)
+        content = {"line_chart": line_chart, "breakdown": breakdown,
+                   "form": form,
+                   "user_watchlists": user_watchlists,
+                   "group_name": watchlist_name,
+                   "selected_ticker": selection}
+        return render_template("charts/performance_breakdown.html", **content)
 
-    # request for watchlist group
+    # POST REQUEST for watchlist group
     if "btn_btn_default" in request.form:
         if request.method == 'POST':
             selection = request.form.get('watchlist_group_selection')
@@ -127,13 +132,20 @@ def chart_breakdown():
                 plot_data = get_performance(user_id, selection_id, first_ticker)
             form.ticker.choices = user_tickers
             session["ATEST"] = selection
-            print(session.get('ATEST', None), "WATCHLIST_CHANGE")
             line_chart = plot_data
             breakdown = plot_data
-            return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=selection, selected_ticker=first_ticker)
+            content = {"line_chart": line_chart, "breakdown": breakdown,
+                       "form": form,
+                       "user_watchlists": user_watchlists,
+                       "group_name": selection,
+                       "selected_ticker": first_ticker}
+            return render_template("charts/performance_breakdown.html", **content)
 
     line_chart = plot_data
     breakdown = plot_data
-    print(first_watchlist_name)
-    print(session.get('ATEST', None), "Initial Launch")
-    return render_template("charts/performance_breakdown.html", line_chart=line_chart, breakdown=breakdown, form=form, user_watchlists=user_watchlists, group_name=first_watchlist_name, selected_ticker=first_ticker)
+    content = {"line_chart": line_chart, "breakdown": breakdown,
+               "form": form,
+               "user_watchlists": user_watchlists,
+               "group_name": first_watchlist_name,
+               "selected_ticker": first_ticker}
+    return render_template("charts/performance_breakdown.html", **content)

@@ -48,7 +48,7 @@ def get_group_names1(user_id):
         return names_list
 
 
-def get_group_names2(user_id):
+def get_watchlist_choices(user_id):
     # returns list of tuples
     names = Watchlist_Group.query.filter_by(user_id=user_id).all()
     if names is None:
@@ -117,21 +117,25 @@ def main():
         watchlist_id = get_group_id(first_watchlist_name, user_id)
     form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
-    form.watchlist.choices = get_group_names2(user_id)
+    form.watchlist.choices = get_watchlist_choices(user_id)
     if request.method == "POST":
         selection = request.form.get('watchlist_group_selection')
         selection_id = get_group_id(selection, user_id)
         summary = get_position_summary(user_id, selection_id)
         watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=selection_id)
         group_form = WatchlistGroupForm()
-        return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form, group_form=group_form, user_watchlists=user_watchlists, group_name=selection)
+        content = {"watchlist": watchlist, "summary": summary, "form": form,
+                   "group_form": group_form, "group_name": selection,
+                   "user_watchlists": user_watchlists}
+        return render_template("watchlist/main.html", **content)
 
     watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=watchlist_id)
-
     summary = get_position_summary(user_id, watchlist_id)
-
     group_form = WatchlistGroupForm()
-    return render_template("watchlist/main.html", watchlist=watchlist, summary=summary, form=form, group_form=group_form, user_watchlists=user_watchlists, group_name=first_watchlist_name)
+    content = {"watchlist": watchlist, "summary": summary, "form": form,
+               "group_form": group_form, "user_watchlists": user_watchlists,
+               "group_name": first_watchlist_name}
+    return render_template("watchlist/main.html", **content)
 
 
 @bp.route('/create-group', methods=('GET', 'POST'))
@@ -158,7 +162,7 @@ def create_group():
 def create():
     form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
-    form.watchlist.choices = get_group_names2(current_user.id)
+    form.watchlist.choices = get_watchlist_choices(current_user.id)
 
     if form.validate_on_submit():
         watchlist = form.watchlist.data
@@ -194,23 +198,18 @@ def update(id, ticker):
     form.order_id.data = id
     group_form = WatchlistGroupForm()
     form.sector.choices = get_sectors()
-    form.watchlist.choices = get_group_names2(user_id)
+    form.watchlist.choices = get_watchlist_choices(user_id)
     if form.validate_on_submit() and check:
         new_watchlist = form.watchlist.data
-        new_quantity = form.quantity.data
-        new_price = form.price.data
-        new_trade_date = form.trade_date.data
-        new_sector = form.sector.data
-        new_comment = form.comments.data
         new_group_id = get_group_id(new_watchlist, user_id)
         item = WatchlistItems.query.filter_by(id=id, user_id=user_id).first()
         item.ticker = ticker
         item.watchlist = new_watchlist
-        item.quantity = new_quantity
-        item.price = new_price
-        item.trade_date = new_trade_date
-        item.sector = new_sector
-        item.comments = new_comment
+        item.quantity = form.quantity.data
+        item.price = form.price.data
+        item.trade_date = form.trade_date.data
+        item.sector = form.sector.data
+        item.comments = form.comments.data
         item.group_id = new_group_id
         db.session.commit()
         flash(f"Order ID {id} has now been updated")
@@ -235,10 +234,10 @@ def delete(id):
         return redirect(url_for('watchlist.main'))
     return redirect(url_for('watchlist.main'))
 
+
 @bp.route('/delete-group', methods=('POST',))
 @login_required
 def delete_group():
-    group_form = WatchlistGroupForm(request.method)
     if request.method == "POST":
         name = request.form.get('watchlist_group_removed')
         user_id = current_user.id
