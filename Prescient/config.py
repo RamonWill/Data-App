@@ -9,7 +9,7 @@ class Config(object):
     SECRET_KEY = os.environ.get("SECRET_KEY") or "dev"
 
     # Database Configurations
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'MainDB.db')
-    SQLALCHEMY_BINDS = {"Security_PricesDB": ('sqlite:///' + os.path.join(basedir, 'Security_PricesDB.db'))}
+    SQLALCHEMY_DATABASE_URI = "mysql://root:E6#hK-rA5!tn@localhost/prescientmaindb"
+    SQLALCHEMY_BINDS = {"Security_PricesDB": ("mysql://root:E6#hK-rA5!tn@localhost/prescientpricesdb")}
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+# SQLALCHEMY_DATABASE_URI = "mysql+mysqldb://root:E6#hK-rA5!tn@localhost:3306/Mysql"
