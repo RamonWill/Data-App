@@ -23,7 +23,6 @@ def update_db_prices(ticker):
     param = {"ticker": ticker}
     tables = connection.execute(query, param).fetchone()
     connection.close()
-    print(tables)
 
     if tables is None:
         obj = Price_Update(ticker)
