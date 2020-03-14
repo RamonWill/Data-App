@@ -1,7 +1,7 @@
 import sqlite3
 import requests
 import pandas as pd
-
+from sqlalchemy import create_engine
 # When a user adds a new item to to watchlist perform a check in the views.py
 # if the item has never existed add it to the database, otherwise do nothing
 # USE CRON TO UPDATE PRICS DAILY
@@ -30,12 +30,14 @@ class Price_Update(object):
         return df
 
     def import_prices(self):
-        conn = sqlite3.connect(r"C:\Users\Owner\Documents\Data-App\Prescient\Security_PricesDB.db")
+        engine = create_engine("mysql://root:E6#hK-rA5!tn@localhost/prescientpricesdb")
         # writes the dataframes to SQL
         df = self.av_table()
-        df.to_sql(self.ticker, conn, if_exists="replace", index=False)
+        df.to_sql(self.ticker, con=engine, if_exists="replace", index=False)
         print(f"The Database has been updated with the table {self.ticker}")
-
+#
+# obj = Price_Update("BLK")
+# obj.import_prices()
 #
 #
 # conn = sqlite3.connect(r"C:\Users\Owner\Documents\Data-App\Prescient\Security_PricesDB.db")

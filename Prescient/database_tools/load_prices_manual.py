@@ -1,16 +1,15 @@
 import pandas as pd
 import requests
-import sqlite3
-import os
+from sqlalchemy import create_engine
 
 av_key = "UHJKNP33E9D8KCRS"
 url = "https://www.alphavantage.co/query?"
-MAIN_DATABASE = os.path.abspath(os.path.join(__file__, "../..", "MainDB.db"))
-PRICE_DATABASE = os.path.abspath(os.path.join(__file__, "../..", "Security_PricesDB.db"))
 
 """ Changes to be made, distinguish between new tickers and old tickers.
 new tickers will need to be imported, old tickers will need to be updated
 new tickers should always take priority"""
+
+engine = create_engine("mysql://root:E6#hK-rA5!tn@localhost/prescientpricesdb")
 
 
 class Price_Update(object):
@@ -42,21 +41,15 @@ class Price_Update(object):
 
     def price_import(self):
         all_tickers = self.get_list()
-        conn = sqlite3.connect(PRICE_DATABASE)
+        engine = create_engine("mysql://root:E6#hK-rA5!tn@localhost/prescientpricesdb")
         # writes the dataframes to SQL
         for ticker in all_tickers:
             df = self.av_price(ticker)
-            df.to_sql(ticker, conn, if_exists="replace", index=False)
-            print(f"{PRICE_DATABASE} has been updated with the table {ticker}")
+            df.to_sql(ticker, con=engine, if_exists="replace", index=False)
+            print("prescientpricesdb, has been updated with the table {ticker}")
         print("End")
 
 
-conn = sqlite3.connect(MAIN_DATABASE)
-distinct_query = """SELECT DISTINCT ticker from watchlist_securities"""
-c = conn.cursor()
-tickers = c.execute(distinct_query).fetchall()
-#tickers = [("AAL", "AAL"), ("AAP", "AAP"), ("CME", "CME"), ("KO", "KO"), ("SRE","SRE")]
-prices = Price_Update(tickers)
-c.close()
-conn.close()
-prices.price_import()
+# tickers = [("AAL", "AAL"), ("AAP", "AAP"), ("CME", "CME"), ("KO", "KO"), ("SRE","SRE")]
+# prices = Price_Update(tickers)
+# prices.price_import()

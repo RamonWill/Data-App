@@ -1,26 +1,23 @@
 import pandas as pd
 import os
-import sqlite3
-
-# A quick script that loads csv data to the Main DataBase using raw sql
+from sqlalchemy import create_engine
+# A quick script that loads csv data to the Main DataBase
 
 FILE_PATH = os.path.abspath(os.path.dirname(__file__))
-DATABASE_FILE = os.path.abspath(os.path.join(__file__, "../..", "MainDB.db"))
+engine = create_engine("mysql://root:E6#hK-rA5!tn@localhost/prescientmaindb")
 
 sector_file = os.path.join(FILE_PATH, "csv_files", "FTSE_Sectors.csv")
-tickers_file = os.path.join(FILE_PATH, "csv_files", "stock_tickers_av.csv")
+security_details = os.path.join(FILE_PATH, "csv_files", "stock_tickers_av.csv")
 
 sectors = pd.read_csv(sector_file)
-ticker_list = pd.read_csv(tickers_file)
-
-conn = sqlite3.connect(DATABASE_FILE)
+tradeable_securities = pd.read_csv(security_details)
 
 sectors.to_sql("sector_definitions",
-               conn,
+               con=engine,
                if_exists="append",
                index=False)
 
-ticker_list.to_sql("available_securities",
-                   conn,
-                   if_exists="append",
-                   index=False)
+tradeable_securities.to_sql("available_securities",
+                            con=engine,
+                            if_exists="append",
+                            index=False)

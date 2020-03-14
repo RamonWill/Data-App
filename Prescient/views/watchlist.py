@@ -8,21 +8,28 @@ from Prescient.models import WatchlistItems, Sector_Definitions, Watchlist_Group
 from Prescient.database_tools.New_Prices import Price_Update
 from Prescient.database_tools.Extracts import PositionSummary
 from sqlalchemy.sql import func
-
+import mysql.connector
 
 bp = Blueprint("watchlist", __name__)
 
 
 def update_db_prices(ticker):
     # check the tables. If the ticker doesnt exist get the price from AV and create a new table
-
-    connection = db.get_engine(app, "Security_PricesDB").connect()
-    query = """SELECT name FROM sqlite_master
-               WHERE type='table'and name=:ticker
-               ORDER BY name;"""
-    param = {"ticker": ticker}
-    tables = connection.execute(query, param).fetchone()
-    connection.close()
+    mydb = mysql.connector.connect(host="localhost",
+                                   user="root",
+                                   passwd="E6#hK-rA5!tn",
+                                   database="prescientpricesdb")
+    c = mydb.cursor()
+    query = """SELECT table_name
+               FROM information_schema.tables
+               WHERE table_name=%s
+               ORDER BY table_name"""
+    param = (ticker,)
+    print(query)
+    c.execute(query, param)
+    tables = c.fetchone()
+    c.close()
+    mydb.close()
 
     if tables is None:
         obj = Price_Update(ticker)

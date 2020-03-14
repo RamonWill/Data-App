@@ -189,12 +189,12 @@ class PositionAccounting(PositionSummary):
         df = df.set_index("date")
         df["quantity"] = float("nan")
         df["avg_cost"] = float("nan")
-        start_date = self.breakdown[0][0]
+        start_date = str(self.breakdown[0][0])
         df2 = df.loc[start_date:]
         df2 = df2.copy()  # copied to prevent chained assignment
         for row in self.breakdown:
-            df2.at[row[0], "quantity"] = row[1]
-            df2.at[row[0], "avg_cost"] = row[2]
+            df2.at[str(row[0]), "quantity"] = row[1]
+            df2.at[str(row[0]), "avg_cost"] = row[2]
         df2["quantity"] = df2["quantity"].fillna(method="ffill")
         df2["price"] = df2["price"].fillna(method="ffill")
         df2["avg_cost"] = df2["avg_cost"].fillna(method="ffill")
@@ -215,13 +215,13 @@ class PositionAccounting(PositionSummary):
         df["quantity"] = float("nan")
         df["market_val"] = float("nan")
         # the prices starting from the first date the security was held
-        start_date = self.breakdown[0][0]
+        start_date = str(self.breakdown[0][0])
+
         df2 = df.loc[start_date:]
         df2 = df2.copy()  # copied to prevent chained assignment
         # update the quantity at each date
         for row in self.breakdown:
-            df2.at[row[0], "quantity"] = row[1]
-
+            df2.at[str(row[0]), "quantity"] = row[1]
         df2["price"] = df2["price"].fillna(method="ffill")
         df2["quantity"] = df2["quantity"].fillna(method="ffill")
 
@@ -258,15 +258,15 @@ class Portfolio_Summary(object):
         return valuation
 
     def convert_flows(self, flows):
-        df_flows = pd.DataFrame(flows, columns=["index", "flows"])
+        df_flows = pd.DataFrame(flows, columns=["date", "flows"])
         df_flows["cash"] = float("nan")
         df_flows["inflows"] = float("nan")
-
+        df_flows["date"] = df_flows["date"].astype(str)
         df_flows["cash"] = df_flows.loc[df_flows['flows'] > 0, "flows"]
         df_flows["inflows"] = df_flows.loc[df_flows['flows'] <= 0, "flows"]
         df_flows["cash"] = df_flows["cash"].cumsum()
         df_flows["inflows"] = df_flows["inflows"].abs()
-        df_flows = df_flows.set_index("index")  # need to sum groupby date
+        df_flows = df_flows.set_index("date")  # need to sum groupby date
         df_flows = df_flows.groupby([df_flows.index]).sum()
         df_flows = df_flows.drop(columns=['flows'])
         df_flows = df_flows.replace({'cash': 0, 'inflows': 0}, float("nan"))

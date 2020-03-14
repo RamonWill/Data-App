@@ -14,7 +14,7 @@ from Prescient.database_tools.Extracts import (Portfolio_Summary,
                                                DashboardCharts)
 from Prescient.models import (Watchlist_Group, WatchlistItems,
                               Available_Securities)
-
+import mysql.connector
 
 bp = Blueprint("dashboard", __name__)
 
@@ -86,10 +86,16 @@ def get_flows(user_id, group_id):
 
 
 def get_market_prices(ticker):
-    connection = db.get_engine(app, "Security_PricesDB").connect()
-    query = f"SELECT * FROM '{ticker}'"
-    prices = connection.execute(query).fetchall()
-    connection.close()
+    mydb = mysql.connector.connect(host="localhost",
+                                   user="root",
+                                   passwd="E6#hK-rA5!tn",
+                                   database="prescientpricesdb")
+    c = mydb.cursor()
+    query = f"SELECT * FROM {ticker}"
+    c.execute(query)
+    prices = c.fetchall()
+    c.close()
+    mydb.close()
     return prices
 
 

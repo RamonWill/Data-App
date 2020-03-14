@@ -7,6 +7,7 @@ from Prescient.database_tools.Extracts import PositionAccounting
 from Prescient.forms import ChartForm
 from Prescient.models import Watchlist_Group, WatchlistItems
 from sqlalchemy.sql import func
+import mysql.connector
 
 bp = Blueprint("charts", __name__)
 
@@ -41,6 +42,17 @@ def get_tickers(user_id, group_id):
 
 
 def get_market_prices(ticker):
+    mydb = mysql.connector.connect(host="localhost",
+                                   user="root",
+                                   passwd="E6#hK-rA5!tn",
+                                   database="prescientpricesdb")
+    c = mydb.cursor()
+    query = f"SELECT * FROM {ticker}"
+    c.execute(query)
+    prices = c.fetchall()
+    c.close()
+    mydb.close()
+    return prices
     connection = db.get_engine(app, "Security_PricesDB").connect()
     query = f"SELECT * FROM '{ticker}'"
     prices = connection.execute(query).fetchall()
