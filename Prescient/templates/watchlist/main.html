@@ -131,7 +131,7 @@
                       <h4 class="modal-title">All Tradeable Securities</h4>
                     </div>
                     <div class="modal-body">
-                      <input type="text" class="filter-bar" id="filter-tradeable-securities" placeholder="Filter...">
+                      <input type="text" class="filter-bar2" id="filter-tradeable-securities" placeholder="Filter...">
                       <div class="all-securities-table-container">
                         <table class="all-tradeable-securities" id="all-tradeable-securities">
                           <thead>
@@ -155,7 +155,7 @@
                             {% endfor %}
                           </tbody>
                         </table>
-                        <script src="{{ url_for('static', filename='javascript/watchlist-filter.js') }}"></script>
+                        <script src="{{ url_for('static', filename='javascript/watchlist-all-security-filter.js') }}"></script>
                         </div>
                     </div>
                   </div>

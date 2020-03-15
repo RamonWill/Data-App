@@ -129,6 +129,10 @@ tbody {
   border-radius: 8px;
 }
 
+.filter-bar2 {
+  border-radius: 8px;
+}
+
 .all-securities-table-container{
   height: 70vh;
   overflow-y: scroll;
