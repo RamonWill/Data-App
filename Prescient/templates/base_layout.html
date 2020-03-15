@@ -16,7 +16,7 @@
       <div class="bk3"></div>
     </div>
     <div class="Logo">
-      <img src="{{ url_for('static', filename='assets/finance-prescient2.png') }}" alt="Prescient Finance">
+      <a href="{{ url_for('dashboard.index') }}"><img src="{{ url_for('static', filename='assets/finance-prescient2.png') }}" alt="Prescient Finance"></a>
     </div>
     <ul class="nav-icons">
       {% if current_user.is_authenticated %}

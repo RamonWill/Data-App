@@ -3,7 +3,7 @@
 {% extends 'base_layout.html' %}
 {% block header %}
 {% if line_chart and group_name %}
-  <h1 class="main-heading">{% block title %}Your Portfolio Overview for <span class="watchlist-name-title">{{group_name}}</span>{% endblock %}</h1>
+  <h1 class="main-heading">{% block title %}<span class="watchlist-username-title">{{current_user.username}}'s</span> Portfolio Overview for <span class="watchlist-name-title">{{group_name}}</span>{% endblock %}</h1>
   <br>
 {% else %}
 {% endif %}
@@ -301,15 +301,15 @@
   </div>
 {% elif not line_chart and group_name is not none%}
   <div class="Welcome2">
-    <h1 class="main-heading3">Hi {{current_user.username}},</h1>
-    <p>Your watchlist '{{group_name}}' has no trade history.</p>
-    <li><a href="{{ url_for('watchlist.main') }}">Why not add some securities?</a></li>
+    <h1 class="main-heading2">Hi {{current_user.username}},</h1>
+    <p>Your watchlist '{{group_name}}' has no trade history!</p>
+    <li class="to-watchlist-link"><a href="{{ url_for('watchlist.main') }}">Why not add some securities?</a></li>
   </div>
 {%else%}
-  <div class="Welcome3">
-    <h1 class="main-heading3">Welcome to Prescient Finance</h1>
+  <div class="Welcome2">
+    <h1 class="main-heading2">Welcome to Prescient Finance</h1>
     <p>Create portfolios and strategies your way!</p>
-    <li><a href="{{ url_for('watchlist.main') }}">Get started! Create a watchlist now</a></li>
+    <li class="to-watchlist-link"><a href="{{ url_for('watchlist.main') }}">Get started! Create a watchlist here</a></li>
   </div>
 {% endif %}
 {% endblock %}

@@ -129,7 +129,6 @@ tbody {
   border-radius: 8px;
 }
 
-
 .all-securities-table-container{
   height: 70vh;
   overflow-y: scroll;
@@ -140,4 +139,37 @@ tbody {
 
 .security-rows:hover{
   background-color: #40888f;
+}
+
+.Welcome2{
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.main-heading2{
+  font-size: 30px;
+}
+
+.create-watchlist {
+  text-decoration: none;
+  list-style-type: none;
+  font-size: 20px;
+}
+
+.create-watchlist a{
+  transition: 0.3s;
+  color: #43a1e8;
+  border-bottom: #46eb7a 1px solid;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.create-watchlist a:hover{
+  transition: 0.3s;
+  font-weight: bold;
+  border-bottom: #46eb7a 2px solid;
 }

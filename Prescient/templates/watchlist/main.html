@@ -9,7 +9,10 @@
   <h1 class="main-heading">{% block title %}Entries for <span class="watchlist-name-title">{{group_name}}</span>{% endblock %}</h1
   <br>
 {% else %}
-  <h1 class="main-heading"> You currently do not have any active watchlists.</h1>
+  <div class="Welcome2">
+    <h1 class="main-heading2"> You do not have any active watchlists.</h1>
+    <li class="create-watchlist"><a data-toggle="modal" data-target="#mymodal5">Create a watchlist here</a></li>
+  </div>
 {% endif %}
 {% endblock %}
 
@@ -48,7 +51,7 @@
     </div>
     <br>
     {% if current_user %}
-      <button style=color:black; type="button" class="btn-new-wl-item"
+      <button type="button" class="btn-new-wl-item"
       data-toggle="modal" data-target="#mymodal">Add to Watchlist</button>
         <div id="mymodal" class="modal fade" role="dialog">
           <div class="modal-dialog">
@@ -75,7 +78,7 @@
             </div>
           </div>
         </div>
-        <button style=color:black; type="button" class="btn-new-wl"
+        <button type="button" class="btn-new-wl"
         data-toggle="modal" data-target="#mymodal3">Create Watchlist Group</button>
           <div id="mymodal3" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -96,7 +99,7 @@
               </div>
             </div>
           </div>
-          <button style=color:black; type="button" class="btn-new-wl"
+          <button type="button" class="btn-new-wl"
           data-toggle="modal" data-target="#mymodal4">Remove Watchlist Group</button>
             <div id="mymodal4" class="modal fade" role="dialog">
               <div class="modal-dialog">
@@ -119,7 +122,7 @@
                 </div>
               </div>
             </div>
-            <button style=color:black; type="button" class="btn-new-wl"
+            <button type="button" class="btn-new-wl"
             data-toggle="modal" data-target="#mymodal6">View Tradeable Securities</button>
               <div id="mymodal6" class="modal fade" role="dialog">
                 <div class="modal-dialog modal-lg" style="width:70%">
@@ -185,7 +188,7 @@
             <td>{{item.comments}}</td>
             <td class="edit-trade">
               {% if current_user.id == item.user_id %}
-                <button style=color:black; type="button" class="btn-new-wl"
+                <button type="button" class="btn-new-wl"
                 data-toggle="modal" data-target="#mymodal2{{item.id}}">Edit</button>
                   <div id="mymodal2{{item.id}}" class="modal fade" role="dialog">
                     <div class="modal-dialog" id="{{item.id}}">
@@ -223,8 +226,6 @@
       </table>
       <script src="{{ url_for('static', filename='javascript/watchlist-filter.js') }}"></script>
   {% else %}
-    <button style=color:black; type="button" class="btn-new-wl"
-    data-toggle="modal" data-target="#mymodal5">Create Watchlist Group</button>
       <div id="mymodal5" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">

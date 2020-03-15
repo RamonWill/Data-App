@@ -7,11 +7,15 @@
   <h1 class="main-heading">{% block title %}<span class="watchlist-name-title">{{group_name}}</span> Performance Breakdown for <span class="watchlist-name-ticker">{{selected_ticker}}</span> {% endblock %}</h1>
   <br>
 {% elif group_name is not none and selected_ticker is none%}
-  <h1 class="main-heading"><span class="watchlist-name-title">{{group_name}}</span> does not have any trade history</h1>
-  <p>Add securities</p>
+  <div class="Welcome2">
+    <h1 class="main-heading2"><span class="watchlist-name-title">{{group_name}}</span> does not have any trade history</h1>
+    <li class="to-watchlist-link"><a href="{{ url_for('watchlist.main') }}">Add some securities here</a></li>
+  </div>
 {% else %}
-  <h1 class="main-heading"> You do not have any active watchlists.</h1>
-  <p>Add securities</p>
+  <div class="Welcome2">
+    <h1 class="main-heading2"> You do not have any active watchlists.</h1>
+    <li class="to-watchlist-link"><a href="{{ url_for('watchlist.main') }}">Create a watchlist here</a></li>
+  </div>
 {% endif %}
 {% endblock %}
 
