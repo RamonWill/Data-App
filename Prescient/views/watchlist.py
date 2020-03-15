@@ -8,6 +8,7 @@ from Prescient.models import WatchlistItems, Sector_Definitions, Watchlist_Group
 from Prescient.database_tools.New_Prices import Price_Update
 from Prescient.database_tools.Extracts import PositionSummary
 from sqlalchemy.sql import func
+from sqlalchemy.orm import aliased
 import mysql.connector
 
 bp = Blueprint("watchlist", __name__)
@@ -95,10 +96,11 @@ def get_tickers(user_id, group_id):
 def get_position_summary(user_id, group_id):
     all_tickers = get_tickers(user_id, group_id)
     params = {"user_id": user_id, "group_id": group_id}
+    w = aliased(WatchlistItems)
     all_trades = WatchlistItems.query.\
-                 with_entities(WatchlistItems.ticker, WatchlistItems.quantity, WatchlistItems.price, func.date(WatchlistItems.trade_date).label("date")).\
+                 with_entities(w.ticker, w.quantity, w.price, func.date(w.trade_date).label("date")).\
                  filter_by(**params).\
-                 order_by(WatchlistItems.trade_date)
+                 order_by(w.trade_date)
     summary_table = []
     for ticker in all_tickers:
         trade_history = [trade for trade in all_trades if trade.ticker == ticker]
