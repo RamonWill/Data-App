@@ -119,6 +119,45 @@
                 </div>
               </div>
             </div>
+            <button style=color:black; type="button" class="btn-new-wl"
+            data-toggle="modal" data-target="#mymodal6">View Tradeable Securities</button>
+              <div id="mymodal6" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg" style="width:70%">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">All Tradeable Securities</h4>
+                    </div>
+                    <div class="modal-body">
+                      <input type="text" class="filter-bar" id="filter-tradeable-securities" placeholder="Filter...">
+                      <div class="all-securities-table-container">
+                        <table class="all-tradeable-securities" id="all-tradeable-securities">
+                          <thead>
+                            <tr>
+                              <th>Ticker</th>
+                              <th>Name</th>
+                              <th>Country</th>
+                              <th>ISO Code</th>
+                              <th>Benchmark Index</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for item in tradeable_securities %}
+                            <tr class="security-rows">
+                              <td>{{item.ticker}}</td>
+                              <td>{{item.name}}</td>
+                              <td>{{item.country}}</td>
+                              <td>{{item.ISO_alpha3_codes}}</td>
+                              <td>{{item.benchmark_index}}</td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                        <script src="{{ url_for('static', filename='javascript/watchlist-filter.js') }}"></script>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
     {% endif %}
       <input type="text" class="filter-bar" id="filter" placeholder="Filter...">
       <table class="all-trades" id="all-trades">

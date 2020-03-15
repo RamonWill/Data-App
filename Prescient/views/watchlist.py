@@ -4,7 +4,7 @@ from flask import (Blueprint, flash, redirect,
 from werkzeug.exceptions import abort
 from flask_login import login_required, current_user
 from Prescient.forms import WatchlistItemsForm, WatchlistGroupForm
-from Prescient.models import WatchlistItems, Sector_Definitions, Watchlist_Group
+from Prescient.models import WatchlistItems, Sector_Definitions, Watchlist_Group, Available_Securities
 from Prescient.database_tools.New_Prices import Price_Update
 from Prescient.database_tools.Extracts import PositionSummary
 from sqlalchemy.sql import func
@@ -42,6 +42,14 @@ def get_sectors():
     sectors = Sector_Definitions.query.all()
     sectors_list = [(s.name, s.name) for s in sectors]
     return sectors_list
+
+
+def get_tradeable_tickers():
+    # ticker, name, country, ISO code, benchmark
+    tradeable_securities = Available_Securities.query.\
+                           order_by(Available_Securities.country, Available_Securities.name).\
+                           all()
+    return tradeable_securities
 
 
 def get_group_names1(user_id):
@@ -121,6 +129,7 @@ def main():
     else:
         first_watchlist_name = user_watchlists[0]
         watchlist_id = get_group_id(first_watchlist_name, user_id)
+    tradeable_securities = get_tradeable_tickers()
     form = WatchlistItemsForm()
     form.sector.choices = get_sectors()
     form.watchlist.choices = get_watchlist_choices(user_id)
@@ -132,7 +141,8 @@ def main():
         group_form = WatchlistGroupForm()
         content = {"watchlist": watchlist, "summary": summary, "form": form,
                    "group_form": group_form, "group_name": selection,
-                   "user_watchlists": user_watchlists}
+                   "user_watchlists": user_watchlists,
+                   "tradeable_securities": tradeable_securities}
         return render_template("watchlist/main.html", **content)
 
     watchlist = WatchlistItems.query.filter_by(user_id=user_id, group_id=watchlist_id)
@@ -140,7 +150,8 @@ def main():
     group_form = WatchlistGroupForm()
     content = {"watchlist": watchlist, "summary": summary, "form": form,
                "group_form": group_form, "user_watchlists": user_watchlists,
-               "group_name": first_watchlist_name}
+               "group_name": first_watchlist_name,
+               "tradeable_securities": tradeable_securities}
     return render_template("watchlist/main.html", **content)
 
 

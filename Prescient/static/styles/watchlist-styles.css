@@ -128,3 +128,16 @@ tbody {
 .filter-bar {
   border-radius: 8px;
 }
+
+
+.all-securities-table-container{
+  height: 70vh;
+  overflow-y: scroll;
+}
+.security-rows{
+  transition: 0.2s
+}
+
+.security-rows:hover{
+  background-color: #40888f;
+}
