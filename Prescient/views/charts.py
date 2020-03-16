@@ -53,11 +53,6 @@ def get_market_prices(ticker):
     c.close()
     mydb.close()
     return prices
-    connection = db.get_engine(app, "Security_PricesDB").connect()
-    query = f"SELECT * FROM '{ticker}'"
-    prices = connection.execute(query).fetchall()
-    connection.close()
-    return prices
 
 
 def get_trade_histroy(user_id, group_id, ticker):
