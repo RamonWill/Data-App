@@ -1,10 +1,9 @@
-import sqlite3
 import requests
 import pandas as pd
 from sqlalchemy import create_engine
 # When a user adds a new item to to watchlist perform a check in the views.py
 # if the item has never existed add it to the database, otherwise do nothing
-# USE CRON TO UPDATE PRICS DAILY
+# USE CRON TO UPDATE PRICES DAILY
 av_key = "UHJKNP33E9D8KCRS"
 url = "https://www.alphavantage.co/query?"
 
@@ -35,28 +34,3 @@ class Price_Update(object):
         df = self.av_table()
         df.to_sql(self.ticker, con=engine, if_exists="replace", index=False)
         print(f"The Database has been updated with the table {self.ticker}")
-#
-# obj = Price_Update("BLK")
-# obj.import_prices()
-#
-#
-# conn = sqlite3.connect(r"C:\Users\Owner\Documents\Data-App\Prescient\Security_PricesDB.db")
-# c = conn.cursor()
-#
-# query = """SELECT name FROM sqlite_master
-# WHERE type='table'and name=:ticker
-# ORDER BY name;
-# """
-# ticker = "GOOG"
-# param = {"ticker": ticker}
-# tables = c.execute(query, param).fetchone()
-# c.close()
-# conn.close()
-# # If its none then load the price from alpha vantage for the last 100 days
-# # else do nothing
-
-# if tables is None:
-#     x = Price_Update(ticker)
-#     x.import_prices()
-# else:
-#     print(f"{ticker} already exists")
