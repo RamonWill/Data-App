@@ -1,7 +1,17 @@
 alpha-vantage
+mysql-connector==2.2.9
+mysql-connector-python==8.0.19
+mysqlclient==1.4.6
 numpy
 pandas
+Flask==1.1.1
 requests
 plotly
 json
 mysql.connector
+WTForms==2.2.1
+Flask-Login==0.5.0
+Flask-Migrate==2.5.2
+Flask-Script==2.0.6
+Flask-SQLAlchemy==2.4.1
+Flask-WTF==0.14.3
