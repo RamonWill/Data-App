@@ -1,0 +1,7 @@
+alpha-vantage
+numpy
+pandas
+requests
+plotly
+json
+mysql.connector
