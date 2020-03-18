@@ -38,22 +38,6 @@ class Update_existing_prices(object):
 
     def update_new_prices(self):
         """ runs a SQL query that appends non-duplicates to the existing database"""
-        # conn = sqlite3.connect(r"C:\Users\Owner\Documents\Data-App\Prescient\Security_PricesDB.db")
-        # c = conn.cursor()
-        # query = f"""INSERT INTO {self.ticker}  ('index', 'price')
-        #            SELECT t.'index', t.'price'
-        #            FROM temptable t
-        #            WHERE NOT EXISTS
-        #             (SELECT 1 FROM {self.ticker} t2
-        #             WHERE t2.'index'=t.'index'
-        #             AND t2.'price'=t.'price')"""
-        # c.execute(query)
-        # changes = c.rowcount
-        # conn.commit()
-        # print(f"Rows inserted into table {self.ticker}: {changes}")
-        # c.close()
-        # conn.close()
-
         mydb = mysql.connector.connect(host="localhost",
                                        user="root",
                                        passwd="E6#hK-rA5!tn",
