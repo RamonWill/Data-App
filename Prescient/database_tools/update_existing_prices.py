@@ -1,8 +1,8 @@
-import sqlite3
 import requests
 import pandas as pd
 from sqlalchemy import create_engine
 import mysql.connector
+import time
 
 av_key = "UHJKNP33E9D8KCRS"
 url = "https://www.alphavantage.co/query?"
@@ -12,8 +12,10 @@ class Update_existing_prices(object):
 
     def __init__(self, ticker):
         self.ticker = ticker
+        self.market_prices = None
+        self.__daily_market_prices()
 
-    def av_table(self):
+    def __daily_market_prices(self):
         parameters = {"apikey": "av_key",
                       "function": "TIME_SERIES_DAILY",
                       "symbol": self.ticker}
@@ -26,24 +28,25 @@ class Update_existing_prices(object):
                                     columns=["4. close"])
         df = df.rename(columns={"4. close": "price"})
         df = df.reset_index()
-        return df
+        self.market_prices = df
 
-    def store_temp_table(self):
+    def __store_temp_table(self):
         # stores a temporary file to to the database
         engine = create_engine("mysql://root:E6#hK-rA5!tn@localhost/prescientpricesdb")
         # writes the dataframes to SQL
-        df = self.av_table()
-        df.to_sql("temptable", con=engine, if_exists="replace", index=False)
-        print("Stored temptable")
+        # df = self.daily_market_prices()
+        self.market_prices.to_sql("temptable", con=engine, if_exists="replace", index=False)
+        print(f"Stored temptable for {self.ticker}")
 
     def update_new_prices(self):
-        """ runs a SQL query that appends non-duplicates to the existing database"""
+        """ runs a SQL query that appends new prices to the database"""
+        self.__store_temp_table()
         mydb = mysql.connector.connect(host="localhost",
                                        user="root",
                                        passwd="E6#hK-rA5!tn",
                                        database="prescientpricesdb")
         c = mydb.cursor()
-        query = f"""INSERT INTO {self.ticker}  (`index`, `price`)
+        query = f"""INSERT INTO {self.ticker} (`index`, `price`)
                     SELECT t.`index`, t.`price`
                     FROM temptable t
                     WHERE NOT EXISTS
@@ -51,12 +54,41 @@ class Update_existing_prices(object):
                       WHERE t2.`index`=t.`index`
                       AND t2.`price`=t.`price`)"""
         c.execute(query)
+        mydb.commit()
+        c.close()
+        mydb.close()
+        self.__drop_table()
+
+    def __drop_table(self):
+        mydb = mysql.connector.connect(host="localhost",
+                                       user="root",
+                                       passwd="E6#hK-rA5!tn",
+                                       database="prescientpricesdb")
+        c = mydb.cursor()
+        query = """DROP TABLE temptable"""
+        c.execute(query)
         c.close()
         mydb.close()
 
-ticker = "SRE"  # I just deleted the prices. the latest is as of 14th
-the_list = [ticker]
-for i in the_list:
-    x = Update_existing_prices(i)
-    x.store_temp_table()
-    x.update_new_prices()
+
+mydb = mysql.connector.connect(host="localhost",
+                               user="root",
+                               passwd="E6#hK-rA5!tn",
+                               database="prescientmaindb")
+cur = mydb.cursor(buffered=True)
+query = """SELECT DISTINCT ticker FROM watchlist_securities"""
+cur.execute(query)
+
+counter = 0
+for item in cur.fetchall():
+    ticker = item[0].lower()
+    Prices = Update_existing_prices(ticker)
+    Prices.update_new_prices()
+
+    # 5 API requests per minute; 500 API requests per day
+    # After 5 requests delay for 60 seconds
+    if counter % 5 == 0:
+        time.sleep(60)
+    counter += 1
+cur.close()
+mydb.close()
