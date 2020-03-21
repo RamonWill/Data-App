@@ -3,7 +3,14 @@ from collections import deque, namedtuple
 
 
 class PositionSummary(object):
-    """docstring for PositionSummary."""
+    """
+    Takes the trade history for a user's watchlist from the database and it's
+    ticker. Then applies the FIFO accounting methodology to calculate the
+    overall positions status i.e. final open lots, average cost and a breakdown
+    of the open lots.
+
+    This is a queue data structure.
+    """
 
     def __init__(self, trade_history, ticker):
 
@@ -30,6 +37,7 @@ class PositionSummary(object):
                                                    self.net_position)
 
     def total_open_lots(self):
+        """ returns the sum of the positions open lots"""
         if self.open_direction == "long":
             return sum(self.buy_quantities)
         elif self.open_direction == "short":
@@ -38,7 +46,7 @@ class PositionSummary(object):
             return None
 
     def total_mv(self):
-        # mv on open lots
+        """Returns the position's market value"""
         if self.buy_quantities and self.open_direction == "long":
             return sum(quantity*price for quantity, price in zip(self.buy_quantities, self.buy_prices))
         elif self.sell_quantities and self.open_direction == "short":
@@ -47,6 +55,7 @@ class PositionSummary(object):
             return None
 
     def avg_cost(self):
+        """Returns the weighted average cost of the positions open lots."""
         open_lots = self.total_open_lots()
         if open_lots == 0 or not open_lots:
             return 0
@@ -54,7 +63,6 @@ class PositionSummary(object):
         return abs(self.total_mv()/self.total_open_lots())
 
     def remove_trade(self, direction):
-        "direction can equal either buy or sell"
         if direction == "buy":
             popped_quantity = self.buy_quantities.popleft()
             self.buy_prices.popleft()
@@ -94,12 +102,17 @@ class PositionSummary(object):
             self.sell_dates.append(date)
 
     def __set_direction(self):
+        """
+        Checks if there has been a reversal in the users overall
+        trade direction and sets that direction accordingly.
+        """
         if self.open_direction == "short" and self.net_position > 0:
             self.open_direction = "long"
         elif self.open_direction == "long" and self.net_position < 0:
             self.open_direction = "short"
 
     def set_initial_trade(self):
+
         units = self.trade_history[0].quantity
         price = self.trade_history[0].price
         date = self.trade_history[0].date
@@ -115,8 +128,14 @@ class PositionSummary(object):
         self.breakdown.append([date, self.net_position, self.average_cost])
 
     def __apply_fifo(self):
-        # try a while loop with a counter. the counter so i can move across the trades and the while loop to collapse them as i go.
-        # I add to attributes and perform calculations on that
+        """
+        This algorithm iterate over the trade history. It sets the
+        initial trade direction to get the initial open lots and then increases
+        or closes lots based on each trade.
+
+        In the event that a position was initally long then becomes short or
+        vice versa the open lots will be increased or closed accordingly.
+        """
         if self.trade_history:
             self.set_initial_trade()
         else:
@@ -135,7 +154,7 @@ class PositionSummary(object):
                     self.add("buy", units, price, date)
                 else:
                     self.add("sell", units, price, date)
-            elif units*self.net_position == 0:
+            elif units*self.net_position == 0:  # position is flat
                 if units >= 0:
                     self.open_direction = "long"
                     self.add("buy", units, price, date)
@@ -144,10 +163,11 @@ class PositionSummary(object):
                     self.open_direction = "short"
                     self.add("sell", units, price, date)
 
-            else:  # different signs
+            else:  # both trades are in different directions
                 if self.open_direction == "long":
                     self.add("sell", units, price, date)
-                    while self.sell_quantities and self.buy_quantities: # while they are not empty
+                    # while the lots are not empty
+                    while self.sell_quantities and self.buy_quantities:
 
                         if abs(self.sell_quantities[0]) >= self.buy_quantities[0]:
                             self.sell_quantities[0] += self.buy_quantities[0]
@@ -158,9 +178,9 @@ class PositionSummary(object):
                             self.buy_quantities[0] += temp
                     self.net_position += units  # subtract units from net position
 
-                else:  #self.open_direction == "short"
+                else:  # self.open_direction == "short"
                     self.add("buy", units, price, date)
-                    while self.sell_quantities and self.buy_quantities: # while they are not empty
+                    while self.sell_quantities and self.buy_quantities:
                         if self.buy_quantities[0] >= abs(self.sell_quantities[0]):
                             self.buy_quantities[0] += self.sell_quantities[0]
                             self.remove_trade("sell")
