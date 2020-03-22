@@ -3,9 +3,7 @@ A Web Application that allows users to create dummy portfolios or watchlists to 
 * Front-End: HTML, CSS, JS, ChartJS, Plotly
 * Back-End: Flask(Python), SQL-Alchemy, MySQL
 * Other Libraries: Pandas
-
-image 1 - login page
-image 2 - dashboard
+<img src="screenshots/Dashboard.PNG" width="500">
 
 # Table of Contents
 - [Introduction](https://github.com/RamonWill/Data-App#Introduction)
@@ -38,4 +36,5 @@ A big thank you to the Flask community for designing an interesting and flexible
 Coming Soon
 
 # Screenshots
-Coming Soon
+<img src="screenshots/performance-charts.PNG" width="500">
+<img src="screenshots/watchlist.PNG" width="500">
