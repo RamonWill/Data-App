@@ -85,6 +85,10 @@ class PositionSummary(object):
                 self.remove_trade("buy")
 
     def get_summary(self):
+        """
+        Returns a named tuple of the ticker, net position and the average
+        price of the opens lots
+        """
         Summary = namedtuple("Summary", ["ticker", "quantity", "average_price"])
         ticker = self.ticker
         quantity = self.net_position
@@ -198,13 +202,22 @@ class PositionSummary(object):
 
 
 class PositionAccounting(PositionSummary):
-    """docstring for PositionAccounting."""
+    """
+    Inherits from the Position Summary and applies accounting methods
+    to a Position
+    """
 
     def __init__(self, close_prices, trade_history, ticker):
         PositionSummary.__init__(self, trade_history, ticker)
-        self.close_prices = close_prices
+        self.close_prices = close_prices  # Daily market prices
 
     def performance_table(self):
+        """
+        Combines the position breakdown with the daily prices to calculate
+        daily unrealised P&L. The Daily unrealised P&L is the difference
+        between the postion's weighted average cost and the market
+        price.
+        """
         df = pd.DataFrame(self.close_prices, columns=["date", "price"])
         df = df.set_index("date")
         df["quantity"] = float("nan")
@@ -230,6 +243,11 @@ class PositionAccounting(PositionSummary):
         return df2
 
     def daily_valuations(self):
+        """
+        Combines the position breakdown with the daily prices to calculate
+        daily market value. The Daily market value is the positions quantity
+        multiplied by the market price.
+        """
         df = pd.DataFrame(self.close_prices, columns=["date", "price"])
         df = df.set_index("date")
         df["quantity"] = float("nan")
@@ -256,12 +274,18 @@ class PositionAccounting(PositionSummary):
 
 
 class Portfolio_Summary(object):
-    """docstring for PortfolioSummary."""
+    """
+    This is a collection of the Positions for the user accounts, priced as of
+    the latest market prices
+    """
     # this is the same as full_table
     def __init__(self):
         self.portfolio_breakdown = pd.DataFrame()
 
     def add_position(self, close_prices, trade_history, ticker):
+        """
+        Adds each positions daily market value to the portfolio breakdown.
+        """
         Position = PositionAccounting(close_prices, trade_history, ticker)
         Position_valuation = Position.daily_valuations()
         if self.portfolio_breakdown.empty:
@@ -272,12 +296,24 @@ class Portfolio_Summary(object):
         self.portfolio_breakdown = self.portfolio_breakdown.fillna(method="ffill")
 
     def net_valuations(self):
+        """
+        returns the portfolios daily market value
+        """
         valuation = self.portfolio_breakdown.copy()
         valuation["portfolio_val"] = valuation.sum(axis=1)
         valuation = valuation[["portfolio_val"]]
         return valuation
 
     def convert_flows(self, flows):
+        """
+        Using the Holding Period Return (HPR) methodology. Purchases of
+        securities are accounted as fund inflows and the sale of securities are
+        accounted as increases in cash.
+
+        By creating the cumulative sum of these values we can maintain an
+        accurate calculation of the HPR which can be distorted as purchases and
+        sells are added to the trades.
+        """
         df_flows = pd.DataFrame(flows, columns=["date", "flows"])
         df_flows["cash"] = float("nan")
         df_flows["inflows"] = float("nan")
@@ -293,6 +329,16 @@ class Portfolio_Summary(object):
         return df_flows
 
     def generate_hpr(self, flows):
+        """
+        Where PortVal = Portfolio Value. The Formula for the Daily
+        Holding Period Return (HPR) is calculated as follows:
+        (Ending PortVal) / (Previous PortVal After Cash Flow) – 1.
+
+        1. Add the cash from the sale of securities to the portfolio value.
+        2. shift the total portfolio value column to allow us to easily
+           caclulate the Percentage change before and after each cash flow.
+        Returns a named tuple of daily HPR % changes.
+        """
         df_flows = self.convert_flows(flows)
         valuation = self.net_valuations()
         valuation = valuation.join(df_flows)
@@ -308,9 +354,16 @@ class Portfolio_Summary(object):
 
 
 class DashboardCharts(object):
-    """docstring for DashboardCharts."""
+    """
+    Various methods that take portfolio data from the database and cleans the
+    data so that it can be plotted into graphs on the front end
+    """
 
     def worldmap(map_data):
+        """
+        Groups the users positions by the country and ISO Count
+        the aggregagte function used here is COUNT
+        """
         df = pd.DataFrame(map_data)
         if not df.empty:
             df = df.groupby(["Country", "ISO Code"]).count().reset_index()
@@ -321,6 +374,12 @@ class DashboardCharts(object):
                                          "ISO Code"])
 
     def get_pie_chart(self, portfolio_valuation):
+        """
+        Returns a named tuple of the largest positions by absolute exposure
+        in descending order. For the portfolios that contain more than 6
+        positions the next n positons are aggregated to and classified
+        'as other'
+        """
         df = portfolio_valuation.tail(1)
         df = df.T.reset_index()  # transpose table to make the tickers the rows
         if df.empty:
@@ -354,6 +413,10 @@ class DashboardCharts(object):
             return df_final
 
     def get_bar_chart(self, portfolio_valuation):
+        """
+        Returns a named tuple of the 5 largest positions by absolute exposure
+        in descending order
+        """
         df = portfolio_valuation.tail(1)
         df = df.T.reset_index()
         if df.empty:
