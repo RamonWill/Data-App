@@ -91,7 +91,7 @@ def get_market_prices(ticker):
                                    passwd="E6#hK-rA5!tn",
                                    database="prescientpricesdb")
     c = mydb.cursor()
-    query = f"SELECT * FROM {ticker}"
+    query = f"SELECT * FROM `{ticker}`"
     c.execute(query)
     prices = c.fetchall()
     c.close()

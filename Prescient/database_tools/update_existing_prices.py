@@ -46,11 +46,11 @@ class Update_existing_prices(object):
                                        passwd="E6#hK-rA5!tn",
                                        database="prescientpricesdb")
         c = mydb.cursor()
-        query = f"""INSERT INTO {self.ticker} (`index`, `price`)
+        query = f"""INSERT INTO `{self.ticker}` (`index`, `price`)
                     SELECT t.`index`, t.`price`
                     FROM temptable t
                     WHERE NOT EXISTS
-                     (SELECT 1 FROM {self.ticker} t2
+                     (SELECT 1 FROM `{self.ticker}` t2
                       WHERE t2.`index`=t.`index`
                       AND t2.`price`=t.`price`)"""
         c.execute(query)
