@@ -8,7 +8,7 @@ sys.path.append(topdir)
 from Prescient import app, db
 from Prescient.config import basedir
 
-# integeration tests
+# Integeration tests
 class AuthorisationTests(unittest.TestCase):
     def setUp(self):  # sets up the database
         app.config["TESTING"] = True  # must be True to test for assertions or exceptions in my app code
