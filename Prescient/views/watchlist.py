@@ -104,7 +104,7 @@ def get_position_summary(user_id, group_id):
     summary_table = []
     for ticker in all_tickers:
         trade_history = [trade for trade in all_trades if trade.ticker == ticker]
-        summary = PositionSummary(trade_history, ticker).get_summary()
+        summary = PositionSummary(trade_history).get_summary()
         if summary.quantity != 0:
             summary_table.append(summary)
     return summary_table

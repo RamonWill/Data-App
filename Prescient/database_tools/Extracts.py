@@ -12,12 +12,12 @@ class PositionSummary(object):
     This is a queue data structure.
     """
 
-    def __init__(self, trade_history, ticker):
+    def __init__(self, trade_history):
 
         self.trade_history = trade_history
         self.average_cost = None
         self.open_lots = None
-        self.ticker = ticker
+        self.ticker = self.set_ticker()
 
         self.buy_quantities = deque([])
         self.buy_prices = deque([])
@@ -35,6 +35,13 @@ class PositionSummary(object):
     def __repr__(self):
         return "<Ticker: {}, Quantity: {}>".format(self.ticker,
                                                    self.net_position)
+
+    def set_ticker(self):
+        tickers = set([i[0] for i in self.trade_history])
+        if len(tickers) == 1:
+            return self.trade_history[0][0]
+        else:
+            raise ValueError("The Trade History for this security contains multiple tickers")
 
     def total_open_lots(self):
         """ returns the sum of the positions open lots"""
@@ -207,8 +214,8 @@ class PositionAccounting(PositionSummary):
     to a Position
     """
 
-    def __init__(self, close_prices, trade_history, ticker):
-        PositionSummary.__init__(self, trade_history, ticker)
+    def __init__(self, close_prices, trade_history):
+        PositionSummary.__init__(self, trade_history)
         self.close_prices = close_prices  # Daily market prices
 
     def performance_table(self):
@@ -282,11 +289,11 @@ class Portfolio_Summary(object):
     def __init__(self):
         self.portfolio_breakdown = pd.DataFrame()
 
-    def add_position(self, close_prices, trade_history, ticker):
+    def add_position(self, close_prices, trade_history):
         """
         Adds each positions daily market value to the portfolio breakdown.
         """
-        Position = PositionAccounting(close_prices, trade_history, ticker)
+        Position = PositionAccounting(close_prices, trade_history)
         Position_valuation = Position.daily_valuations()
         if self.portfolio_breakdown.empty:
             self.portfolio_breakdown = Position_valuation

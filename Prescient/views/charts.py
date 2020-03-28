@@ -67,7 +67,7 @@ def get_trade_histroy(user_id, group_id, ticker):
 def get_performance(user_id, group_id, ticker):
     prices = get_market_prices(ticker)
     trade_history = get_trade_histroy(user_id, group_id, ticker)
-    Performance = PositionAccounting(prices, trade_history, ticker)
+    Performance = PositionAccounting(prices, trade_history)
     performance_table = Performance.performance_table()
     return performance_table
 

@@ -34,23 +34,23 @@ class PositionSummaryTests(unittest.TestCase):
     new_trades_4 = [Summary(*trade) for trade in trades_4]
 
     def test_open_lots(self):
-        self.assertEqual(PositionSummary(self.new_trades_1, "AMZN").total_open_lots(), 50)
-        self.assertEqual(PositionSummary(self.new_trades_2, "DIS").total_open_lots(), -40)
-        self.assertEqual(PositionSummary(self.new_trades_3, "KO").total_open_lots(), -32)
-        self.assertEqual(PositionSummary(self.new_trades_4, "AAL").total_open_lots(), 96)
+        self.assertEqual(PositionSummary(self.new_trades_1).total_open_lots(), 50)
+        self.assertEqual(PositionSummary(self.new_trades_2).total_open_lots(), -40)
+        self.assertEqual(PositionSummary(self.new_trades_3).total_open_lots(), -32)
+        self.assertEqual(PositionSummary(self.new_trades_4).total_open_lots(), 96)
 
     def test_average_cost(self):
-        self.assertEqual(PositionSummary(self.new_trades_1, "AMZN").avg_cost(), 1905.2)
-        self.assertEqual(PositionSummary(self.new_trades_2, "DIS").avg_cost(), 142)
-        self.assertEqual(PositionSummary(self.new_trades_3, "KO").avg_cost(), 57.2)
-        self.assertEqual(PositionSummary(self.new_trades_4, "AAL").avg_cost(), 29.7165625)
+        self.assertEqual(PositionSummary(self.new_trades_1).avg_cost(), 1905.2)
+        self.assertEqual(PositionSummary(self.new_trades_2).avg_cost(), 142)
+        self.assertEqual(PositionSummary(self.new_trades_3).avg_cost(), 57.2)
+        self.assertEqual(PositionSummary(self.new_trades_4).avg_cost(), 29.7165625)
 
     def test_breakdown(self):
         result = [["2020-01-06", 20, 135],
                   ["2020-01-15", 70, 138.5714],
                   ["2020-01-17", 40, 140],
                   ["2020-01-21", -40, 142]]
-        self.assertEqual(PositionSummary(self.new_trades_2, "DIS").breakdown, result)
+        self.assertEqual(PositionSummary(self.new_trades_2).breakdown, result)
 
 
 class PositionAccountingTests(unittest.TestCase):
@@ -85,7 +85,7 @@ class PositionAccountingTests(unittest.TestCase):
                 ["2020-01-21", -40.0, 142.0, 144.01, -1.415]]
         data = [P(*day) for day in perf]
         prices = self.price_table()
-        Performance = PositionAccounting(prices, self.new_trades_2, "DIS")
+        Performance = PositionAccounting(prices, self.new_trades_2)
 
         self.assertEqual(Performance.performance_table(), data)
 
@@ -107,7 +107,7 @@ class PositionAccountingTests(unittest.TestCase):
         mv = mv.set_index("date")
 
         prices = self.price_table()
-        Performance = PositionAccounting(prices, self.new_trades_2, "DIS")
+        Performance = PositionAccounting(prices, self.new_trades_2)
         pd.testing.assert_frame_equal(Performance.daily_valuations(), mv)
 
 
