@@ -8,22 +8,23 @@ sys.path.append(topdir)
 from Prescient import app, db
 from Prescient.config import basedir
 
-# integeration tests
+
+# Integeration Tests
 class WatchlistTests(unittest.TestCase):
-    def setUp(self):  # sets up the database
-        app.config["TESTING"] = True  # must be True to test for assertions or exceptions in my app code
+    def setUp(self):
+        app.config["TESTING"] = True
         app.config["WTF_CSRF_ENABLED"] = False
-        app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + os.path.join(basedir, 'test.db')
-        self.app = app.test_client()  # this creates a test client for the application
+        app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + \
+                                                os.path.join(basedir,
+                                                             'test.db')
+        self.app = app.test_client()
         db.create_all()
 
-    def tearDown(self):  # removes the database
+    def tearDown(self):
         db.session.remove()
         db.drop_all()
 
-    # helper methods
-    # Dummy post requests that get stored to the test database.
-    # REMEMBER TO ADD THE GROUP FIRST. DO A TEST FOR THIS.
+    # Helper methods to create dummy post requests and store to test database
     def register_user(self, username, password, confirm):
         credentials = dict(username=username,
                            password=password,
@@ -44,8 +45,6 @@ class WatchlistTests(unittest.TestCase):
         return self.app.post("/create-group", data=new_group,
                              follow_redirects=True)
 
-
-    # integration tests
     def test_watchlist_urls(self):
         response_main_page = self.app.get("/main", follow_redirects=True)
         response_create_security = self.app.get("/create", follow_redirects=True)

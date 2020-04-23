@@ -1,4 +1,4 @@
-from Prescient import db, app
+from Prescient import db
 from flask import (Blueprint,
                    render_template,
                    request)

@@ -1,10 +1,11 @@
-from Prescient import db, app
+from Prescient import db
 from flask import (Blueprint, flash, redirect,
                    render_template, url_for, request)
 from werkzeug.exceptions import abort
 from flask_login import login_required, current_user
 from Prescient.forms import WatchlistItemsForm, WatchlistGroupForm
-from Prescient.models import WatchlistItems, Sector_Definitions, Watchlist_Group, Available_Securities
+from Prescient.models import (WatchlistItems, Sector_Definitions,
+                              Watchlist_Group, Available_Securities)
 from Prescient.database_tools.New_Prices import Price_Update
 from Prescient.database_tools.Extracts import PositionSummary
 from sqlalchemy.sql import func
@@ -55,7 +56,9 @@ def get_tradeable_tickers():
 
 def get_group_names1(user_id):
     # returns list of items
-    names = Watchlist_Group.query.filter_by(user_id=user_id).all()
+    names = Watchlist_Group.query.\
+            filter_by(user_id=user_id).\
+            all()
     if names is None:
         return []
     else:
@@ -65,7 +68,9 @@ def get_group_names1(user_id):
 
 def get_watchlist_choices(user_id):
     # returns list of tuples
-    names = Watchlist_Group.query.filter_by(user_id=user_id).all()
+    names = Watchlist_Group.query.\
+            filter_by(user_id=user_id).\
+            all()
     if names is None:
         return []
     else:
@@ -74,7 +79,9 @@ def get_watchlist_choices(user_id):
 
 
 def get_group_id(watchlist, user_id):
-    group_id = Watchlist_Group.query.filter_by(name=watchlist, user_id=user_id).first()
+    group_id = Watchlist_Group.query.\
+               filter_by(name=watchlist, user_id=user_id).\
+               first()
     if group_id is None:
         abort(404, f"the ID for {watchlist} doesn't exist.")
     else:

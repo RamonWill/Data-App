@@ -12,18 +12,19 @@ from Prescient.config import basedir
 # Integration tests
 class AuthorisationTests(unittest.TestCase):
     def setUp(self):  # sets up the database
-        app.config["TESTING"] = True  # must be True to test for assertions or exceptions in my app code
+        app.config["TESTING"] = True  # tests for assertions or exceptions
         app.config["WTF_CSRF_ENABLED"] = False
-        app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + os.path.join(basedir, 'test.db')
-        self.app = app.test_client()  # this creates a test client for the application
+        app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + \
+                                                os.path.join(basedir,
+                                                             'test.db')
+        self.app = app.test_client()  # this creates a test client for the app
         db.create_all()
 
     def tearDown(self):  # removes the database
         db.session.remove()
         db.drop_all()
 
-    # helper methods
-    # Dummy post requests that get stored to the test database.
+    # Helper methods to create dummy post requests and store to test database
     def register_user(self, username, password, confirm):
         credentials = dict(username=username,
                            password=password,
@@ -58,7 +59,7 @@ class AuthorisationTests(unittest.TestCase):
         self.assertIn(b"Your account has now been created!", response.data)
 
     def test_invalid_user_registration_wrong_confirm(self):
-        response = self.register_user("RandomUser1!", "Testing123", "Testing321")
+        response = self.register_user("RandomUser1!", "Testing13", "Testing31")
         self.assertIn(b"Passwords must match", response.data)
 
     def test_invalid_user_registration_duplicate_username(self):

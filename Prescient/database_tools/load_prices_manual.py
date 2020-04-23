@@ -5,10 +5,6 @@ from sqlalchemy import create_engine
 av_key = "UHJKNP33E9D8KCRS"
 url = "https://www.alphavantage.co/query?"
 
-""" Changes to be made, distinguish between new tickers and old tickers.
-new tickers will need to be imported, old tickers will need to be updated
-new tickers should always take priority"""
-
 engine = create_engine("mysql://root:E6#hK-rA5!tn@localhost/prescientpricesdb")
 
 
@@ -46,10 +42,10 @@ class Price_Update(object):
         for ticker in all_tickers:
             df = self.av_price(ticker)
             df.to_sql(ticker, con=engine, if_exists="replace", index=False)
-            print("prescientpricesdb, has been updated with the table {ticker}")
+            print(f"The database, has been updated with the table {ticker}")
         print("End")
 
-
-# tickers = [("AAL", "AAL"), ("AAP", "AAP"), ("CME", "CME"), ("KO", "KO"), ("SRE","SRE")]
+# Example on how to load prices
+# tickers = [("AAL", "AAL"), ("AAP", "AAP"), ("CME", "CME"), ("KO", "KO")]
 # prices = Price_Update(tickers)
 # prices.price_import()

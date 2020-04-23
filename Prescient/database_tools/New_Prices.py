@@ -1,14 +1,18 @@
 import requests
 import pandas as pd
 from sqlalchemy import create_engine
-# When a user adds a new item to to watchlist perform a check in the views.py
-# if the item has never existed add it to the database, otherwise do nothing
-# USE CRON TO UPDATE PRICES DAILY
+
 av_key = "UHJKNP33E9D8KCRS"
 url = "https://www.alphavantage.co/query?"
 
 
 class Price_Update(object):
+    """
+    When a user adds a new security to their watchlist a check will be
+    initiated to see if the security already has prices in the database.
+    If prices don't exist then prices for the previous 100 days will be
+    addded to the database.
+    """
 
     def __init__(self, ticker):
         self.ticker = ticker

@@ -1,4 +1,3 @@
-from Prescient import db, app
 from flask import (Blueprint, request,
                    render_template,
                    session)
@@ -13,7 +12,9 @@ bp = Blueprint("charts", __name__)
 
 
 def get_group_id(watchlist, user_id):
-    group_id = Watchlist_Group.query.filter_by(name=watchlist, user_id=user_id).first()
+    group_id = Watchlist_Group.query.\
+               filter_by(name=watchlist, user_id=user_id).\
+               first()
     if group_id is None:
         return None
     else:
@@ -22,7 +23,9 @@ def get_group_id(watchlist, user_id):
 
 
 def get_group_names(user_id):
-    names = Watchlist_Group.query.filter_by(user_id=user_id).all()
+    names = Watchlist_Group.query.\
+            filter_by(user_id=user_id).\
+            all()
     if names is None:
         return []
     else:

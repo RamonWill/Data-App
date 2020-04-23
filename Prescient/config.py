@@ -12,4 +12,3 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = "mysql://root:E6#hK-rA5!tn@localhost/prescientmaindb"
     SQLALCHEMY_BINDS = {"Security_PricesDB": ("mysql://root:E6#hK-rA5!tn@localhost/prescientpricesdb")}
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-# SQLALCHEMY_DATABASE_URI = "mysql+mysqldb://root:E6#hK-rA5!tn@localhost:3306/Mysql"

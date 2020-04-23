@@ -10,12 +10,14 @@ class Available_Securities(db.Model):
     ISO_alpha3_codes = db.Column(db.String(3))
 
     def __repr__(self):
-        return "<Security Name: {}, Group Name: {}, Country: {}>".format(self.name, self.ticker, self.country)
+        return (f"<Security Name: {self.name}, "
+                "Group Name: {self.ticker}, Country: {self.country}>")
 
 
 class Sector_Definitions(db.Model):
     __tablename__ = "sector_definitions"
-    name = db.Column(db.String(70), nullable=False, primary_key=True, index=True)
+    name = db.Column(db.String(70), nullable=False, primary_key=True,
+                     index=True)
 
     def __repr__(self):
-        return "<Sector Name: {}>".format(self.name)
+        return (f"<Sector Name: {self.name}>")

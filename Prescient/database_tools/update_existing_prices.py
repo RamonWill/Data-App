@@ -13,9 +13,9 @@ class Update_existing_prices(object):
     def __init__(self, ticker):
         self.ticker = ticker
         self.market_prices = None
-        self.__daily_market_prices()
+        self._daily_market_prices()
 
-    def __daily_market_prices(self):
+    def _daily_market_prices(self):
         parameters = {"apikey": "av_key",
                       "function": "TIME_SERIES_DAILY",
                       "symbol": self.ticker}
@@ -30,17 +30,20 @@ class Update_existing_prices(object):
         df = df.reset_index()
         self.market_prices = df
 
-    def __store_temp_table(self):
+    def _store_temp_table(self):
         # stores a temporary file to to the database
         engine = create_engine("mysql://root:E6#hK-rA5!tn@localhost/prescientpricesdb")
         # writes the dataframes to SQL
         # df = self.daily_market_prices()
-        self.market_prices.to_sql("temptable", con=engine, if_exists="replace", index=False)
+        self.market_prices.to_sql("temptable",
+                                  con=engine,
+                                  if_exists="replace",
+                                  index=False)
         print(f"Stored temptable for {self.ticker}")
 
     def update_new_prices(self):
         """ runs a SQL query that appends new prices to the database"""
-        self.__store_temp_table()
+        self._store_temp_table()
         mydb = mysql.connector.connect(host="localhost",
                                        user="root",
                                        passwd="E6#hK-rA5!tn",
@@ -57,9 +60,9 @@ class Update_existing_prices(object):
         mydb.commit()
         c.close()
         mydb.close()
-        self.__drop_table()
+        self._drop_table()
 
-    def __drop_table(self):
+    def _drop_table(self):
         mydb = mysql.connector.connect(host="localhost",
                                        user="root",
                                        passwd="E6#hK-rA5!tn",
