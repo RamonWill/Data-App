@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 from sqlalchemy import create_engine
 
-av_key = "UHJKNP33E9D8KCRS"
+AV_KEY = ""  # Enter your alpha vantage api key here
 url = "https://www.alphavantage.co/query?"
 
 engine = create_engine("mysql://root:E6#hK-rA5!tn@localhost/prescientpricesdb")
@@ -21,7 +21,7 @@ class Price_Update(object):
             return all_tickers
 
     def av_price(self, ticker):
-        parameters = {"apikey": "av_key",
+        parameters = {"apikey": "AV_KEY",
                       "function": "TIME_SERIES_DAILY",
                       "symbol": ticker}
         response = requests.get(url, params=parameters)
