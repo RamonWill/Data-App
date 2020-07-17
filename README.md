@@ -33,7 +33,10 @@ A big thank you to the Flask community for designing an interesting and flexible
 * Disclaimer: This project is not valid financial tool. It is a project that I've created to help me learn more about Python. You should in no way use it to make investment decisions.
 
 # Video-Demo
-Coming Soon
+The image below will redirect you to the video demo on Youtube
+[<img src="https://img.youtube.com/vi/CpiltoZI94M/maxresdefault.jpg" width="75%">](https://www.youtube.com/watch?v=CpiltoZI94M)
+
+
 
 # Screenshots
 <img src="screenshots/performance-charts.PNG" width="500">
