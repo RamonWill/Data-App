@@ -1,3 +1,8 @@
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
 # Data App Project (Prescient Finance)
 A Web Application that allows users to create dummy portfolios or watchlists to monitor or test their trading strategies. Written in Python using the Flask web framework.
 * Front-End: HTML, CSS, JS, ChartJS, Plotly
@@ -41,3 +46,12 @@ The image below will redirect you to the video demo on Youtube
 # Screenshots
 <img src="screenshots/performance-charts.PNG" width="500">
 <img src="screenshots/watchlist.PNG" width="500">
+
+[forks-shield]: https://img.shields.io/github/forks/RamonWill/Data-App.svg?style=for-the-badge
+[forks-url]: https://github.com/RamonWill/Data-App/network/members
+[stars-shield]: https://img.shields.io/github/stars/RamonWill/Data-App.svg?style=for-the-badge
+[stars-url]: https://github.com/RamonWill/Data-App/stargazers
+[issues-shield]: https://img.shields.io/github/issues/RamonWill/Data-App.svg?style=for-the-badge
+[issues-url]: https://github.com/RamonWill/Data-App/issues
+[license-shield]: https://img.shields.io/github/license/RamonWill/Data-App.svg?style=for-the-badge
+[license-url]: https://github.com/RamonWill/Data-App/blob/master/LICENSE.txt
